@@ -1,13 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace TestLibrary
 {
     public class TestClass
     {
-        string user = "Nona Was Here!!!";
+        private string _user = "Nona Was Here!!!";
+
+        public String UserName
+        {
+            get { return _user; }
+            set { _user = value; }
+        }
     }
 }
