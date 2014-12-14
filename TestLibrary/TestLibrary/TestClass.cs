@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestLibrary
 {
-    public class Class1
+    public class TestClass
     {
         string user = "Nona";
     }
