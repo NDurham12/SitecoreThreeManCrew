@@ -15,7 +15,7 @@ namespace TestLibrary
 
         private void NewFunction()
         {
-            username = "Hello World";
+            var username = "Hello World";
         }
     }
 }
