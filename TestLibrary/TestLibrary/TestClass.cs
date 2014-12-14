@@ -12,5 +12,10 @@ namespace TestLibrary
             get { return _user; }
             set { _user = value; }
         }
+
+        private void NewFunction()
+        {
+            username = "Hello World";
+        }
     }
 }
