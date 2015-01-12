@@ -13,6 +13,11 @@ namespace TestLibrary
             set { _user = value; }
         }
 
+        public TestClass()
+        {
+            // Drazen joined the ctor
+        }
+
         private void NewFunction()
         {
             var username = "Hello World";
