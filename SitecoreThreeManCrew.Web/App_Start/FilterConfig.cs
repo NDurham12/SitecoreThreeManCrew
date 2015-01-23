@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace SitecoreThreeManCrew.Web
+namespace SitecoreThreeManCrew.Web.App_Start
 {
     public class FilterConfig
     {
