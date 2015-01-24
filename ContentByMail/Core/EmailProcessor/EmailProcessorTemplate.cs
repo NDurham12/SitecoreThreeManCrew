@@ -20,7 +20,7 @@
         /// <summary>
         /// Gets or sets the item template to create item from.
         /// </summary>
-        internal TemplateItem ItemTemplateToCreateItemFrom { get; set; }
+        internal Item ItemTemplateToCreateItemFrom { get; set; }
 
         /// <summary>
         /// Gets or sets the folder template to insert created item in.
