@@ -36,7 +36,7 @@ namespace ContentByMail.Core.RequestHistory
                         using (new UserSwitcher(Constants.Security.ServiceUser))
                         {
                             historyBucket.Editing.BeginEdit();
-                            var newItem = historyBucket.Add(message.Subject, emailHistoryTemplate);
+                            var newItem = historyBucket.Add(ItemUtil.ProposeValidItemName(message.Subject), emailHistoryTemplate);
                             newItem.Fields[Constants.Fields.EmailRequestHistory.Message].Value = message.ToString();
                             historyBucket.Editing.EndEdit();
                         }                                        
