@@ -2,7 +2,7 @@
 version: 1
 id: {FE80F860-1DA7-4A62-AA36-48CEED9041E7}
 database: master
-path: /sitecore/media library/PublishByEmail/Icon
+path: /sitecore/media library/ContentMailManager/Icon
 parent: {6E1450A5-4DB2-44A3-A732-09C642F54BD7}
 name: Icon
 master: {00000000-0000-0000-0000-000000000000}

@@ -2,7 +2,7 @@
 version: 1
 id: {136F2980-C0C9-4A36-B057-90FF5CA14B35}
 database: master
-path: /sitecore/media library/PublishByEmail/Icon/postmark-logo
+path: /sitecore/media library/ContentMailManager/Icon/postmark-logo
 parent: {FE80F860-1DA7-4A62-AA36-48CEED9041E7}
 name: postmark-logo
 master: {00000000-0000-0000-0000-000000000000}
