@@ -14,17 +14,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".tds", ".tds", "{A1BE6DFA-D
 EndProject
 Project("{CAA73BB0-EF22-4D79-A57E-DF67B3BA9C80}") = "SitecoreThreeManCrew.TDS-Master", "SitecoreThreeManCrew.TDS-Master\SitecoreThreeManCrew.TDS-Master.scproj", "{DA1D31F1-1BEF-4368-8A19-A084DCA5F0E8}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "HelpDocs", "http://localhost:8866", "{10FEE5B2-8B93-4F82-B7EE-9FF3F7531FA8}"
-	ProjectSection(WebsiteProperties) = preProject
-		UseIISExpress = "true"
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_8866"
-		Debug.AspNetCompiler.PhysicalPath = "HelpDocs\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_8866\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
+Project("{CAA73BB0-EF22-4D79-A57E-DF67B3BA9C80}") = "SitecoreThreeManCrew.TDS-Core", "SitecoreThreeManCrew.TDS-Core\SitecoreThreeManCrew.TDS-Core.scproj", "{D35ACBF8-EC11-4829-86A4-6B6EA27EA864}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A9D17BC3-C9B8-4B3E-8009-0B4340CF6DB9}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentByMail", "ContentByMail\ContentByMail.csproj", "{C8074717-7777-4B78-ACAA-F7F37960D901}"
+EndProject
 		Release.AspNetCompiler.VirtualPath = "/localhost_8866"
 		Release.AspNetCompiler.PhysicalPath = "HelpDocs\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_8866\"
@@ -55,10 +55,16 @@ Global
 		{DA1D31F1-1BEF-4368-8A19-A084DCA5F0E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA1D31F1-1BEF-4368-8A19-A084DCA5F0E8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DA1D31F1-1BEF-4368-8A19-A084DCA5F0E8}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{10FEE5B2-8B93-4F82-B7EE-9FF3F7531FA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10FEE5B2-8B93-4F82-B7EE-9FF3F7531FA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{10FEE5B2-8B93-4F82-B7EE-9FF3F7531FA8}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{10FEE5B2-8B93-4F82-B7EE-9FF3F7531FA8}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{D35ACBF8-EC11-4829-86A4-6B6EA27EA864}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D35ACBF8-EC11-4829-86A4-6B6EA27EA864}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D35ACBF8-EC11-4829-86A4-6B6EA27EA864}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D35ACBF8-EC11-4829-86A4-6B6EA27EA864}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D35ACBF8-EC11-4829-86A4-6B6EA27EA864}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D35ACBF8-EC11-4829-86A4-6B6EA27EA864}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{C8074717-7777-4B78-ACAA-F7F37960D901}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8074717-7777-4B78-ACAA-F7F37960D901}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8074717-7777-4B78-ACAA-F7F37960D901}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8074717-7777-4B78-ACAA-F7F37960D901}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
