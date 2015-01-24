@@ -27,7 +27,10 @@
             internal static ID NotificationOnFailureItemId = new ID(Sitecore.Configuration.Settings.GetSetting("Notification.OnFailure"));
             internal static ID NotificationOnSuccessItemId = new ID(Sitecore.Configuration.Settings.GetSetting("Notification.OnSuccess"));
             internal static ID EmailRequestHistoryItemId = new ID(Sitecore.Configuration.Settings.GetSetting("ContentByEmail.EmailRequestHistory"));
-            internal static string Account = Sitecore.Configuration.Settings.GetSetting("ContentByEmail.Account");
+            internal static string Account = Sitecore.Configuration.Settings.GetSetting("ContentByEmail.ServiceAccount");
+            internal static string TokenStartEndMultilineRegex = Sitecore.Configuration.Settings.GetSetting("ContentByEmail.TokenStartEndMultilineRegex");
+            internal static string TokenTextInside = Sitecore.Configuration.Settings.GetSetting("ContentByEmail.TokenTextInside");
+            internal static string TokenMissingEnding = Sitecore.Configuration.Settings.GetSetting("ContentByEmail.TokenMissingEnding");
         }
 
         internal static class Items

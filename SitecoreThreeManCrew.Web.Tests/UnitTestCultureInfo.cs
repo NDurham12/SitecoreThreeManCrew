@@ -10,7 +10,7 @@ namespace SitecoreThreeManCrew.Web.Tests
     public class UnitTestCultureInfo
     {
         [TestMethod]
-        public void TestMethod1()
+        public void SerializeCultureInfoTestMethod()
         {
             var cultureInfo = new CultureInfo("en-US");
             var output = SerializeLogParameterLess(cultureInfo);
