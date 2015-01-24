@@ -57,8 +57,7 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
                     User account = null;
 
                     List<string> missingFieldFlag = new List<string>();
-                    Dictionary<string, string> tokenFieldList = new Dictionary<string, string>();
-
+                   
                     if (parentFolder != null)
                     {
                         if (createAsuser)
