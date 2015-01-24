@@ -1,5 +1,7 @@
 ﻿
 
+using System.Collections.Generic;
+
 namespace ContentByMail.Core.EmailProcessor
 {
     using ContentByMail.Common;

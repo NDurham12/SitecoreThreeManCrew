@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,7 +38,7 @@ namespace ContentByMail.Core.RequestHistory
                         {
                             historyBucket.Editing.BeginEdit();
                             var newItem = historyBucket.Add(ItemUtil.ProposeValidItemName(message.Subject), emailHistoryTemplate);
-                            newItem.Fields[Constants.Fields.EmailRequestHistory.Message].Value = message.ToString();
+                            newItem.Fields[Constants.Fields.EmailRequestHistory.Message].Value = Serialize(message);
                             historyBucket.Editing.EndEdit();
                         }                                        
                     }
@@ -47,6 +48,24 @@ namespace ContentByMail.Core.RequestHistory
             {
                 Log.Error("EmailRequestHistory", ex, this);
             }
+        }
+
+        public static string Serialize(object objectToSerialize)
+        {
+            try
+            {
+                var rawData = new System.Xml.Serialization.XmlSerializer(objectToSerialize.GetType());
+                var ms = new StringWriter();
+                rawData.Serialize(ms, objectToSerialize);
+                return ms.ToString();
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("EmailRequestHistory", typeof (EmailRequestHistory));
+            }
+
+            return "";
         }
     }
 }
