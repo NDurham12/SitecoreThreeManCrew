@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Security;
+﻿using ContentByMail.Common;
 using ContentByMail.Common.Enumerations;
-using ContentByMail.Core.Notifications;
-using ContentByMail.Common;
 using ContentByMail.Core.EmailProcessor;
+using ContentByMail.Core.Notifications;
 using Sitecore;
-using Sitecore.Configuration;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Security.Accounts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Security;
 using Constants = ContentByMail.Common.Constants;
 
 namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
@@ -35,33 +34,32 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
                 Assert.ArgumentNotNull(args, "args");
                 Assert.IsNotNull(args.Message, "args.Message");
 
+                string template = args.MessageTokenValues["Template"];
 
-                var template = args.MessageTokenValues["Template"];
+                Item contentEmailModule = Context.ContentDatabase.GetItem(Constants.Settings.ContentByEmailModuleItem);
 
-                var contentEmailModule = Context.ContentDatabase.GetItem(Constants.Settings.ContentByEmailModuleItem);
-
-                var emailProcessorItem = contentEmailModule.Axes.GetDescendants().FirstOrDefault(item => item.IsDerived(Constants.Templates.EmailProcessorTemplate) 
+                Item emailProcessorItem = contentEmailModule.Axes.GetDescendants().FirstOrDefault(item => item.IsDerived(Constants.Templates.EmailProcessorTemplate) 
                                                                                                          && item[Constants.Fields.EmailProcessorTemplate.EmailTokenName] == template);
 
                 if (emailProcessorItem != null)
                 {
-                    var parentFolder = Context.ContentDatabase.GetItem(emailProcessorItem[Constants.Fields.EmailProcessorTemplate.Folder]);
-                    var newItemTemplateId = new TemplateID(new ID(emailProcessorItem[Constants.Fields.EmailProcessorTemplate.Template]));
-                    var createAsuser = emailProcessorItem.GetCheckBoxValue(Constants.Fields.EmailProcessorTemplate.AssociateSenderToUserProfile);
-                    var autoProcessFields = emailProcessorItem.GetCheckBoxValue(Constants.Fields.EmailProcessorTemplate.AutoProcessTokensToFields);
+                    Item parentFolder = Context.ContentDatabase.GetItem(emailProcessorItem[Constants.Fields.EmailProcessorTemplate.Folder]);
+                    TemplateID newItemTemplateId = new TemplateID(new ID(emailProcessorItem[Constants.Fields.EmailProcessorTemplate.Template]));
+                    bool createAsuser = emailProcessorItem.GetCheckBoxValue(Constants.Fields.EmailProcessorTemplate.AssociateSenderToUserProfile);
+                    bool autoProcessFields = emailProcessorItem.GetCheckBoxValue(Constants.Fields.EmailProcessorTemplate.AutoProcessTokensToFields);
                 
                     User account = null;
 
-                    var missingFieldFlag = new List<string>();
-                    var tokenFieldList = new Dictionary<string, string>();
+                    List<string> missingFieldFlag = new List<string>();
+                    Dictionary<string, string> tokenFieldList = new Dictionary<string, string>();
 
                     if (parentFolder != null)
                     {
-                    
                         if (createAsuser)
                         {
-                            var username = Membership.GetUserNameByEmail(args.Message.From);
-                            if (!string.IsNullOrEmpty(username) && User.Exists(username))
+                            string username = Membership.GetUserNameByEmail(args.Message.From);
+                            
+                            if (!String.IsNullOrEmpty(username) && User.Exists(username))
                             {
                                 account = User.FromName(username, true);
                             }
@@ -75,7 +73,7 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
                         {
                             parentFolder.Editing.BeginEdit();
 
-                            var newItem = parentFolder.Add(ItemUtil.ProposeValidItemName(args.Message.Subject), newItemTemplateId);
+                            Item newItem = parentFolder.Add(ItemUtil.ProposeValidItemName(args.Message.Subject), newItemTemplateId);
 
                             if (autoProcessFields)
                             {
@@ -98,7 +96,9 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
                                 foreach (EmailProcessorTemplateToken token in emailProcessorTemplate.EmailTokens)
                                 {
                                     if (args.MessageTokenValues.ContainsKey(token.CustomField))
+                                    {
                                         newItem[token.CustomField] = args.MessageTokenValues[token.SitecoreField];
+                                    }
                                 }
                             }                        
 
@@ -106,24 +106,12 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
                         }                    
                     }
 
-                    var factory = new NotificationMessageFactory();
-                    var notificationMessage = factory.CreateMessage(new ID(emailProcessorItem[Constants.Fields.EmailProcessorTemplate.NotificationTemplate]));
+                    NotificationMessageFactory factory = new NotificationMessageFactory();
+                    NotificationMessage notificationMessage = factory.CreateMessage(new ID(emailProcessorItem[Constants.Fields.EmailProcessorTemplate.NotificationTemplate]));
                     NotificationManager manager = new NotificationManager();
-                    NotificationMessageType type;
-
-                    if (missingFieldFlag.Count > 0)
-                    {
-                        type = NotificationMessageType.InvalidField;
-                    }
-                    else
-                    {
-                        type = NotificationMessageType.Success;
-
-                    }
+                    NotificationMessageType type = (missingFieldFlag.Count > 0) ? NotificationMessageType.InvalidField : NotificationMessageType.Success;
 
                     manager.Send(args.Message.From, Constants.DefaultContentModule.DefaultMessage, type);
-
-                    Log.Info("In SimpleEmailMessageProcessor", this);
                 }
             }
             catch (Exception ex)
