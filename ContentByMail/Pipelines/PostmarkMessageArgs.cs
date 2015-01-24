@@ -8,7 +8,7 @@
         /// <summary>
         /// Gets or sets the message.
         /// </summary>
-        public PostmarkMessage Message { get; set; }
+        public new PostmarkMessage Message { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PostmarkMessageArgs"/> class.

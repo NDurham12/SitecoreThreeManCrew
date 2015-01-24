@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SitecoreThreeManCrew.Web</RootNamespace>
     <AssemblyName>SitecoreThreeManCrew.Web</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -22,6 +22,7 @@
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -119,12 +120,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -140,7 +135,16 @@
     <Content Include="App_Config\Include\ApplicationStart.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\ContentByMail\App_Config\Include\ContentByMail\ContentByMail.config">
+      <Link>App_Config\Include\ContentByMail\ContentByMail.config</Link>
+    </Content>
     <None Include="Properties\PublishProfiles\SitecoreThreeManCrew.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ContentByMail\ContentByMail.csproj">
+      <Project>{c8074717-7777-4b78-acaa-f7f37960d901}</Project>
+      <Name>ContentByMail</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
