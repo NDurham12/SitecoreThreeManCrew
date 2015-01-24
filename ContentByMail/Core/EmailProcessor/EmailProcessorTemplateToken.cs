@@ -7,7 +7,9 @@
 
     internal class EmailProcessorTemplateToken
     {
-        internal string Name { get; set; }
+        internal string CustomField { get; set; }
+
+        internal string SitecoreField { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EmailProcessorTemplateToken"/> class.
@@ -18,7 +20,9 @@
 
             Assert.IsTrue(item.IsDerived(Constants.Templates.EmailProcessorTemplateToken), "Derives from wrong template");
 
-            Name = item.GetString(Constants.Fields.EmailProcessorTemplateTokens.EmailProcessorTemplateToken);
+            CustomField = item.GetString(Constants.Fields.EmailProcessorTemplateTokens.EmailProcessorTemplateTokenKeyName);
+
+            SitecoreField = item.GetString(Constants.Fields.EmailProcessorTemplateTokens.EmailProcessorTemplateTokenTokenKeyField);
         }
     }
 }

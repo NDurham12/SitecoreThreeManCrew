@@ -1,4 +1,6 @@
-﻿namespace ContentByMail.Core.EmailProcessor
+﻿
+
+namespace ContentByMail.Core.EmailProcessor
 {
 
     using System.Collections.Generic;
@@ -17,8 +19,15 @@
             /// <summary>
             /// Gets or sets the Name.
             /// </summary>
-            internal string Name { get; set; }
+            internal string EmailTemplateName { get; set; }
 
+        
+            internal Item ItemTemplateToCreateItemFrom { get; set; }
+
+
+            internal Item FolderTemplateToInsertCreatedItemIn { get; set; }
+
+         
             /// <summary>
             /// Gets or sets the EmailTokens.
             /// </summary>
@@ -37,7 +46,11 @@
 
                 Id = item.ID.ToString();
 
-                Name = item.Name;
+                EmailTemplateName = item.GetString(Constants.Fields.EmailProcessorTemplate.EmailTokenName);
+
+                ItemTemplateToCreateItemFrom = item.GetDropLinkSelectedItem(Constants.Fields.EmailProcessorTemplate.Template);
+
+                FolderTemplateToInsertCreatedItemIn = item.GetDropLinkSelectedItem(Constants.Fields.EmailProcessorTemplate.Folder);
 
                 EmailTokens = EmailProcessorTemplateTokenFactory.CreateCollection(item.GetMultiListValues(Constants.Fields.EmailProcessorTemplate.EmailProcessorTemplateTokenList));
 
