@@ -1,5 +1,6 @@
 ﻿namespace ContentByMail.Pipelines.ItemWebApiRequest
 {
+    using Newtonsoft.Json;
     using PostmarkDotNet;
     using Sitecore.Diagnostics;
     using Sitecore.ItemWebApi.Pipelines.Request;
@@ -9,7 +10,7 @@
     using System.Web;
     using System.Web.Script.Serialization;
 
-    class PostmarkRequestProcessor : RequestProcessor
+    public class PostmarkRequestProcessor : RequestProcessor
     {
         /// <summary>
         /// Processes the specified arguments.
@@ -17,7 +18,6 @@
         /// <param name="arguments">The arguments.</param>
         public override void Process(RequestArgs arguments)
         {
-            Assert.ArgumentNotNull(arguments, "arguments");
             HttpContext context = HttpContext.Current;
 
             if (context == null || context.Request == null || context.Request.InputStream == null)
@@ -26,19 +26,29 @@
             context.Request.InputStream.Position = 0;
             string json = null;
 
-            using (var inputStream = new StreamReader(context.Request.InputStream))
+            using (StreamReader inputStream = new StreamReader(context.Request.InputStream))
             {
                 json = inputStream.ReadToEnd();
             }
 
             if (!String.IsNullOrEmpty(json))
             {
-                JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
-                PostmarkMessage message = javaScriptSerializer.Deserialize(json, typeof(PostmarkMessage)) as PostmarkMessage;
+                object message = null;
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
 
-                if (message != null)
+                try
                 {
-                    CorePipeline.Run("Hackathon.ProcessEmail", new PostmarkMessageArgs(message));
+                    //message = serializer.Deserialize(json, typeof(PostmarkMessage));
+                    message = JsonConvert.DeserializeObject<PostmarkMessage>(json);
+                }
+                catch(Exception ex)
+                {
+                    Log.Error("", ex, this);
+                }
+
+                if (message != null && message is PostmarkMessage)
+                {
+                    CorePipeline.Run("Hackathon.ProcessEmail", new PostmarkMessageArgs(message as PostmarkMessage));
                 }
             }
         }

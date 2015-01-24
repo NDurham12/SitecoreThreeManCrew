@@ -13,13 +13,19 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SitecoreThreeManCrew.Web</RootNamespace>
     <AssemblyName>SitecoreThreeManCrew.Web</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+<<<<<<< HEAD
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+=======
+>>>>>>> 2fb94cb1be996287e69af094e259af1e87ebea68
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -162,6 +168,11 @@
     <Content Include="App_Config\Include\ApplicationStart.config" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <Content Include="..\ContentByMail\App_Config\Include\ContentByMail\ContentByMail.config">
+      <Link>App_Config\Include\ContentByMail\ContentByMail.config</Link>
+    </Content>
+=======
     <Content Include="App_Config\Include\zzDeveloper.config" />
     <Content Include="App_Config\Include\Sitecore.config" />
     <Content Include="Assets\reveal.js\css\reveal.scss" />
@@ -198,7 +209,14 @@
     <Content Include="Assets\reveal.js\lib\font\source-sans-pro\source-sans-pro-semibolditalic.ttf" />
     <Content Include="Assets\reveal.js\lib\font\source-sans-pro\source-sans-pro-semibolditalic.woff" />
     <None Include="Properties\PublishProfiles\LaunchSC8_MVCDebug.pubxml" />
+>>>>>>> 2fb94cb1be996287e69af094e259af1e87ebea68
     <None Include="Properties\PublishProfiles\SitecoreThreeManCrew.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ContentByMail\ContentByMail.csproj">
+      <Project>{c8074717-7777-4b78-acaa-f7f37960d901}</Project>
+      <Name>ContentByMail</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
