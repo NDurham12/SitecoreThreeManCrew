@@ -2,6 +2,7 @@
 {
     using Sitecore.Configuration;
     using Sitecore.Data;
+    using Sitecore.Security.Accounts;
 
     internal class Constants
     {
@@ -12,10 +13,21 @@
             internal const string Web = "web";
         }
 
+        internal static class Security
+        {
+            private static User _serviceaccount;
+            public static User ServiceUser
+            {
+                get { return _serviceaccount ?? (_serviceaccount = User.Exists(Settings.Account) ? User.FromName(Settings.Account, true) : null); }
+            }
+        }
+
         internal static class Settings
         {
             internal static ID NotificationOnFailureItemId = new ID(Sitecore.Configuration.Settings.GetSetting("Notification.OnFailure"));
             internal static ID NotificationOnSuccessItemId = new ID(Sitecore.Configuration.Settings.GetSetting("Notification.OnSuccess"));
+            internal static ID EmailRequestHistoryItemId = new ID(Sitecore.Configuration.Settings.GetSetting("ContentByEmail.EmailRequestHistory"));
+            internal static string Account = Sitecore.Configuration.Settings.GetSetting("ContentByEmail.Account");
         }
 
         internal static class Items
@@ -45,7 +57,7 @@
                 internal static ID EmailProcessorTemplateTokenTokenKeyField = new ID("{18B17F8A-9424-495D-B0B8-536C300F42EC}");
             }
 
-            internal static class EmailLog
+            internal static class EmailRequestHistory
             {
                 internal static ID Message = new ID("{59D5E2AA-1A81-4890-82E4-C0AB0097E896}");
                 internal static ID Notes = new ID("{98F3999C-877E-409B-9FF7-925C0DA783C9}");
@@ -77,6 +89,8 @@
             internal static ID EmailProcessorTemplate = new ID("{234AD4AA-AE3A-4607-93A8-E0021E3BE107}");
 
             internal static ID EmailProcessorTemplateToken = new ID("{234AD4AA-AE3A-4607-93A8-E0021E3BE107}");
+
+            internal static ID EmailContentRequestHistory = new ID("{F2FB43E3-2B51-40B8-BE64-1EF3CB2EEA0D}");
         }
     }
 }

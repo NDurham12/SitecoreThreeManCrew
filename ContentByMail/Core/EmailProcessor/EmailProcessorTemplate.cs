@@ -2,23 +2,21 @@
 
 namespace ContentByMail.Core.EmailProcessor
 {
-
-    using System.Collections.Generic;
     using ContentByMail.Common;
     using Sitecore.Data.Items;
     using Sitecore.Diagnostics;
-
+    using System.Collections.Generic;
 
     public class EmailProcessorTemplate
     {
-            /// <summary>
-            /// Gets or sets the Id.
-            /// </summary>
-            internal string Id { get; set; }
+        /// <summary>
+        /// Gets or sets the Id.
+        /// </summary>
+        internal string Id { get; set; }
 
-            /// <summary>
-            /// Gets or sets the Name.
-            /// </summary>
+        /// <summary>
+        /// Gets or sets the Name.
+        /// </summary>
             internal string EmailTemplateName { get; set; }
 
         
@@ -28,17 +26,16 @@ namespace ContentByMail.Core.EmailProcessor
             internal Item FolderTemplateToInsertCreatedItemIn { get; set; }
 
          
-            /// <summary>
-            /// Gets or sets the EmailTokens.
-            /// </summary>
-            internal IEnumerable<EmailProcessorTemplateToken> EmailTokens  { get; set; }
+        /// <summary>
+        /// Gets or sets the EmailTokens.
+        /// </summary>
+        internal IEnumerable<EmailProcessorTemplateToken> EmailTokens { get; set; }
 
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="EmailProcessorTemplate"/> class.
-            /// </summary>
-            /// <param name="item">The template.</param>
-            internal EmailProcessorTemplate(Item item)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EmailProcessorTemplate"/> class.
+        /// </summary>
+        /// <param name="item">The template.</param>
+        internal EmailProcessorTemplate(Item item)
             {
                 Assert.ArgumentNotNull(item, "EmailProcessorTemplate item is null");
 
@@ -55,6 +52,5 @@ namespace ContentByMail.Core.EmailProcessor
                 EmailTokens = EmailProcessorTemplateTokenFactory.CreateCollection(item.GetMultiListValues(Constants.Fields.EmailProcessorTemplate.EmailProcessorTemplateTokenList));
 
             }
-       
     }
 }
