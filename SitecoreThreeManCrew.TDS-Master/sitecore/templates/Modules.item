@@ -1,18 +1,18 @@
 ----item----
 version: 1
-id: {B76303D1-0457-4C01-A242-345CBBB6E360}
+id: {FE25A65B-CBB3-40BF-BE02-BDCE9C5D24CF}
 database: master
-path: /sitecore/system/Modules/Content Mail Manager
-parent: {08477468-D438-43D4-9D6A-6D84A611971C}
-name: Content Mail Manager
+path: /sitecore/templates/Modules
+parent: {3C1715FE-6A13-4FCF-845F-DE308BA9741D}
+name: Modules
 master: {00000000-0000-0000-0000-000000000000}
-template: {1DF26677-47FF-483E-B225-0A9D8BBB5112}
-templatekey: ContentMailManager
+template: {239F9CF4-E5A0-44E0-B342-0F32CD4C6D8B}
+templatekey: Node
 
 ----version----
 language: en
 version: 1
-revision: c695aff0-4d6e-44ae-b3ff-f1a2cf997ffb
+revision: eccbc60c-9833-45f7-b15d-f3c05e5c7bad
 
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
@@ -20,21 +20,21 @@ name: __Created
 key: __created
 content-length: 16
 
-20150124T052508Z
+20150117T022113Z
 ----field----
 field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
 name: __Revision
 key: __revision
 content-length: 36
 
-c695aff0-4d6e-44ae-b3ff-f1a2cf997ffb
+eccbc60c-9833-45f7-b15d-f3c05e5c7bad
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 35
 
-20150124T111457:635576948973840767Z
+20150117T022113:635570580736237209Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
