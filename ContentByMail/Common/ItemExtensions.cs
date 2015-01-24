@@ -4,12 +4,11 @@
     using Sitecore.Data;
     using Sitecore.Data.Fields;
     using Sitecore.Data.Items;
-    using Sitecore.Links;
+    using Sitecore.Web;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System;
     using System.Collections.Specialized;
+    using System.Linq;
 
     internal static class ItemExtensions
     {
@@ -47,24 +46,8 @@
         /// <returns> </returns>
         public static bool GetCheckBoxValue(this Item item, ID fieldId)
         {
-            return (new CheckboxField(item.Fields[fieldId])).Checked;
+            return MainUtil.GetBool(item[fieldId], default(Boolean));
         }
-
-        /// <summary>
-        ///   Set value of a CheckboxField
-        /// </summary>
-        /// <param name="item"> </param>
-        /// <param name="fieldId"> </param>
-        /// <param name="value"> </param>
-        /// <returns> </returns>
-        public static void SetCheckBoxValue(this Item item, ID fieldId, bool value)
-        {
-            (new CheckboxField(item.Fields[fieldId])).Checked = value;
-        }
-
-        
-
-
 
         /// <summary>
         /// Get namevaluecollection from from a NameValueList
@@ -75,10 +58,9 @@
         public static NameValueCollection GetNameValueList(this Item item, ID fieldId)
         {
             string urlParamsToParse = item[fieldId];
-            return Sitecore.Web.WebUtil.ParseUrlParameters(urlParamsToParse);
+            return WebUtil.ParseUrlParameters(urlParamsToParse);
         }
-
-       
+   
         /// <summary>
         ///   Determines whether the specified Item is derived from the specified TemplateItem.
         /// </summary>
@@ -118,19 +100,15 @@
         /// <param name="fieldId"> </param>
         public static Item GetDropLinkSelectedItem(this Item item, ID fieldId)
         {
-            var linkedItem = (new LinkField(item.Fields[fieldId])).TargetItem;
-            return linkedItem;
-        }
+            Item linkedItem = null;
+            LinkField field = new LinkField(item.Fields[fieldId]);
 
-        /// <summary>
-        ///   Set selected item on a droplink field
-        /// </summary>
-        /// <param name="item"> </param>
-        /// <param name="fieldId"> </param>
-        /// <param name="linkedItem"> </param>
-        public static void SetDropLink(this Item item, ID fieldId, Item linkedItem)
-        {
-            (new LinkField(item.Fields[fieldId])).Value = linkedItem.ID.ToString();
+            if(field != null)
+            {
+                linkedItem = field.TargetItem;
+            }
+
+            return linkedItem;
         }
 
         private static bool IsDerived(ID templateId, TemplateItem template)
@@ -141,7 +119,7 @@
             if (ID.IsNullOrEmpty(templateId))
                 return false;
 
-            var cacheKey = string.Format(DerivedCacheKey, templateId, template.ID);
+            string cacheKey = String.Format(DerivedCacheKey, templateId, template.ID);
 
             lock (DerivedCache)
             {
@@ -149,12 +127,14 @@
                     return DerivedCache[cacheKey];
             }
 
-            var derived = template.ID == templateId || template.BaseTemplates.Any(baseTemplate => IsDerived(templateId, baseTemplate));
+            bool derived = (template.ID == templateId) || template.BaseTemplates.Any(baseTemplate => IsDerived(templateId, baseTemplate));
 
             lock (DerivedCache)
             {
                 if (!DerivedCache.ContainsKey(cacheKey))
+                {
                     DerivedCache.Add(cacheKey, derived);
+                }
             }
 
             return derived;
