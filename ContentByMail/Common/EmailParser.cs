@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using PostmarkDotNet;
+﻿using PostmarkDotNet;
 using Sitecore.Diagnostics;
 using Sitecore.Extensions.StringExtensions;
-using Sitecore.Search;
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace ContentByMail.Common
 {
@@ -58,6 +54,5 @@ namespace ContentByMail.Common
 
             return listOfTokens;
         }        
-
     }
 }

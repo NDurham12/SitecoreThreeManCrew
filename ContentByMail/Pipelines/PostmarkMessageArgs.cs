@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using ContentByMail.Common;
+﻿using ContentByMail.Common;
+using ContentByMail.Common.Enumerations;
 using ContentByMail.Core.EmailProcessor;
 using ContentByMail.Core.Notifications;
+using PostmarkDotNet;
+using Sitecore.Pipelines;
+using System.Collections.Generic;
 
 namespace ContentByMail.Pipelines
 {
-    using PostmarkDotNet;
-    using Sitecore.Pipelines;
-
     public class PostmarkMessageArgs : PipelineArgs
     {
         /// <summary>
@@ -31,12 +31,13 @@ namespace ContentByMail.Pipelines
 
             if (!MessageTokenValues.ContainsKey("Template"))
             {
-                
+                NotificationManager manager = new NotificationManager();
+                manager.Send(Constants.DefaultContentModule.FallBackAddress, Constants.DefaultContentModule.DefaulMessage, NotificationMessageType.InvalidTemplate);
+
+                this.AbortPipeline();
             }
 
             this.Message = message;
         }
-
-        
     }
 }
