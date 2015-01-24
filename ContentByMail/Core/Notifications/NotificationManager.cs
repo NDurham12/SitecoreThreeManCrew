@@ -26,6 +26,7 @@
         internal void Send(string to, NotificationMessage message, NotificationMessageType notificationMessageType)
         {
             Assert.ArgumentNotNull(message, "message");
+            Assert.ArgumentNotNull(notificationMessageType, "notificationMessageType");
 
             try
             {
@@ -47,7 +48,7 @@
                         case NotificationMessageType.Success:
                             subject = message.SuccessSubject;
                             body = message.SuccessBody;
-                            break;                          
+                            break;
                         case NotificationMessageType.InvalidTemplate:
                             subject = message.InvalidTemplateSubject;
                             body = message.InvalidTemplateBody;
@@ -57,7 +58,7 @@
                             body = message.InvalidFieldBody;
                             break;
                         default:
-                             subject = message.GenericFailureSubject;
+                            subject = message.GenericFailureSubject;
                             body = message.GenericFailureBody;
                             break;
                     }
@@ -87,7 +88,9 @@
         /// <param name="notificationMessageTypes"></param>
         internal void Send(string to, NotificationMessage message, IEnumerable<NotificationMessageType> notificationMessageTypes)
         {
-            Assert.ArgumentNotNull(notificationMessageTypes, "Notification Types");
+            Assert.ArgumentNotNullOrEmpty(to, "to");
+            Assert.ArgumentNotNull(message, "message");
+            Assert.ArgumentNotNull(notificationMessageTypes, "notificationMessageTypes");
 
             foreach (NotificationMessageType errorTypes in notificationMessageTypes)
             {
