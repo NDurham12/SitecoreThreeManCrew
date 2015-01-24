@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
-using ContentByMail.Common;
-using Sitecore.Data.Items;
-using Sitecore.Diagnostics;
-
-namespace ContentByMail.Core.EmailProcessor
+﻿namespace ContentByMail.Core.EmailProcessor
 {
+
+    using System.Collections.Generic;
+    using ContentByMail.Common;
+    using Sitecore.Data.Items;
+    using Sitecore.Diagnostics;
+
+
     public class EmailProcessorTemplate
     {
             /// <summary>

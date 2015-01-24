@@ -1,6 +1,5 @@
 ﻿namespace ContentByMail.Core.EmailProcessor
 {
-
     using ContentByMail.Common;
     using Sitecore.Data.Items;
     using Sitecore.Diagnostics;
@@ -15,10 +14,9 @@
         internal EmailProcessorTemplateToken(Item item)
         {
             Assert.ArgumentNotNull(item, "EmailProcessorTemplate item is null");
-
             Assert.IsTrue(item.IsDerived(Constants.Templates.EmailProcessorTemplateToken), "Derives from wrong template");
 
-            Name = item.GetString(Constants.Fields.EmailProcessorTemplateTokens.EmailProcessorTemplateToken);
+            this.Name = item.GetString(Constants.Fields.EmailProcessorTemplateTokens.EmailProcessorTemplateToken);
         }
     }
 }
