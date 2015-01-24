@@ -16,7 +16,7 @@
         /// </summary>
         /// <param name="message"></param>
         /// <param name="fullMessage"></param>
-        public void Add(PostmarkInboundMessage message)
+        public static void Add(PostmarkInboundMessage message)
         {
             try
             {
@@ -43,7 +43,7 @@
             }
             catch (Exception ex)
             {
-                Log.Error("EmailRequestHistory", ex, this);
+                Log.Error("Add", ex, typeof(EmailRequestHistory));
             }
         }
     }

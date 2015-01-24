@@ -41,10 +41,8 @@
 
                     if (message != null)
                     {
-                        CorePipeline.Run("ContentByMail.ProcessEmail", new PostmarkMessageArgs(message));
-
-                        EmailRequestHistory historyItem = new EmailRequestHistory();
-                        historyItem.Add(message);
+                        CorePipeline.Run("ContentByMail.ProcessEmail", new PostmarkMessageArgs(message));                       
+                        EmailRequestHistory.Add(message);
                     }
                 }
             }
