@@ -91,12 +91,14 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
                             }
                             else
                             {
-                                //var tokeFieldList = EmailProcessorTemplateFactory.CreateCollection(emailProcessorItem[Constants.Fields.EmailProcessorTemplate.TokenToFieldList]);
+                                EmailProcessorTemplate emailProcessorTemplate = EmailProcessorTemplateFactory.CreateCollection().FirstOrDefault();
 
-                                foreach (var token in tokenFieldList)
+                                Assert.IsNotNull(emailProcessorTemplate, "EmailProcessorTemplate is empty");
+
+                                foreach (EmailProcessorTemplateToken token in emailProcessorTemplate.EmailTokens)
                                 {
-                                    if (args.MessageTokenValues.ContainsKey(token.Key))
-                                        newItem[token.Key] = args.MessageTokenValues[token.Value];
+                                    if (args.MessageTokenValues.ContainsKey(token.CustomField))
+                                        newItem[token.CustomField] = args.MessageTokenValues[token.SitecoreField];
                                 }
                             }                        
 
