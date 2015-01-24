@@ -115,10 +115,6 @@
       <Project>{c8074717-7777-4b78-acaa-f7f37960d901}</Project>
       <Name>ContentByMail</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SitecoreThreeManCrew.Web\SitecoreThreeManCrew.Web.csproj">
-      <Project>{3EFEDE1C-D7A7-4DB2-8B0D-831E2CE48B9B}</Project>
-      <Name>SitecoreThreeManCrew.Web</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
