@@ -21,9 +21,9 @@ namespace ContentByMail.Common
             {
                 var fullRegex = string.Format("{0}|{1}|{2}", Constants.Settings.TokenStartEndMultilineRegex, Constants.Settings.TokenTextInside, Constants.Settings.TokenMissingEnding);
 
-                var matches = Regex.Matches(inboundMessage.HtmlBody, fullRegex, RegexOptions.Multiline);            
+                var matches = Regex.Matches(inboundMessage.HtmlBody + "\n" + inboundMessage.TextBody, fullRegex, RegexOptions.Multiline);            
 
-                for (int iIndex = 0; iIndex < matches.Count; iIndex++)
+                for (var iIndex = 0; iIndex < matches.Count; iIndex++)
                 {
                     try
                     {
@@ -58,5 +58,6 @@ namespace ContentByMail.Common
 
             return listOfTokens;
         }        
+
     }
 }
