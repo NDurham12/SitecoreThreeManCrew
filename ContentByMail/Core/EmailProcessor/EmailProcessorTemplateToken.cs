@@ -6,6 +6,9 @@
 
     internal class EmailProcessorTemplateToken
     {
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
         internal string Name { get; set; }
 
         /// <summary>
