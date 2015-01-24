@@ -23,10 +23,17 @@ key: __standard values
 content-length: 38
 
 {E1EFC25D-29BB-42FB-927A-49EC82072916}
+----field----
+field: {06D5295C-ED2F-4A54-9BF2-26228D113318}
+name: __Icon
+key: __icon
+content-length: 36
+
+applications/32x32/folder2_green.png
 ----version----
 language: en
 version: 1
-revision: d4324d18-2604-4201-9177-10596e1a9f8a
+revision: a1c564bb-df3a-4fb2-86e5-0dde90704d82
 
 ----field----
 field: {B5E02AD9-D56F-4C41-A065-A133DB87BDEB}
@@ -55,14 +62,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-d4324d18-2604-4201-9177-10596e1a9f8a
+a1c564bb-df3a-4fb2-86e5-0dde90704d82
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 35
 
-20150124T191540:635577237403959322Z
+20150124T191652:635577238121601471Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
