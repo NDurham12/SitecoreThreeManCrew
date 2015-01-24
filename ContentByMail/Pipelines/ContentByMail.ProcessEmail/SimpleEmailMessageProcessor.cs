@@ -75,52 +75,64 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
                     }
                 }
 
-                using (new UserSwitcher(account))
-                {
-                    parentFolder.Editing.BeginEdit();
+                CreateItems(args, account, parentFolder, newItemTemplateId, autoProcessFields, missingFieldFlag, emailProcessorTemplate);
 
-                    Item newItem = parentFolder.Add(ItemUtil.ProposeValidItemName(args.Message.Subject), newItemTemplateId);
+                SendNotificationMessage(args, emailProcessorTemplate, missingFieldFlag);
 
-                    if (autoProcessFields)
-                    {
-                        foreach (var messageTokenValue in args.MessageTokenValues)
-                        {
-                            if (newItem.Fields[messageTokenValue.Key] == null)
-                            {
-                                missingFieldFlag.Add(messageTokenValue.Key);
-                            }
-
-                            newItem[messageTokenValue.Key] = messageTokenValue.Value;
-                        }
-                    }
-                    else
-                    {
-
-
-                        foreach (EmailProcessorTemplateToken token in emailProcessorTemplate.EmailTokens)
-                        {
-                            if (args.MessageTokenValues.ContainsKey(token.CustomField))
-                            {
-                                newItem[token.CustomField] = args.MessageTokenValues[token.SitecoreField];
-                            }
-                        }
-                    }
-
-                    parentFolder.Editing.EndEdit();
-                }
-
-
-                NotificationMessageFactory factory = new NotificationMessageFactory();
-                NotificationMessage notificationMessage = factory.CreateMessage(emailProcessorTemplate.NotificationTemplate.ID);
-
-                NotificationManager manager = new NotificationManager();
-                NotificationMessageType type = (missingFieldFlag.Count > 0) ? NotificationMessageType.InvalidField : NotificationMessageType.Success;
-
-                manager.Send(args.Message.From, notificationMessage, type);
             }
             catch (Exception ex)
             {
                 Log.Error("Process", ex, this);
+            }
+        }
+
+        private void SendNotificationMessage(PostmarkMessageArgs args, EmailProcessorTemplate emailProcessorTemplate,
+            List<string> missingFieldFlag)
+        {
+            NotificationMessageFactory factory = new NotificationMessageFactory();
+            NotificationMessage notificationMessage = factory.CreateMessage(emailProcessorTemplate.NotificationTemplate.ID);
+
+            NotificationManager manager = new NotificationManager();
+            NotificationMessageType type = (missingFieldFlag.Count > 0)
+                ? NotificationMessageType.InvalidField
+                : NotificationMessageType.Success;
+
+            manager.Send(args.Message.From, notificationMessage, type);
+        }
+
+        private void CreateItems(PostmarkMessageArgs args, User account, Item parentFolder, TemplateID newItemTemplateId,
+            bool autoProcessFields, List<string> missingFieldFlag, EmailProcessorTemplate emailProcessorTemplate)
+        {
+            using (new UserSwitcher(account))
+            {
+                parentFolder.Editing.BeginEdit();
+
+                Item newItem = parentFolder.Add(ItemUtil.ProposeValidItemName(args.Message.Subject), newItemTemplateId);
+
+                if (autoProcessFields)
+                {
+                    foreach (var messageTokenValue in args.MessageTokenValues)
+                    {
+                        if (newItem.Fields[messageTokenValue.Key] == null)
+                        {
+                            missingFieldFlag.Add(messageTokenValue.Key);
+                        }
+
+                        newItem[messageTokenValue.Key] = messageTokenValue.Value;
+                    }
+                }
+                else
+                {
+                    foreach (EmailProcessorTemplateToken token in emailProcessorTemplate.EmailTokens)
+                    {
+                        if (args.MessageTokenValues.ContainsKey(token.CustomField))
+                        {
+                            newItem[token.CustomField] = args.MessageTokenValues[token.SitecoreField];
+                        }
+                    }
+                }
+
+                parentFolder.Editing.EndEdit();
             }
         }
     }
