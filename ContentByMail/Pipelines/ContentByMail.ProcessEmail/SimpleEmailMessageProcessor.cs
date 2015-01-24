@@ -12,10 +12,11 @@ using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Security.Accounts;
 using Constants = ContentByMail.Common.Constants;
+using Sitecore.Diagnostics;
 
 namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
 {
-    using Sitecore.Diagnostics;
+   
 
     public class SimpleEmailMessageProcessor : IEmailMessageProcessor
     {
@@ -40,20 +41,26 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
 
                 var contentEmailModule = Context.ContentDatabase.GetItem(Constants.Settings.ContentByEmailModuleItem);
 
-                var emailProcessorItem = contentEmailModule.Axes.GetDescendants().FirstOrDefault(item => item.IsDerived(Constants.Templates.EmailProcessorTemplate) 
-                                                                                                         && item[Constants.Fields.EmailProcessorTemplate.EmailTokenName] == template);
+                IEnumerable<EmailProcessorTemplate> emailProcessorTemplates = EmailProcessorTemplateFactory.CreateCollection();
 
-                if (emailProcessorItem != null)
+
+                EmailProcessorTemplate emailProcessorTemplate = emailProcessorTemplates.FirstOrDefault(emailProcessor => emailProcessor.EmailTemplateName == template);
+
+                Assert.IsNotNull(emailProcessorTemplate, String.Format("{0} processorTemplate", template));
+
+            
+
+                if (emailProcessorTemplate != null)
                 {
-                    var parentFolder = Context.ContentDatabase.GetItem(emailProcessorItem[Constants.Fields.EmailProcessorTemplate.Folder]);
-                    var newItemTemplateId = new TemplateID(new ID(emailProcessorItem[Constants.Fields.EmailProcessorTemplate.Template]));
-                    var createAsuser = emailProcessorItem.GetCheckBoxValue(Constants.Fields.EmailProcessorTemplate.AssociateSenderToUserProfile);
-                    var autoProcessFields = emailProcessorItem.GetCheckBoxValue(Constants.Fields.EmailProcessorTemplate.AutoProcessTokensToFields);
+                    Item parentFolder = emailProcessorTemplate.FolderTemplateToInsertCreatedItemIn;
+                    TemplateItem newItemTemplateId = emailProcessorTemplate.ItemTemplateToCreateItemFrom;
+                    bool createAsuser = emailProcessorTemplate.CreateAsuser;
+                    bool autoProcessFields = emailProcessorTemplate.AutoProcessFields;
                 
                     User account = null;
 
-                    var missingFieldFlag = new List<string>();
-                    var tokenFieldList = new Dictionary<string, string>();
+                    List<string> missingFieldFlag = new List<string>();
+                    Dictionary<string, string> tokenFieldList = new Dictionary<string, string>();
 
                     if (parentFolder != null)
                     {
@@ -75,7 +82,7 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
                         {
                             parentFolder.Editing.BeginEdit();
 
-                            var newItem = parentFolder.Add(ItemUtil.ProposeValidItemName(args.Message.Subject), newItemTemplateId);
+                            Item newItem = parentFolder.Add(ItemUtil.ProposeValidItemName(args.Message.Subject), newItemTemplateId);
 
                             if (autoProcessFields)
                             {
@@ -91,9 +98,7 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
                             }
                             else
                             {
-                                EmailProcessorTemplate emailProcessorTemplate = EmailProcessorTemplateFactory.CreateCollection().FirstOrDefault();
-
-                                Assert.IsNotNull(emailProcessorTemplate, "EmailProcessorTemplate is empty");
+                               
 
                                 foreach (EmailProcessorTemplateToken token in emailProcessorTemplate.EmailTokens)
                                 {
@@ -106,8 +111,8 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
                         }                    
                     }
 
-                    var factory = new NotificationMessageFactory();
-                    var notificationMessage = factory.CreateMessage(new ID(emailProcessorItem[Constants.Fields.EmailProcessorTemplate.NotificationTemplate]));
+                    NotificationMessageFactory factory = new NotificationMessageFactory();
+                    NotificationMessage notificationMessage = factory.CreateMessage(emailProcessorTemplate.NotificationTemplate.ID);
                     NotificationManager manager = new NotificationManager();
                     NotificationMessageType type;
 
