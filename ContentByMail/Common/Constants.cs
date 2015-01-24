@@ -35,6 +35,7 @@ namespace ContentByMail.Common
             internal static string TokenStartEndMultilineRegex = Sitecore.Configuration.Settings.GetSetting("ContentByEmail.TokenStartEndMultilineRegex");
             internal static string TokenTextInside = Sitecore.Configuration.Settings.GetSetting("ContentByEmail.TokenTextInside");
             internal static string TokenMissingEnding = Sitecore.Configuration.Settings.GetSetting("ContentByEmail.TokenMissingEnding");
+            internal static bool ContentByEmailEmailEnableSsl = Sitecore.Configuration.Settings.GetBoolSetting("ContentByEmail.EmailEnableSsl", false);
         }
 
         internal static class Fields

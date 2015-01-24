@@ -38,6 +38,7 @@
                 {
                     client.Credentials = new NetworkCredential(Settings.MailServerUserName, Settings.MailServerPassword);
                     client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    client.EnableSsl = Constants.Settings.ContentByEmailEmailEnableSsl;
 
                     string subject, body;
 
