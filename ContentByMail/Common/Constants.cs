@@ -27,6 +27,7 @@ namespace ContentByMail.Common
 
         internal static class Settings
         {
+            internal static ID EmailContentProcessorTemplatesFolder = new ID(Sitecore.Configuration.Settings.GetSetting("ContentByEmail.EmailContentProcessorTemplatesFolder"));
             internal static ID ContentByEmailModuleItem = new ID(Sitecore.Configuration.Settings.GetSetting("ContentByEmail.ModuleItem"));
             internal static ID EmailRequestHistoryItemId = new ID(Sitecore.Configuration.Settings.GetSetting("ContentByEmail.EmailRequestHistory"));
             internal static string Account = Sitecore.Configuration.Settings.GetSetting("ContentByEmail.ServiceAccount");

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ContentByMail.Common;
 using ContentByMail.Core.EmailProcessor;
 using ContentByMail.Core.Notifications;
@@ -26,6 +27,8 @@ namespace ContentByMail.Pipelines
         public PostmarkMessageArgs(PostmarkInboundMessage message)
         {
             IEnumerable<EmailProcessorTemplate> emailtemplates = EmailProcessorTemplateFactory.CreateCollection();
+
+            List<EmailProcessorTemplate> emailtemplatesList = emailtemplates.ToList();
 
             MessageTokenValues = EmailParser.ParseTokens(message);
 

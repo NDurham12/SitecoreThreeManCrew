@@ -13,9 +13,9 @@ namespace ContentByMail.Core.EmailProcessor
         /// <summary>
         /// Creates a EmailProcessorTemplateToken.
         /// </summary>
-        internal static EmailProcessorTemplateToken Create(KeyValuePair<string,string> keyValue )
+        internal static EmailProcessorTemplateToken Create(string key, string value)
         {
-            return new EmailProcessorTemplateToken(keyValue);
+            return new EmailProcessorTemplateToken(key, value);
         }
 
         /// <summary>
@@ -23,10 +23,11 @@ namespace ContentByMail.Core.EmailProcessor
         /// </summary>
         internal static IEnumerable<EmailProcessorTemplateToken> CreateCollection(Item item)
         {
-
             NameValueCollection nameValueCollection = item.GetNameValueList(Constants.Fields.EmailProcessorTemplate.TokenToFieldList);
 
-            return from KeyValuePair<string, string> key in nameValueCollection select Create(key);
+            foreach (string key in nameValueCollection.AllKeys)
+                yield return Create(key, nameValueCollection[key]);
+
         }
     }
 }

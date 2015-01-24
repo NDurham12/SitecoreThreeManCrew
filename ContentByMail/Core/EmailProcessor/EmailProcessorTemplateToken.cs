@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-
+﻿
 namespace ContentByMail.Core.EmailProcessor
 {
-    using ContentByMail.Common;
-    using Sitecore.Data.Items;
-    using Sitecore.Diagnostics;
 
     internal class EmailProcessorTemplateToken
     {
@@ -12,13 +8,11 @@ namespace ContentByMail.Core.EmailProcessor
 
         internal string SitecoreField { get; set; }
 
-        internal EmailProcessorTemplateToken(KeyValuePair<string, string> keyValue)
+        internal EmailProcessorTemplateToken(string key, string value)
         {
-            Assert.ArgumentNotNull(keyValue, "EmailProcessorTemplateToken is null");
+            CustomField = key;
 
-            CustomField = keyValue.Key;
-
-            SitecoreField = keyValue.Value;
+            SitecoreField = value;
         }
     }
 }

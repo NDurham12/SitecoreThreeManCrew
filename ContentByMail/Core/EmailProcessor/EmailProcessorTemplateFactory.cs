@@ -41,11 +41,8 @@ namespace ContentByMail.Core.EmailProcessor
         /// </summary>
         internal static IEnumerable<EmailProcessorTemplate> CreateCollection()
         {
-            Item emailProcessorTemplatesFolderTemplate = DatabaseService.ActiveDatabase.GetItem(Constants.Templates.EmailProcessorTemplatesFolder);
-
-            Assert.IsNotNull(emailProcessorTemplatesFolderTemplate, "EmailProcessorTemplatesFolderTemplate is missing");
-
-            Item emailProcessorTemplatesFolderItem = emailProcessorTemplatesFolderTemplate.GetReferrersAsItems().FirstOrDefault();
+              Item emailProcessorTemplatesFolderItem =
+                DatabaseService.ActiveDatabase.GetItem(Constants.Settings.EmailContentProcessorTemplatesFolder);
 
             Assert.IsNotNull(emailProcessorTemplatesFolderItem, "EmailProcessorTemplatesFolder is missing");
 
