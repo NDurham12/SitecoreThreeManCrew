@@ -119,7 +119,7 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
 
                     }
 
-                    manager.Send(args.Message.From, Constants.DefaultContentModule.DefaulMessage, type);
+                    manager.Send(args.Message.From, Constants.DefaultContentModule.DefaultMessage, type);
 
                     Log.Info("In SimpleEmailMessageProcessor", this);
                 }

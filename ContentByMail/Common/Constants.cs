@@ -19,6 +19,7 @@ namespace ContentByMail.Common
         internal static class Security
         {
             private static User _serviceaccount;
+
             public static User ServiceUser
             {
                 get { return _serviceaccount ?? (_serviceaccount = User.Exists(Settings.Account) ? User.FromName(Settings.Account, true) : null); }
@@ -91,20 +92,16 @@ namespace ContentByMail.Common
 
         internal static class Templates
         {
-
             internal static ID EmailProcessorTemplatesFolder = new ID("{CE289592-0197-4D93-A222-B3F7CDD50879}");
-
             internal static ID EmailProcessorTemplate = new ID("{234AD4AA-AE3A-4607-93A8-E0021E3BE107}");
-
             internal static ID EmailContentRequestHistory = new ID("{F2FB43E3-2B51-40B8-BE64-1EF3CB2EEA0D}");
-
             internal static ID ContentMailManager = new ID("{1DF26677-47FF-483E-B225-0A9D8BBB5112}");
         }
 
         public static class DefaultContentModule
         {
             public static string FallBackAddress;
-            public static NotificationMessage DefaulMessage;
+            public static NotificationMessage DefaultMessage;
 
             static DefaultContentModule()
             {
@@ -114,14 +111,12 @@ namespace ContentByMail.Common
                 {
                     FallBackAddress = mainContentModule[Constants.Fields.MailManager.FallbackNotificationAddress];
 
-                    var defaultNotificationTemplateId = new ID(mainContentModule[Constants.Fields.MailManager.DefaultNotificationTemplate]);           
+                    ID defaultNotificationTemplateId = new ID(mainContentModule[Constants.Fields.MailManager.DefaultNotificationTemplate]);           
                     NotificationMessageFactory factory = new NotificationMessageFactory();
 
-                    DefaulMessage = factory.CreateMessage(defaultNotificationTemplateId);
+                    DefaultMessage = factory.CreateMessage(defaultNotificationTemplateId);
                 }
             }
         }
     }
-
-
 }

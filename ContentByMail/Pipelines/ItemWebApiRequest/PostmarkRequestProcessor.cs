@@ -53,7 +53,7 @@ namespace ContentByMail.Pipelines.ItemWebApiRequest
                 Log.Error("Cannot process Postmark request.", ex, this);
                 
                 NotificationManager manager = new NotificationManager();
-                manager.Send(Constants.DefaultContentModule.FallBackAddress, Constants.DefaultContentModule.DefaulMessage, NotificationMessageType.Failure);
+                manager.Send(Constants.DefaultContentModule.FallBackAddress, Constants.DefaultContentModule.DefaultMessage, NotificationMessageType.Failure);
             }
         }
     }

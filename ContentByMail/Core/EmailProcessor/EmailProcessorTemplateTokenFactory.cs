@@ -1,12 +1,9 @@
-﻿using System.Collections.Specialized;
-using ContentByMail.Common;
-using Sitecore.Data.Items;
-
-namespace ContentByMail.Core.EmailProcessor
+﻿namespace ContentByMail.Core.EmailProcessor
 {
-
+    using ContentByMail.Common;
+    using Sitecore.Data.Items;
     using System.Collections.Generic;
-    using System.Linq;
+    using System.Collections.Specialized;
 
     internal class EmailProcessorTemplateTokenFactory
     {
@@ -26,8 +23,9 @@ namespace ContentByMail.Core.EmailProcessor
             NameValueCollection nameValueCollection = item.GetNameValueList(Constants.Fields.EmailProcessorTemplate.TokenToFieldList);
 
             foreach (string key in nameValueCollection.AllKeys)
+            {
                 yield return Create(key, nameValueCollection[key]);
-
+            }
         }
     }
 }

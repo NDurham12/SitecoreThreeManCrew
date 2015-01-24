@@ -1,6 +1,4 @@
-﻿
-
-namespace ContentByMail.Common
+﻿namespace ContentByMail.Common
 {
     using Sitecore;
     using Sitecore.Data;
