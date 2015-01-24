@@ -102,6 +102,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTestCultureInfo.cs" />
+    <Compile Include="UnitTestParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

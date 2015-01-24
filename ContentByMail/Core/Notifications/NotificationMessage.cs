@@ -69,7 +69,7 @@
 
             this.Sender = template[Constants.Fields.Notification.Sender];
             this.SuccessSubject = template[Constants.Fields.Notification.SucessSubject];
-            this.SuccessBody = template[Constants.Fields.Notification.SucessBody];
+            this.SuccessBody = template[Constants.Fields.Notification.SuccessBody];
 
             this.InvalidTemplateSubject = template[Constants.Fields.Notification.InvalidTemplateSubject];
             this.InvalidTemplateBody = template[Constants.Fields.Notification.InvalidTemplateBody];
