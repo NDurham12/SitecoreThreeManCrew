@@ -203,8 +203,7 @@
     <Content Include="Assets\reveal.js\lib\font\source-sans-pro\source-sans-pro-semibolditalic.eot" />
     <Content Include="Assets\reveal.js\lib\font\source-sans-pro\source-sans-pro-semibolditalic.ttf" />
     <Content Include="Assets\reveal.js\lib\font\source-sans-pro\source-sans-pro-semibolditalic.woff" />
-    <None Include="Properties\PublishProfiles\LaunchSC8_MVCDebug.pubxml" />
-    <None Include="Properties\PublishProfiles\SitecoreThreeManCrew.pubxml" />
+    <None Include="Properties\PublishProfiles\Publish.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ContentByMail\ContentByMail.csproj">
