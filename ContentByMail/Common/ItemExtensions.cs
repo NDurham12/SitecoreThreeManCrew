@@ -22,7 +22,7 @@
         /// <returns> </returns>
         public static string GetString(this Item item, ID fieldId)
         {
-            return item.Fields[fieldId].Value;
+            return item[fieldId];
         }
 
         /// <summary>
@@ -34,7 +34,7 @@
         /// <returns> </returns>
         public static void SetString(this Item item, ID fieldId, string value)
         {
-            item.Fields[fieldId].Value = value;
+            item[fieldId] = value;
         }
 
         #endregion
@@ -72,11 +72,11 @@
         {
             var ids = items.Select(i => i.ID).Select(id => id.ToString().ToUpper());
             var s = string.Join("|", ids.ToArray());
-            item.Fields[fieldId].Value = s;
+
+            item.Editing.BeginEdit();
+            item[fieldId] = s;
+            item.Editing.EndEdit();
         }
-
-
-      
 
         #endregion
 
