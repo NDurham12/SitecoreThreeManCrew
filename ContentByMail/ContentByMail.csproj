@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Pipelines\ContentByMail.ProcessEmail\SimpleEmailMessageProcessor.cs" />
+    <Compile Include="Pipelines\IEmailMessageProcessor.cs" />
     <Compile Include="Pipelines\ItemWebApiRequest\PostmarkRequestProcessor.cs" />
     <Compile Include="Pipelines\PostmarkMessageArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
