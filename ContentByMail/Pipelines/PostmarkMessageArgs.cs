@@ -28,12 +28,7 @@ namespace ContentByMail.Pipelines
             IEnumerable<EmailProcessorTemplate> emailtemplates = EmailProcessorTemplateFactory.CreateCollection();
 
             MessageTokenValues = EmailParser.ParseTokens(message);
-
-            if (!MessageTokenValues.ContainsKey("Template"))
-            {
-                
-            }
-
+          
             this.Message = message;
         }
 
