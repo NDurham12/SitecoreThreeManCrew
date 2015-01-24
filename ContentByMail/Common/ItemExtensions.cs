@@ -108,8 +108,8 @@ namespace ContentByMail.Common
         /// <returns></returns>
         public static NameValueCollection GetNameValueList(this Item item, ID fieldId)
         {
-             string urlParamsToParse = item[fieldId];
-             return  Sitecore.Web.WebUtil.ParseUrlParameters(urlParamsToParse);
+            string urlParamsToParse = item[fieldId];
+            return Sitecore.Web.WebUtil.ParseUrlParameters(urlParamsToParse);
         }
 
         public static Item[] GetReferrersAsItems(this Item item, bool includeStandardValues = false)
@@ -169,7 +169,7 @@ namespace ContentByMail.Common
         /// <param name="fieldId"> </param>
         public static Item GetDropLinkSelectedItem(this Item item, ID fieldId)
         {
-            var linkedItem = (new InternalLinkField(item.Fields[fieldId])).TargetItem;
+            var linkedItem = (new LinkField(item.Fields[fieldId])).TargetItem;
             return linkedItem;
         }
 
@@ -181,7 +181,7 @@ namespace ContentByMail.Common
         /// <param name="linkedItem"> </param>
         public static void SetDropLink(this Item item, ID fieldId, Item linkedItem)
         {
-            (new InternalLinkField(item.Fields[fieldId])).Value = linkedItem.ID.ToString();
+            (new LinkField(item.Fields[fieldId])).Value = linkedItem.ID.ToString();
         }
 
         private static bool IsDerived(ID templateId, TemplateItem template)
