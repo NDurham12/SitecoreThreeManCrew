@@ -20,9 +20,12 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+<<<<<<< HEAD
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <TargetFrameworkProfile />
+=======
+>>>>>>> 2fb94cb1be996287e69af094e259af1e87ebea68
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,9 +46,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Sitecore.ItemWebApi">
-      <HintPath>..\Dependencies\Sitecore.ItemWebApi.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Postmark">
+      <HintPath>..\packages\Postmark.2.0.59\lib\net45\Postmark.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Postmark.Convenience">
+      <HintPath>..\packages\Postmark.2.0.59\lib\net45\Postmark.Convenience.dll</HintPath>
     </Reference>
     <Reference Include="Sitecore.Kernel">
       <HintPath>..\Dependencies\Sitecore.Kernel.dll</HintPath>
@@ -119,6 +129,27 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Assets\reveal.js\css\print\paper.css" />
+    <Content Include="Assets\reveal.js\css\print\pdf.css" />
+    <Content Include="Assets\reveal.js\css\reveal.css" />
+    <Content Include="Assets\reveal.js\css\theme\beige.css" />
+    <Content Include="Assets\reveal.js\css\theme\black.css" />
+    <Content Include="Assets\reveal.js\css\theme\blood.css" />
+    <Content Include="Assets\reveal.js\css\theme\league.css" />
+    <Content Include="Assets\reveal.js\css\theme\moon.css" />
+    <Content Include="Assets\reveal.js\css\theme\night.css" />
+    <Content Include="Assets\reveal.js\css\theme\serif.css" />
+    <Content Include="Assets\reveal.js\css\theme\simple.css" />
+    <Content Include="Assets\reveal.js\css\theme\sky.css" />
+    <Content Include="Assets\reveal.js\css\theme\solarized.css" />
+    <Content Include="Assets\reveal.js\css\theme\white.css" />
+    <Content Include="Assets\reveal.js\js\reveal.js" />
+    <Content Include="Assets\reveal.js\lib\css\zenburn.css" />
+    <Content Include="Assets\reveal.js\lib\font\league-gothic\league-gothic.css" />
+    <Content Include="Assets\reveal.js\lib\font\source-sans-pro\source-sans-pro.css" />
+    <Content Include="Assets\reveal.js\lib\js\classList.js" />
+    <Content Include="Assets\reveal.js\lib\js\head.min.js" />
+    <Content Include="Assets\reveal.js\lib\js\html5shiv.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
@@ -129,15 +160,56 @@
     <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Config\Include\ApplicationStart.config" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Content Include="..\ContentByMail\App_Config\Include\ContentByMail\ContentByMail.config">
       <Link>App_Config\Include\ContentByMail\ContentByMail.config</Link>
     </Content>
+=======
+    <Content Include="App_Config\Include\zzDeveloper.config" />
+    <Content Include="App_Config\Include\Sitecore.config" />
+    <Content Include="Assets\reveal.js\css\reveal.scss" />
+    <Content Include="Assets\reveal.js\css\theme\README.md" />
+    <Content Include="Assets\reveal.js\css\theme\source\beige.scss" />
+    <Content Include="Assets\reveal.js\css\theme\source\black.scss" />
+    <Content Include="Assets\reveal.js\css\theme\source\blood.scss" />
+    <Content Include="Assets\reveal.js\css\theme\source\league.scss" />
+    <Content Include="Assets\reveal.js\css\theme\source\moon.scss" />
+    <Content Include="Assets\reveal.js\css\theme\source\night.scss" />
+    <Content Include="Assets\reveal.js\css\theme\source\serif.scss" />
+    <Content Include="Assets\reveal.js\css\theme\source\simple.scss" />
+    <Content Include="Assets\reveal.js\css\theme\source\sky.scss" />
+    <Content Include="Assets\reveal.js\css\theme\source\solarized.scss" />
+    <Content Include="Assets\reveal.js\css\theme\source\white.scss" />
+    <Content Include="Assets\reveal.js\css\theme\template\mixins.scss" />
+    <Content Include="Assets\reveal.js\css\theme\template\settings.scss" />
+    <Content Include="Assets\reveal.js\css\theme\template\theme.scss" />
+    <Content Include="Assets\reveal.js\lib\font\league-gothic\league-gothic.eot" />
+    <Content Include="Assets\reveal.js\lib\font\league-gothic\league-gothic.ttf" />
+    <Content Include="Assets\reveal.js\lib\font\league-gothic\league-gothic.woff" />
+    <Content Include="Assets\reveal.js\lib\font\league-gothic\LICENSE" />
+    <Content Include="Assets\reveal.js\lib\font\source-sans-pro\LICENSE" />
+    <Content Include="Assets\reveal.js\lib\font\source-sans-pro\source-sans-pro-italic.eot" />
+    <Content Include="Assets\reveal.js\lib\font\source-sans-pro\source-sans-pro-italic.ttf" />
+    <Content Include="Assets\reveal.js\lib\font\source-sans-pro\source-sans-pro-italic.woff" />
+    <Content Include="Assets\reveal.js\lib\font\source-sans-pro\source-sans-pro-regular.eot" />
+    <Content Include="Assets\reveal.js\lib\font\source-sans-pro\source-sans-pro-regular.ttf" />
+    <Content Include="Assets\reveal.js\lib\font\source-sans-pro\source-sans-pro-regular.woff" />
+    <Content Include="Assets\reveal.js\lib\font\source-sans-pro\source-sans-pro-semibold.eot" />
+    <Content Include="Assets\reveal.js\lib\font\source-sans-pro\source-sans-pro-semibold.ttf" />
+    <Content Include="Assets\reveal.js\lib\font\source-sans-pro\source-sans-pro-semibold.woff" />
+    <Content Include="Assets\reveal.js\lib\font\source-sans-pro\source-sans-pro-semibolditalic.eot" />
+    <Content Include="Assets\reveal.js\lib\font\source-sans-pro\source-sans-pro-semibolditalic.ttf" />
+    <Content Include="Assets\reveal.js\lib\font\source-sans-pro\source-sans-pro-semibolditalic.woff" />
+    <None Include="Properties\PublishProfiles\LaunchSC8_MVCDebug.pubxml" />
+>>>>>>> 2fb94cb1be996287e69af094e259af1e87ebea68
     <None Include="Properties\PublishProfiles\SitecoreThreeManCrew.pubxml" />
   </ItemGroup>
   <ItemGroup>
@@ -174,13 +246,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

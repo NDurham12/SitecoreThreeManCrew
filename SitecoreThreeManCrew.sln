@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SitecoreThreeManCrew.Web", "SitecoreThreeManCrew.Web\SitecoreThreeManCrew.Web.csproj", "{3EFEDE1C-D7A7-4DB2-8B0D-831E2CE48B9B}"
 EndProject
@@ -14,9 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".tds", ".tds", "{A1BE6DFA-D
 EndProject
 Project("{CAA73BB0-EF22-4D79-A57E-DF67B3BA9C80}") = "SitecoreThreeManCrew.TDS-Master", "SitecoreThreeManCrew.TDS-Master\SitecoreThreeManCrew.TDS-Master.scproj", "{DA1D31F1-1BEF-4368-8A19-A084DCA5F0E8}"
 EndProject
-Project("{CAA73BB0-EF22-4D79-A57E-DF67B3BA9C80}") = "SitecoreThreeManCrew.TDS-Core", "SitecoreThreeManCrew.TDS-Core\SitecoreThreeManCrew.TDS-Core.scproj", "{D35ACBF8-EC11-4829-86A4-6B6EA27EA864}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A9D17BC3-C9B8-4B3E-8009-0B4340CF6DB9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{AE3556BD-72C5-4EC7-9DD3-342A953380F4}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
@@ -24,6 +22,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A9D17B
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentByMail", "ContentByMail\ContentByMail.csproj", "{C8074717-7777-4B78-ACAA-F7F37960D901}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{3CE46985-D653-420B-B371-B192D62EDCB8}"
+	ProjectSection(SolutionItems) = preProject
+		Dependencies\Newtonsoft.Json.dll = Dependencies\Newtonsoft.Json.dll
+		Dependencies\Sitecore.ItemWebApi.dll = Dependencies\Sitecore.ItemWebApi.dll
+		Dependencies\Sitecore.Kernel.dll = Dependencies\Sitecore.Kernel.dll
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,12 +50,6 @@ Global
 		{DA1D31F1-1BEF-4368-8A19-A084DCA5F0E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA1D31F1-1BEF-4368-8A19-A084DCA5F0E8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DA1D31F1-1BEF-4368-8A19-A084DCA5F0E8}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{D35ACBF8-EC11-4829-86A4-6B6EA27EA864}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D35ACBF8-EC11-4829-86A4-6B6EA27EA864}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D35ACBF8-EC11-4829-86A4-6B6EA27EA864}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{D35ACBF8-EC11-4829-86A4-6B6EA27EA864}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D35ACBF8-EC11-4829-86A4-6B6EA27EA864}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D35ACBF8-EC11-4829-86A4-6B6EA27EA864}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{C8074717-7777-4B78-ACAA-F7F37960D901}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C8074717-7777-4B78-ACAA-F7F37960D901}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8074717-7777-4B78-ACAA-F7F37960D901}.Release|Any CPU.ActiveCfg = Release|Any CPU
