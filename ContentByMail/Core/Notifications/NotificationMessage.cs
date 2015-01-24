@@ -6,7 +6,6 @@
 
     public class NotificationMessage
     {        
-
         /// <summary>
         /// Gets or sets the sender.
         /// </summary>
@@ -16,15 +15,43 @@
         /// Gets or sets the subject.
         /// </summary>
         internal string SuccessBody { get; set; }
+
+        /// <summary>
+        /// Gets or sets the success subject.
+        /// </summary>
         internal string SuccessSubject { get; set; }
 
+        /// <summary>
+        /// Gets or sets the invalid template body.
+        /// </summary>
         internal string InvalidTemplateBody { get; set; }
+
+        /// <summary>
+        /// Gets or sets the invalid template subject.
+        /// </summary>
         internal string InvalidTemplateSubject { get; set; }
 
+        /// <summary>
+        /// Gets or sets the invalid field body.
+        /// </summary>
         internal string InvalidFieldBody { get; set; }
+
+        /// <summary>
+        /// Gets or sets the invalid field subject.
+        /// </summary>
         internal string InvalidFieldSubject { get; set; }
 
+        /// <summary>
+        /// Gets or sets the generic failure body.
+        /// </summary>
+        /// <value>
+        /// The generic failure body.
+        /// </value>
         internal string GenericFailureBody { get; set; }
+
+        /// <summary>
+        /// Gets or sets the generic failure subject.
+        /// </summary>
         internal string GenericFailureSubject { get; set; }
 
         /// <summary>

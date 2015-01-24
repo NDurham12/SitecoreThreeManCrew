@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using ContentByMail.Common;
+﻿using ContentByMail.Common;
 using ContentByMail.Common.Enumerations;
-using ContentByMail.Core.EmailProcessor;
 using ContentByMail.Core.Notifications;
 using PostmarkDotNet;
 using Sitecore.Pipelines;
@@ -21,19 +19,18 @@ namespace ContentByMail.Pipelines
         /// </summary>
         public Dictionary<string, string> MessageTokenValues { get; set; }
 
-       
         /// <summary>
         /// Initializes a new instance of the <see cref="PostmarkMessageArgs"/> class.
         /// </summary>
         /// <param name="message">The message.</param>
         public PostmarkMessageArgs(PostmarkInboundMessage message)
         {
-            MessageTokenValues = EmailParser.ParseTokens(message);
+            this.MessageTokenValues = EmailParser.ParseTokens(message);
 
-            if (!MessageTokenValues.ContainsKey("Template"))
+            if (!this.MessageTokenValues.ContainsKey("Template"))
             {
                 NotificationManager manager = new NotificationManager();
-                manager.Send(Constants.DefaultContentModule.FallBackAddress, Constants.DefaultContentModule.DefaulMessage, NotificationMessageType.InvalidTemplate);
+                manager.Send(Constants.DefaultContentModule.FallBackAddress, Constants.DefaultContentModule.DefaultMessage, NotificationMessageType.InvalidTemplate);
 
                 this.AbortPipeline();
             }

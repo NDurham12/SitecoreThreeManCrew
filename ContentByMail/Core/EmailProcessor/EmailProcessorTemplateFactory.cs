@@ -1,5 +1,4 @@
-﻿
-namespace ContentByMail.Core.EmailProcessor
+﻿namespace ContentByMail.Core.EmailProcessor
 {
     using ContentByMail.Common;
     using Sitecore.Configuration;
@@ -41,8 +40,7 @@ namespace ContentByMail.Core.EmailProcessor
         /// </summary>
         internal static IEnumerable<EmailProcessorTemplate> CreateCollection()
         {
-              Item emailProcessorTemplatesFolderItem =
-                DatabaseService.ActiveDatabase.GetItem(Constants.Settings.EmailContentProcessorTemplatesFolder);
+            Item emailProcessorTemplatesFolderItem = Factory.GetDatabase(Constants.Databases.Web).GetItem(Constants.Settings.EmailContentProcessorTemplatesFolder);
 
             Assert.IsNotNull(emailProcessorTemplatesFolderItem, "EmailProcessorTemplatesFolder is missing");
 

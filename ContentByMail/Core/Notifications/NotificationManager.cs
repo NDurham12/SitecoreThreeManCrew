@@ -1,11 +1,8 @@
-﻿using ContentByMail.Common.Enumerations;
-using Sitecore.Search.Queries;
-
-namespace ContentByMail.Core.Notifications
+﻿namespace ContentByMail.Core.Notifications
 {
     using ContentByMail.Common;
+    using ContentByMail.Common.Enumerations;
     using Sitecore.Configuration;
-    using Sitecore.Data.Items;
     using Sitecore.Diagnostics;
     using System;
     using System.Collections.Generic;
@@ -33,7 +30,9 @@ namespace ContentByMail.Core.Notifications
             try
             {
                 if (String.IsNullOrEmpty(to))
-                    to = Constants.DefaultContentModule.FallBackAddress;                                                       
+                {
+                    to = Constants.DefaultContentModule.FallBackAddress;
+                }
 
                 using (SmtpClient client = new SmtpClient(Settings.MailServer, Settings.MailServerPort))
                 {
@@ -89,7 +88,7 @@ namespace ContentByMail.Core.Notifications
         {
             Assert.ArgumentNotNull(notificationMessageTypes, "Notification Types");
 
-            foreach (var errorTypes in notificationMessageTypes)
+            foreach (NotificationMessageType errorTypes in notificationMessageTypes)
             {
                 this.Send(to, message, errorTypes);
             }

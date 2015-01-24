@@ -1,17 +1,14 @@
-﻿
-
-namespace ContentByMail.Common
+﻿namespace ContentByMail.Common
 {
     using Sitecore;
     using Sitecore.Data;
     using Sitecore.Data.Fields;
     using Sitecore.Data.Items;
-    using Sitecore.Links;
+    using Sitecore.Web;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System;
     using System.Collections.Specialized;
+    using System.Linq;
 
     internal static class ItemExtensions
     {
@@ -49,55 +46,7 @@ namespace ContentByMail.Common
         /// <returns> </returns>
         public static bool GetCheckBoxValue(this Item item, ID fieldId)
         {
-            return (new CheckboxField(item.Fields[fieldId])).Checked;
-        }
-
-        /// <summary>
-        ///   Set value of a CheckboxField
-        /// </summary>
-        /// <param name="item"> </param>
-        /// <param name="fieldId"> </param>
-        /// <param name="value"> </param>
-        /// <returns> </returns>
-        public static void SetCheckBoxValue(this Item item, ID fieldId, bool value)
-        {
-            (new CheckboxField(item.Fields[fieldId])).Checked = value;
-        }
-
-        /// <summary>
-        ///   Get selected items from a MultilistField
-        /// </summary>
-        /// <param name="item"> </param>
-        /// <param name="fieldId"> </param>
-        public static IEnumerable<Item> GetMultiListValues(this Item item, ID fieldId)
-        {
-            return (new MultilistField(item.Fields[fieldId])).GetItems() ?? Enumerable.Empty<Item>();
-        }
-
-        /// <summary>
-        ///   Get items from MultilistField, droplink, treelist
-        /// </summary>
-        /// <param name="item"> </param>
-        /// <param name="fieldId"> </param>
-        public static IEnumerable<Item> GetItemValues(this Item item, ID fieldId)
-        {
-            return (new MultilistField(item.Fields[fieldId])).GetItems() ?? Enumerable.Empty<Item>();
-        }
-
-
-        /// <summary>
-        ///   Set selected items on a MultilistField field
-        /// </summary>
-        /// <param name="item"> </param>
-        /// <param name="fieldId"> </param>
-        /// <param name="items"> </param>
-        public static void SetMultiListValues(this Item item, ID fieldId, IEnumerable<Item> items)
-        {
-            var ids = items.Select(i => i.ID).Select(id => id.ToString().ToUpper());
-            var s = string.Join("|", ids.ToArray());
-            item.Editing.BeginEdit();
-            item[fieldId] = s;
-            item.Editing.EndEdit();
+            return MainUtil.GetBool(item[fieldId], default(Boolean));
         }
 
         /// <summary>
@@ -109,27 +58,9 @@ namespace ContentByMail.Common
         public static NameValueCollection GetNameValueList(this Item item, ID fieldId)
         {
             string urlParamsToParse = item[fieldId];
-            return Sitecore.Web.WebUtil.ParseUrlParameters(urlParamsToParse);
+            return WebUtil.ParseUrlParameters(urlParamsToParse);
         }
-
-        public static Item[] GetReferrersAsItems(this Item item, bool includeStandardValues = false)
-        {
-
-            ItemLink[] referrers = Globals.LinkDatabase.GetReferrers(item);
-            if (referrers != null)
-                return ItemExtensions.GetLinkedTargetItems((IEnumerable<ItemLink>)referrers, includeStandardValues);
-            return new Item[0];
-        }
-
-        private static Item[] GetLinkedTargetItems(IEnumerable<ItemLink> links, bool includeStandardValues)
-        {
-            IEnumerable<Item> source = Enumerable.Where<Item>(Enumerable.Select<ItemLink, Item>(links, (Func<ItemLink, Item>)(i => i.GetSourceItem())), (Func<Item, bool>)(i => i != null));
-            if (!includeStandardValues)
-                source = Enumerable.Where<Item>(source, (Func<Item, bool>)(i => !ItemExtensions.IsStandardValuesItem(i)));
-            return Enumerable.ToArray<Item>(source);
-        }
-
-
+   
         /// <summary>
         ///   Determines whether the specified Item is derived from the specified TemplateItem.
         /// </summary>
@@ -169,19 +100,15 @@ namespace ContentByMail.Common
         /// <param name="fieldId"> </param>
         public static Item GetDropLinkSelectedItem(this Item item, ID fieldId)
         {
-            var linkedItem = (new LinkField(item.Fields[fieldId])).TargetItem;
-            return linkedItem;
-        }
+            Item linkedItem = null;
+            LinkField field = new LinkField(item.Fields[fieldId]);
 
-        /// <summary>
-        ///   Set selected item on a droplink field
-        /// </summary>
-        /// <param name="item"> </param>
-        /// <param name="fieldId"> </param>
-        /// <param name="linkedItem"> </param>
-        public static void SetDropLink(this Item item, ID fieldId, Item linkedItem)
-        {
-            (new LinkField(item.Fields[fieldId])).Value = linkedItem.ID.ToString();
+            if(field != null)
+            {
+                linkedItem = field.TargetItem;
+            }
+
+            return linkedItem;
         }
 
         private static bool IsDerived(ID templateId, TemplateItem template)
@@ -192,7 +119,7 @@ namespace ContentByMail.Common
             if (ID.IsNullOrEmpty(templateId))
                 return false;
 
-            var cacheKey = string.Format(DerivedCacheKey, templateId, template.ID);
+            string cacheKey = String.Format(DerivedCacheKey, templateId, template.ID);
 
             lock (DerivedCache)
             {
@@ -200,12 +127,14 @@ namespace ContentByMail.Common
                     return DerivedCache[cacheKey];
             }
 
-            var derived = template.ID == templateId || template.BaseTemplates.Any(baseTemplate => IsDerived(templateId, baseTemplate));
+            bool derived = (template.ID == templateId) || template.BaseTemplates.Any(baseTemplate => IsDerived(templateId, baseTemplate));
 
             lock (DerivedCache)
             {
                 if (!DerivedCache.ContainsKey(cacheKey))
+                {
                     DerivedCache.Add(cacheKey, derived);
+                }
             }
 
             return derived;
