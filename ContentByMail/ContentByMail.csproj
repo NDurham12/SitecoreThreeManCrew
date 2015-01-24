@@ -65,7 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Config\Include\ContentByMail\ContentByMail.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
     <None Include="packages.config" />

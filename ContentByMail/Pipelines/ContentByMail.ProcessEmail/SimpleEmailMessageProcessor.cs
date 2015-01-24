@@ -1,10 +1,6 @@
 ﻿namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
 {
     using Sitecore.Diagnostics;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
 
     public class SimpleEmailMessageProcessor
     {
@@ -17,7 +13,7 @@
         /// Processes the specified message.
         /// </summary>
         /// <param name="args">The args.</param>
-        public virtual void Process(PostmarkMessageArgs args)
+        public void Process(PostmarkMessageArgs args)
         {
             Assert.ArgumentNotNull(args, "args");
             Assert.IsNotNull(args.Message, "args.Message");

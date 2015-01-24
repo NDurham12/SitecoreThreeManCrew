@@ -167,8 +167,8 @@
   <ItemGroup>
     <Content Include="..\ContentByMail\App_Config\Include\ContentByMail\ContentByMail.config">
       <Link>App_Config\Include\ContentByMail\ContentByMail.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="App_Config\Include\zzDeveloper.config" />
     <Content Include="App_Config\Include\Sitecore.config" />
     <Content Include="Assets\reveal.js\css\reveal.scss" />
     <Content Include="Assets\reveal.js\css\theme\README.md" />

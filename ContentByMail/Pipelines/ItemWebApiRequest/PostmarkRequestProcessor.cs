@@ -2,13 +2,11 @@
 {
     using Newtonsoft.Json;
     using PostmarkDotNet;
-    using Sitecore.Diagnostics;
     using Sitecore.ItemWebApi.Pipelines.Request;
     using Sitecore.Pipelines;
     using System;
     using System.IO;
     using System.Web;
-    using System.Web.Script.Serialization;
 
     public class PostmarkRequestProcessor : RequestProcessor
     {
@@ -33,22 +31,11 @@
 
             if (!String.IsNullOrEmpty(json))
             {
-                object message = null;
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                PostmarkInboundMessage message = JsonConvert.DeserializeObject<PostmarkInboundMessage>(json);
 
-                try
+                if (message != null)
                 {
-                    //message = serializer.Deserialize(json, typeof(PostmarkMessage));
-                    message = JsonConvert.DeserializeObject<PostmarkMessage>(json);
-                }
-                catch(Exception ex)
-                {
-                    Log.Error("", ex, this);
-                }
-
-                if (message != null && message is PostmarkMessage)
-                {
-                    CorePipeline.Run("Hackathon.ProcessEmail", new PostmarkMessageArgs(message as PostmarkMessage));
+                    CorePipeline.Run("ContentByMail.ProcessEmail", new PostmarkMessageArgs(message));
                 }
             }
         }
