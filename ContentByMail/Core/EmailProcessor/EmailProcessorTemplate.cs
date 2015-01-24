@@ -20,7 +20,7 @@
         /// <summary>
         /// Gets or sets the item template to create item from.
         /// </summary>
-        internal Item ItemTemplateToCreateItemFrom { get; set; }
+        internal TemplateItem ItemTemplateToCreateItemFrom { get; set; }
 
         /// <summary>
         /// Gets or sets the folder template to insert created item in.
@@ -31,6 +31,24 @@
         /// Gets or sets the EmailTokens.
         /// </summary>
         internal IEnumerable<EmailProcessorTemplateToken> EmailTokens { get; set; }
+
+        /// <summary>
+        /// Gets or sets the folder template to insert created item in.
+        /// </summary>
+        internal Item NotificationTemplate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the AutoProcessFields.
+        /// </summary>
+        internal bool AutoProcessFields { get; set; }
+
+        /// <summary>
+        /// Gets or sets the CreateAsuser.
+        /// </summary>
+        internal bool CreateAsuser { get; set; }
+
+
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EmailProcessorTemplate"/> class.
@@ -45,7 +63,12 @@
             this.EmailTemplateName = item.GetString(Constants.Fields.EmailProcessorTemplate.EmailTokenName);
             this.ItemTemplateToCreateItemFrom = item.GetDropLinkSelectedItem(Constants.Fields.EmailProcessorTemplate.Template);
             this.FolderTemplateToInsertCreatedItemIn = item.GetDropLinkSelectedItem(Constants.Fields.EmailProcessorTemplate.Folder);
+            this.AutoProcessFields = item.GetCheckBoxValue(Constants.Fields.EmailProcessorTemplate.AutoProcessTokensToFields);
+            this.CreateAsuser = item.GetCheckBoxValue(Constants.Fields.EmailProcessorTemplate.AssociateSenderToUserProfile);
+            this.NotificationTemplate =
+                item.GetDropLinkSelectedItem(Constants.Fields.EmailProcessorTemplate.NotificationTemplate);
             this.EmailTokens = EmailProcessorTemplateTokenFactory.CreateCollection(item);
+
         }
     }
 }

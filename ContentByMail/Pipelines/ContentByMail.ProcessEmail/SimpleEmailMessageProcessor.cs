@@ -11,10 +11,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Security;
 using Constants = ContentByMail.Common.Constants;
+using Sitecore.Diagnostics;
 
 namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
 {
-    using Sitecore.Diagnostics;
+   
 
     public class SimpleEmailMessageProcessor : IEmailMessageProcessor
     {
@@ -36,17 +37,22 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
 
                 string template = args.MessageTokenValues["Template"];
 
-                Item contentEmailModule = Context.ContentDatabase.GetItem(Constants.Settings.ContentByEmailModuleItem);
+                IEnumerable<EmailProcessorTemplate> emailProcessorTemplates = EmailProcessorTemplateFactory.CreateCollection();
 
-                Item emailProcessorItem = contentEmailModule.Axes.GetDescendants().FirstOrDefault(item => item.IsDerived(Constants.Templates.EmailProcessorTemplate) 
-                                                                                                         && item[Constants.Fields.EmailProcessorTemplate.EmailTokenName] == template);
+                EmailProcessorTemplate emailProcessorTemplate = emailProcessorTemplates.FirstOrDefault(emailProcessor => emailProcessor.EmailTemplateName == template);
 
-                if (emailProcessorItem != null)
+                Assert.IsNotNull(emailProcessorTemplate, String.Format("{0} processorTemplate", template));
+
+            
+
+                if (emailProcessorTemplate != null)
                 {
-                    Item parentFolder = Context.ContentDatabase.GetItem(emailProcessorItem[Constants.Fields.EmailProcessorTemplate.Folder]);
-                    TemplateID newItemTemplateId = new TemplateID(new ID(emailProcessorItem[Constants.Fields.EmailProcessorTemplate.Template]));
-                    bool createAsuser = emailProcessorItem.GetCheckBoxValue(Constants.Fields.EmailProcessorTemplate.AssociateSenderToUserProfile);
-                    bool autoProcessFields = emailProcessorItem.GetCheckBoxValue(Constants.Fields.EmailProcessorTemplate.AutoProcessTokensToFields);
+
+                    Item parentFolder = emailProcessorTemplate.FolderTemplateToInsertCreatedItemIn;
+                    TemplateID newItemTemplateId =  new TemplateID(emailProcessorTemplate.ItemTemplateToCreateItemFrom.ID);
+                    bool createAsuser = emailProcessorTemplate.CreateAsuser;
+                    bool autoProcessFields = emailProcessorTemplate.AutoProcessFields;
+
                 
                     User account = null;
 
@@ -89,9 +95,7 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
                             }
                             else
                             {
-                                EmailProcessorTemplate emailProcessorTemplate = EmailProcessorTemplateFactory.CreateCollection().FirstOrDefault();
-
-                                Assert.IsNotNull(emailProcessorTemplate, "EmailProcessorTemplate is empty");
+                               
 
                                 foreach (EmailProcessorTemplateToken token in emailProcessorTemplate.EmailTokens)
                                 {
@@ -107,11 +111,12 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
                     }
 
                     NotificationMessageFactory factory = new NotificationMessageFactory();
-                    NotificationMessage notificationMessage = factory.CreateMessage(new ID(emailProcessorItem[Constants.Fields.EmailProcessorTemplate.NotificationTemplate]));
+                    NotificationMessage notificationMessage = factory.CreateMessage(emailProcessorTemplate.NotificationTemplate.ID);
+
                     NotificationManager manager = new NotificationManager();
                     NotificationMessageType type = (missingFieldFlag.Count > 0) ? NotificationMessageType.InvalidField : NotificationMessageType.Success;
 
-                    manager.Send(args.Message.From, Constants.DefaultContentModule.DefaultMessage, type);
+                    manager.Send(args.Message.From, notificationMessage, type);
                 }
             }
             catch (Exception ex)
