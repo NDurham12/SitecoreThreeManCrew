@@ -1,10 +1,8 @@
-﻿using ContentByMail.Common;
-using ContentByMail.Common.Enumerations;
-using ContentByMail.Core.Notifications;
-using ContentByMail.Core.RequestHistory;
-
-namespace ContentByMail.Pipelines.ItemWebApiRequest
+﻿namespace ContentByMail.Pipelines.ItemWebApiRequest
 {
+    using global::ContentByMail.Common.Enumerations;
+    using global::ContentByMail.Core.Notifications;
+    using global::ContentByMail.Core.RequestHistory;
     using Newtonsoft.Json;
     using PostmarkDotNet;
     using Sitecore.Diagnostics;
@@ -43,9 +41,10 @@ namespace ContentByMail.Pipelines.ItemWebApiRequest
 
                     if (message != null)
                     {
+                        CorePipeline.Run("ContentByMail.ProcessEmail", new PostmarkMessageArgs(message));
+
                         EmailRequestHistory historyItem = new EmailRequestHistory();
                         historyItem.Add(message);
-                        CorePipeline.Run("ContentByMail.ProcessEmail", new PostmarkMessageArgs(message));
                     }
                 }
             }

@@ -8,6 +8,7 @@ namespace ContentByMail.Common
     using Sitecore.Data.Fields;
     using Sitecore.Data.Items;
     using Sitecore.Links;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -15,8 +16,6 @@ namespace ContentByMail.Common
     {
         private const string DerivedCacheKey = "{0},{1}";
         private static readonly Dictionary<string, bool> DerivedCache = new Dictionary<string, bool>();
-
-
 
         /// <summary>
         ///   Get a field value as string
@@ -26,7 +25,7 @@ namespace ContentByMail.Common
         /// <returns> </returns>
         public static string GetString(this Item item, ID fieldId)
         {
-            return item.Fields[fieldId].Value;
+            return item[fieldId];
         }
 
         /// <summary>
@@ -38,12 +37,8 @@ namespace ContentByMail.Common
         /// <returns> </returns>
         public static void SetString(this Item item, ID fieldId, string value)
         {
-            item.Fields[fieldId].Value = value;
+            item[fieldId] = value;
         }
-
-
-
-
 
         /// <summary>
         ///   Get value from a CheckboxField
@@ -67,10 +62,6 @@ namespace ContentByMail.Common
         {
             (new CheckboxField(item.Fields[fieldId])).Checked = value;
         }
-
-
-
-
 
         /// <summary>
         ///   Get selected items from a MultilistField
@@ -103,10 +94,6 @@ namespace ContentByMail.Common
         {
             var ids = items.Select(i => i.ID).Select(id => id.ToString().ToUpper());
             var s = string.Join("|", ids.ToArray());
-            item.Fields[fieldId].Value = s;
-        }
-
-
         /// <summary>
         /// Get namevaluecollection from from a NameValueList
         /// </summary>
@@ -119,6 +106,10 @@ namespace ContentByMail.Common
              return  Sitecore.Web.WebUtil.ParseUrlParameters(urlParamsToParse);
         }
 
+            item.Editing.BeginEdit();
+            item[fieldId] = s;
+            item.Editing.EndEdit();
+        }
 
         public static Item[] GetReferrersAsItems(this Item item, bool includeStandardValues = false)
         {
@@ -167,9 +158,8 @@ namespace ContentByMail.Common
         /// <returns> <c>true</c> if the specified Item is within the hierarchy of the current Site; otherwise, <c>false</c> . </returns>
         internal static bool IsStandardValuesItem(this Item item)
         {
-            return item.Name.Equals("__standard values", StringComparison.InvariantCultureIgnoreCase);
+            return item.Name.Equals(Sitecore.Constants.StandardValuesItemName, StringComparison.InvariantCultureIgnoreCase);
         }
-
 
         /// <summary>
         ///   Get selected items from a drop link

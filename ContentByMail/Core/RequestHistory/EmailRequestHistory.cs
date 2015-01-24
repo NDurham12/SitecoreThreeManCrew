@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ContentByMail.Common;
-using PostmarkDotNet;
-using Sitecore.Configuration;
-using Sitecore.Data.Items;
-using Sitecore.Data.Templates;
-using Sitecore.Diagnostics;
-using Sitecore.Security.Accounts;
-
-namespace ContentByMail.Core.RequestHistory
+﻿namespace ContentByMail.Core.RequestHistory
 {
+    using ContentByMail.Common;
+    using PostmarkDotNet;
+    using Sitecore.Configuration;
+    using Sitecore.Data;
+    using Sitecore.Data.Items;
+    using Sitecore.Diagnostics;
+    using Sitecore.Security.Accounts;
+    using System;
+
     public class EmailRequestHistory
     {
         /// <summary>
@@ -22,13 +18,13 @@ namespace ContentByMail.Core.RequestHistory
         /// <param name="fullMessage"></param>
         public void Add(PostmarkInboundMessage message)
         {
-            var masterDb = Factory.GetDatabase(Constants.Databases.Master);
-
             try
             {
+                Database masterDb = Factory.GetDatabase(Constants.Databases.Master);
+
                 if (masterDb != null)
                 {
-                    var historyBucket = masterDb.GetItem(Constants.Settings.EmailRequestHistoryItemId);
+                    Item historyBucket = masterDb.GetItem(Constants.Settings.EmailRequestHistoryItemId);
                     TemplateItem emailHistoryTemplate = masterDb.GetItem(Constants.Templates.EmailContentRequestHistory);
 
                     if (historyBucket != null && emailHistoryTemplate != null)
@@ -36,8 +32,10 @@ namespace ContentByMail.Core.RequestHistory
                         using (new UserSwitcher(Constants.Security.ServiceUser))
                         {
                             historyBucket.Editing.BeginEdit();
-                            var newItem = historyBucket.Add(ItemUtil.ProposeValidItemName(message.Subject), emailHistoryTemplate);
-                            newItem.Fields[Constants.Fields.EmailRequestHistory.Message].Value = message.ToString();
+
+                            Item newItem = historyBucket.Add(ItemUtil.ProposeValidItemName(message.Subject), emailHistoryTemplate);
+                            newItem[Constants.Fields.EmailRequestHistory.Message] = message.ToString();
+
                             historyBucket.Editing.EndEdit();
                         }                                        
                     }
