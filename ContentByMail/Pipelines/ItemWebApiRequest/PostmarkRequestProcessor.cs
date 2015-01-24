@@ -48,7 +48,9 @@
             {
                 Log.Error("Cannot process Postmark request.", ex, this);
 
-                NotificationMessage message = NotificationMessageFactory.CreateMessage(NotificationMessageType.Failure);
+                NotificationMessageFactory factory = new NotificationMessageFactory();
+
+                NotificationMessage message = factory.CreateMessage(NotificationMessageType.Failure);
                 NotificationManager manager = new NotificationManager();
 
                 manager.Send(message);

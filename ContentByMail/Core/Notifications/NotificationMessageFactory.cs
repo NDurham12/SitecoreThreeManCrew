@@ -13,7 +13,7 @@
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns>The message object.</returns>
-        internal static NotificationMessage CreateMessage(NotificationMessageType type)
+        internal NotificationMessage CreateMessage(NotificationMessageType type)
         {
             NotificationMessage message = null;
 
@@ -32,7 +32,7 @@
             return message;
         }
 
-        private static NotificationMessage CreateMessage(ID itemId)
+        private NotificationMessage CreateMessage(ID itemId)
         {
             NotificationMessage message = null;
             Item item = Factory.GetDatabase(Constants.Databases.Web).GetItem(itemId);
