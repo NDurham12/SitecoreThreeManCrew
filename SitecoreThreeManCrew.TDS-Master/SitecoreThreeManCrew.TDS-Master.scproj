@@ -349,15 +349,15 @@
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Modules\ContentMailManager\Notification Message\SucessDetail.item">
+    <SitecoreItem Include="sitecore\templates\Modules\ContentMailManager\Notification Message\SuccessDetail.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Modules\ContentMailManager\Notification Message\SucessDetail\SucessBody.item">
+    <SitecoreItem Include="sitecore\templates\Modules\ContentMailManager\Notification Message\SuccessDetail\SuccessBody.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Modules\ContentMailManager\Notification Message\SucessDetail\SucessSubject.item">
+    <SitecoreItem Include="sitecore\templates\Modules\ContentMailManager\Notification Message\SuccessDetail\SuccessSubject.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>

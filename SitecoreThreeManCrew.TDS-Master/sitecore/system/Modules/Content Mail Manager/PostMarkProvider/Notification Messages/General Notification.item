@@ -23,8 +23,8 @@ content-length: 23
 noreply@ThreManCrew.net
 ----field----
 field: {B68F12EE-DAA8-48C4-8F87-3CB5BF153823}
-name: SucessBody
-key: sucessbody
+name: SuccessBody
+key: successbody
 content-length: 142
 
 <p>Congrats! We have received your email and processed your message with [subject].</p>
@@ -34,8 +34,8 @@ content-length: 142
 <p>TheThreeManCrew!</p>
 ----field----
 field: {7257D4F6-F68D-4309-A136-DD9292B350F5}
-name: SucessSubject
-key: sucesssubject
+name: SuccessSubject
+key: successsubject
 content-length: 36
 
 Email Content Imported Successfully 
