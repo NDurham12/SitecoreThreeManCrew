@@ -25,6 +25,7 @@
         /// <param name="notificationMessageType"></param>
         internal void Send(string to, NotificationMessage message, NotificationMessageType notificationMessageType)
         {
+            Assert.ArgumentNotNullOrEmpty(to, "to");
             Assert.ArgumentNotNull(message, "message");
             Assert.ArgumentNotNull(notificationMessageType, "notificationMessageType");
 

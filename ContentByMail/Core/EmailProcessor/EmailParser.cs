@@ -1,15 +1,16 @@
-﻿using PostmarkDotNet;
-using Sitecore.Diagnostics;
-using Sitecore.Extensions.StringExtensions;
-using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-
-namespace ContentByMail.Common
+﻿namespace ContentByMail.Core.EmailProcessor
 {
-    public class EmailParser
+    using ContentByMail.Common;
+    using PostmarkDotNet;
+    using Sitecore.Diagnostics;
+    using Sitecore.Extensions.StringExtensions;
+    using System;
+    using System.Collections.Generic;
+    using System.Text.RegularExpressions;
+
+    internal class EmailParser
     {
-        public static Dictionary<string, string> ParseTokens(PostmarkInboundMessage inboundMessage)
+        internal static Dictionary<string, string> ParseTokens(PostmarkInboundMessage inboundMessage)
         {
             Dictionary<string, string> listOfTokens = new Dictionary<string, string>();
 
