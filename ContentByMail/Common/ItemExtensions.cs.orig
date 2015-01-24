@@ -1,4 +1,8 @@
-﻿
+﻿using System;
+<<<<<<< HEAD
+using System.Collections.Specialized;
+=======
+>>>>>>> 625f508a62f0e61988258aab650a47d8d297ed80
 
 namespace ContentByMail.Common
 {
@@ -7,11 +11,12 @@ namespace ContentByMail.Common
     using Sitecore.Data.Fields;
     using Sitecore.Data.Items;
     using Sitecore.Links;
+<<<<<<< HEAD
+=======
     using System;
+>>>>>>> 625f508a62f0e61988258aab650a47d8d297ed80
     using System.Collections.Generic;
     using System.Linq;
-    using System;
-    using System.Collections.Specialized;
 
     internal static class ItemExtensions
     {
@@ -95,10 +100,10 @@ namespace ContentByMail.Common
         {
             var ids = items.Select(i => i.ID).Select(id => id.ToString().ToUpper());
             var s = string.Join("|", ids.ToArray());
-            item.Editing.BeginEdit();
-            item[fieldId] = s;
-            item.Editing.EndEdit();
+<<<<<<< HEAD
+            item.Fields[fieldId].Value = s;
         }
+
 
         /// <summary>
         /// Get namevaluecollection from from a NameValueList
@@ -110,6 +115,13 @@ namespace ContentByMail.Common
         {
              string urlParamsToParse = item[fieldId];
              return  Sitecore.Web.WebUtil.ParseUrlParameters(urlParamsToParse);
+        }
+=======
+>>>>>>> 625f508a62f0e61988258aab650a47d8d297ed80
+
+            item.Editing.BeginEdit();
+            item[fieldId] = s;
+            item.Editing.EndEdit();
         }
 
         public static Item[] GetReferrersAsItems(this Item item, bool includeStandardValues = false)
