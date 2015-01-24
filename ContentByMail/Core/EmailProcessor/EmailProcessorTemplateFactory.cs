@@ -1,12 +1,11 @@
-﻿
-
-namespace ContentByMail.Core.EmailProcessor
+﻿namespace ContentByMail.Core.EmailProcessor
 {
     using ContentByMail.Common;
     using Sitecore.Configuration;
     using Sitecore.Data;
     using Sitecore.Data.Items;
     using Sitecore.Diagnostics;
+    using System.Collections.Generic;
     using System.Linq;
 
     internal class EmailProcessorTemplateFactory
@@ -36,13 +35,11 @@ namespace ContentByMail.Core.EmailProcessor
             return items.Select(Create);
         }
 
-
         /// <summary>
         /// Creates a collection of EmailProcessorTemplates.
         /// </summary>
         internal static IEnumerable<EmailProcessorTemplate> CreateCollection()
         {
-
             Item emailProcessorTemplatesFolderTemplate = DatabaseService.ActiveDatabase.GetItem(Constants.Templates.EmailProcessorTemplatesFolder);
 
             Assert.IsNotNull(emailProcessorTemplatesFolderTemplate, "EmailProcessorTemplatesFolderTemplate is missing");

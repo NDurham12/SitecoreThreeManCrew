@@ -1,10 +1,11 @@
 ﻿namespace ContentByMail.Common
 {
-using Sitecore;
+    using Sitecore;
     using Sitecore.Data;
     using Sitecore.Data.Fields;
     using Sitecore.Data.Items;
-using Sitecore.Links;
+    using Sitecore.Links;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -12,8 +13,6 @@ using Sitecore.Links;
     {
         private const string DerivedCacheKey = "{0},{1}";
         private static readonly Dictionary<string, bool> DerivedCache = new Dictionary<string, bool>();
-
-
 
         /// <summary>
         ///   Get a field value as string
@@ -38,10 +37,6 @@ using Sitecore.Links;
             item[fieldId] = value;
         }
 
-
-
-
-
         /// <summary>
         ///   Get value from a CheckboxField
         /// </summary>
@@ -64,10 +59,6 @@ using Sitecore.Links;
         {
             (new CheckboxField(item.Fields[fieldId])).Checked = value;
         }
-
-
-
-
 
         /// <summary>
         ///   Get selected items from a MultilistField
@@ -101,18 +92,14 @@ using Sitecore.Links;
             var ids = items.Select(i => i.ID).Select(id => id.ToString().ToUpper());
             var s = string.Join("|", ids.ToArray());
 
-<<<<<<< HEAD
             item.Editing.BeginEdit();
             item[fieldId] = s;
             item.Editing.EndEdit();
         }
-=======
->>>>>>> 785ac4c4d65e9b3d280a93fd323fd499bf52dc18
-
 
         public static Item[] GetReferrersAsItems(this Item item, bool includeStandardValues = false)
         {
-          
+
             ItemLink[] referrers = Globals.LinkDatabase.GetReferrers(item);
             if (referrers != null)
                 return ItemExtensions.GetLinkedTargetItems((IEnumerable<ItemLink>)referrers, includeStandardValues);
@@ -157,9 +144,8 @@ using Sitecore.Links;
         /// <returns> <c>true</c> if the specified Item is within the hierarchy of the current Site; otherwise, <c>false</c> . </returns>
         internal static bool IsStandardValuesItem(this Item item)
         {
-            return item.Name.Equals("__standard values", StringComparison.InvariantCultureIgnoreCase);
+            return item.Name.Equals(Sitecore.Constants.StandardValuesItemName, StringComparison.InvariantCultureIgnoreCase);
         }
-
 
         /// <summary>
         ///   Get selected items from a drop link

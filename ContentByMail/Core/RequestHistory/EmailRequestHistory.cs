@@ -32,13 +32,10 @@
                         using (new UserSwitcher(Constants.Security.ServiceUser))
                         {
                             historyBucket.Editing.BeginEdit();
-<<<<<<< HEAD
+
                             Item newItem = historyBucket.Add(ItemUtil.ProposeValidItemName(message.Subject), emailHistoryTemplate);
                             newItem[Constants.Fields.EmailRequestHistory.Message] = message.ToString();
-=======
-                            var newItem = historyBucket.Add(ItemUtil.ProposeValidItemName(message.Subject), emailHistoryTemplate);
-                            newItem.Fields[Constants.Fields.EmailRequestHistory.Message].Value = message.ToString();
->>>>>>> 785ac4c4d65e9b3d280a93fd323fd499bf52dc18
+
                             historyBucket.Editing.EndEdit();
                         }                                        
                     }
