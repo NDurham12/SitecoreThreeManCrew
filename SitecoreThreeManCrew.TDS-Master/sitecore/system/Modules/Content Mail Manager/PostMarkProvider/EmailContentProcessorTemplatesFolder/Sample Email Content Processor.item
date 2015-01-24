@@ -43,13 +43,6 @@ content-length: 38
 
 {A58441A6-B318-4C24-9BF7-F1AF30A9D13A}
 ----field----
-field: {BEAADB4B-4581-466C-9CE0-3B8467DBE9C9}
-name: EmailProcessorType
-key: emailprocessortype
-content-length: 93
-
-ContentByMail.Pipelines.ContentByMail.ProcessEmail.SimpleEmailMessageProcessor, ContentByMail
-----field----
 field: {1C41D4DB-63E7-456C-BEC8-256F59FF05A0}
 name: Attachments Import Folder
 key: attachments import folder
