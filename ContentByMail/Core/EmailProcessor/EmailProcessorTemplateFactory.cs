@@ -1,5 +1,4 @@
 ﻿
-
 namespace ContentByMail.Core.EmailProcessor
 {
     using ContentByMail.Common;
@@ -8,6 +7,7 @@ namespace ContentByMail.Core.EmailProcessor
     using Sitecore.Data.Items;
     using Sitecore.Diagnostics;
     using System.Linq;
+    using System.Collections.Generic;
 
     internal class EmailProcessorTemplateFactory
     {

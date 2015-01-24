@@ -1,37 +1,32 @@
-﻿namespace ContentByMail.Core.EmailProcessor
+﻿using System.Collections.Specialized;
+using ContentByMail.Common;
+using Sitecore.Data.Items;
+
+namespace ContentByMail.Core.EmailProcessor
 {
-    using ContentByMail.Common;
-    using Sitecore.Configuration;
-    using Sitecore.Data;
-    using Sitecore.Data.Items;
+
     using System.Collections.Generic;
     using System.Linq;
 
     internal class EmailProcessorTemplateTokenFactory
     {
         /// <summary>
-        /// Creates the EmailProcessorTemplateToken.
+        /// Creates a EmailProcessorTemplateToken.
         /// </summary>
-        internal static EmailProcessorTemplateToken Create(ID itemId)
+        internal static EmailProcessorTemplateToken Create(KeyValuePair<string,string> keyValue )
         {
-            Item item = Factory.GetDatabase(Constants.Databases.Web).GetItem(itemId);
-            return Create(item);
-        }
-
-        /// <summary>
-        /// Creates the EmailProcessorTemplateToken.
-        /// </summary>
-        internal static EmailProcessorTemplateToken Create(Item item)
-        {
-            return new EmailProcessorTemplateToken(item);
+            return new EmailProcessorTemplateToken(keyValue);
         }
 
         /// <summary>
         /// Creates a collection of EmailProcessorTemplateTokens.
         /// </summary>
-        internal static IEnumerable<EmailProcessorTemplateToken> CreateCollection(IEnumerable<Item> items)
+        internal static IEnumerable<EmailProcessorTemplateToken> CreateCollection(Item item)
         {
-            return items.Select(Create);
+
+            NameValueCollection nameValueCollection = item.GetNameValueList(Constants.Fields.EmailProcessorTemplate.TokenToFieldList);
+
+            return from KeyValuePair<string, string> key in nameValueCollection select Create(key);
         }
     }
 }

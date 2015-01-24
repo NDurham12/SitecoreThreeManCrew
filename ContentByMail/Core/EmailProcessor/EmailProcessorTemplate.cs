@@ -17,40 +17,42 @@ namespace ContentByMail.Core.EmailProcessor
         /// <summary>
         /// Gets or sets the Name.
         /// </summary>
-            internal string EmailTemplateName { get; set; }
-
-        
-            internal Item ItemTemplateToCreateItemFrom { get; set; }
+        internal string EmailTemplateName { get; set; }
 
 
-            internal Item FolderTemplateToInsertCreatedItemIn { get; set; }
+        internal Item ItemTemplateToCreateItemFrom { get; set; }
 
-         
+
+        internal Item FolderTemplateToInsertCreatedItemIn { get; set; }
+
+
+
         /// <summary>
         /// Gets or sets the EmailTokens.
         /// </summary>
         internal IEnumerable<EmailProcessorTemplateToken> EmailTokens { get; set; }
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EmailProcessorTemplate"/> class.
         /// </summary>
         /// <param name="item">The template.</param>
         internal EmailProcessorTemplate(Item item)
-            {
-                Assert.ArgumentNotNull(item, "EmailProcessorTemplate item is null");
+        {
+            Assert.ArgumentNotNull(item, "EmailProcessorTemplate item is null");
 
-                Assert.IsTrue(item.IsDerived(Constants.Templates.EmailProcessorTemplate), "EmailProcessorTemplate derives from wrong template");
+            Assert.IsTrue(item.IsDerived(Constants.Templates.EmailProcessorTemplate), "EmailProcessorTemplate derives from wrong template");
 
-                Id = item.ID.ToString();
+            Id = item.ID.ToString();
 
-                EmailTemplateName = item.GetString(Constants.Fields.EmailProcessorTemplate.EmailTokenName);
+            EmailTemplateName = item.GetString(Constants.Fields.EmailProcessorTemplate.EmailTokenName);
 
-                ItemTemplateToCreateItemFrom = item.GetDropLinkSelectedItem(Constants.Fields.EmailProcessorTemplate.Template);
+            ItemTemplateToCreateItemFrom = item.GetDropLinkSelectedItem(Constants.Fields.EmailProcessorTemplate.Template);
 
-                FolderTemplateToInsertCreatedItemIn = item.GetDropLinkSelectedItem(Constants.Fields.EmailProcessorTemplate.Folder);
+            FolderTemplateToInsertCreatedItemIn = item.GetDropLinkSelectedItem(Constants.Fields.EmailProcessorTemplate.Folder);
 
-                EmailTokens = EmailProcessorTemplateTokenFactory.CreateCollection(item.GetMultiListValues(Constants.Fields.EmailProcessorTemplate.EmailProcessorTemplateTokenList));
+            EmailTokens = EmailProcessorTemplateTokenFactory.CreateCollection(item);
 
-            }
+        }
     }
 }

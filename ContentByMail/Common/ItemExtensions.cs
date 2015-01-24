@@ -1,10 +1,13 @@
-﻿namespace ContentByMail.Common
+﻿using System;
+using System.Collections.Specialized;
+
+namespace ContentByMail.Common
 {
-using Sitecore;
+    using Sitecore;
     using Sitecore.Data;
     using Sitecore.Data.Fields;
     using Sitecore.Data.Items;
-using Sitecore.Links;
+    using Sitecore.Links;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -104,11 +107,22 @@ using Sitecore.Links;
         }
 
 
+        /// <summary>
+        /// Get namevaluecollection from from a NameValueList
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="fieldId"></param>
+        /// <returns></returns>
+        public static NameValueCollection GetNameValueList(this Item item, ID fieldId)
+        {
+             string urlParamsToParse = item[fieldId];
+             return  Sitecore.Web.WebUtil.ParseUrlParameters(urlParamsToParse);
+        }
 
 
         public static Item[] GetReferrersAsItems(this Item item, bool includeStandardValues = false)
         {
-          
+
             ItemLink[] referrers = Globals.LinkDatabase.GetReferrers(item);
             if (referrers != null)
                 return ItemExtensions.GetLinkedTargetItems((IEnumerable<ItemLink>)referrers, includeStandardValues);
