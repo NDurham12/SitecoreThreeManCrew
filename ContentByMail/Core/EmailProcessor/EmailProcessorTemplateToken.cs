@@ -1,7 +1,12 @@
 ﻿namespace ContentByMail.Core.EmailProcessor
 {
+<<<<<<< HEAD
     using ContentByMail.Common;
     using ContentByMail.Core.Notifications;
+=======
+
+    using ContentByMail.Common;
+>>>>>>> 1add5dcc08bc83a429eaa24e19e9667b5820438b
     using Sitecore.Data.Items;
     using Sitecore.Diagnostics;
 
