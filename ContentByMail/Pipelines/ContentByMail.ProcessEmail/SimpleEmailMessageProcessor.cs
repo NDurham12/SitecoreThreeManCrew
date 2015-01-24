@@ -18,6 +18,11 @@
             Assert.ArgumentNotNull(args, "args");
             Assert.IsNotNull(args.Message, "args.Message");
 
+            if (!args.MessageTokenValues.ContainsKey("Template"))
+            {
+                //send notification 
+            }
+
             Log.Info("In SimpleEmailMessageProcessor", this);
         }
     }

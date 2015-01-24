@@ -3,6 +3,8 @@
     internal enum NotificationMessageType
     {
         Success,
-        Failure
+        Failure,
+        InvalidTemplate,
+        InvalidField
     }
 }

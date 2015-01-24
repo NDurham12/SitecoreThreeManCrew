@@ -4,12 +4,8 @@
     using Sitecore.Data.Items;
     using Sitecore.Diagnostics;
 
-    internal class NotificationMessage
-    {
-        /// <summary>
-        /// Gets or sets the recipient.
-        /// </summary>
-        internal string Recipient { get; set; }
+    public class NotificationMessage
+    {        
 
         /// <summary>
         /// Gets or sets the sender.
@@ -19,7 +15,17 @@
         /// <summary>
         /// Gets or sets the subject.
         /// </summary>
-        internal string Subject { get; set; }
+        internal string SuccessBody { get; set; }
+        internal string SuccessSubject { get; set; }
+
+        internal string InvalidTemplateBody { get; set; }
+        internal string InvalidTemplateSubject { get; set; }
+
+        internal string InvalidFieldBody { get; set; }
+        internal string InvalidFieldSubject { get; set; }
+
+        internal string GenericFailureBody { get; set; }
+        internal string GenericFailureSubject { get; set; }
 
         /// <summary>
         /// Gets or sets the body.
@@ -35,8 +41,17 @@
             Assert.ArgumentNotNull(template, "template");
 
             this.Sender = template[Constants.Fields.Notification.Sender];
-            this.Subject = template[Constants.Fields.Notification.Subject];
-            this.Body = template[Constants.Fields.Notification.Body];
+            this.SuccessSubject = template[Constants.Fields.Notification.SucessSubject];
+            this.SuccessBody = template[Constants.Fields.Notification.SucessBody];
+
+            this.InvalidTemplateSubject = template[Constants.Fields.Notification.InvalidTemplateSubject];
+            this.InvalidTemplateBody = template[Constants.Fields.Notification.InvalidTemplateBody];
+
+            this.InvalidFieldSubject = template[Constants.Fields.Notification.InvalidFieldTokenSubject];
+            this.InvalidFieldBody = template[Constants.Fields.Notification.InvalidFieldTokenBody];
+
+            this.GenericFailureSubject = template[Constants.Fields.Notification.GenericFailureNotificationSubject];
+            this.GenericFailureBody = template[Constants.Fields.Notification.GenericFailureNotificationBody];
         }
     }
 }

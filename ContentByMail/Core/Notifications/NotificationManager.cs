@@ -1,4 +1,7 @@
-﻿namespace ContentByMail.Core.Notifications
+﻿using ContentByMail.Common.Enumerations;
+using Sitecore.Search.Queries;
+
+namespace ContentByMail.Core.Notifications
 {
     using ContentByMail.Common;
     using Sitecore.Configuration;
@@ -20,29 +23,46 @@
         /// <summary>
         /// Sends the specified message.
         /// </summary>
+        /// <param name="to"></param>
         /// <param name="message">The message.</param>
-        internal void Send(NotificationMessage message)
+        /// <param name="notificationMessageType"></param>
+        internal void Send(string to, NotificationMessage message, NotificationMessageType notificationMessageType)
         {
             Assert.ArgumentNotNull(message, "message");
 
             try
             {
-                if(String.IsNullOrEmpty(message.Recipient))
-                {
-                    Item mailmanager = Factory.GetDatabase(Constants.Databases.Web).GetItem(Constants.Items.ContentMailManager);
-
-                    if(mailmanager != null)
-                    {
-                        message.Recipient = mailmanager[Constants.Fields.MailManager.FallbackNotificationAddress];
-                    }
-                }
+                if (String.IsNullOrEmpty(to))
+                    to = Constants.DefaultContentModule.FallBackAddress;                                                       
 
                 using (SmtpClient client = new SmtpClient(Settings.MailServer, Settings.MailServerPort))
                 {
                     client.Credentials = new NetworkCredential(Settings.MailServerUserName, Settings.MailServerPassword);
                     client.DeliveryMethod = SmtpDeliveryMethod.Network;
 
-                    MailMessage mail = new MailMessage(message.Sender, message.Recipient, message.Subject, message.Body)
+                    string subject, body;
+
+                    switch (notificationMessageType)
+                    {
+                        case NotificationMessageType.Success:
+                            subject = message.SuccessSubject;
+                            body = message.SuccessBody;
+                            break;                          
+                        case NotificationMessageType.InvalidTemplate:
+                            subject = message.InvalidTemplateSubject;
+                            body = message.InvalidTemplateBody;
+                            break;
+                        case NotificationMessageType.InvalidField:
+                            subject = message.InvalidFieldSubject;
+                            body = message.InvalidFieldBody;
+                            break;
+                        default:
+                             subject = message.GenericFailureSubject;
+                            body = message.GenericFailureBody;
+                            break;
+                    }
+
+                    MailMessage mail = new MailMessage(message.Sender, to, subject, body)
                     {
                         BodyEncoding = Encoding.UTF8,
                         SubjectEncoding = Encoding.UTF8,
@@ -62,13 +82,16 @@
         /// Sends the specified messages.
         /// </summary>
         /// <param name="messages">The messages.</param>
-        internal void Send(IEnumerable<NotificationMessage> messages)
+        /// <param name="to"></param>
+        /// <param name="message"></param>
+        /// <param name="notificationMessageTypes"></param>
+        internal void Send(string to, NotificationMessage message, IEnumerable<NotificationMessageType> notificationMessageTypes)
         {
-            Assert.ArgumentNotNull(messages, "messages");
+            Assert.ArgumentNotNull(notificationMessageTypes, "Notification Types");
 
-            foreach (NotificationMessage message in messages)
+            foreach (var errorTypes in notificationMessageTypes)
             {
-                this.Send(message);
+                this.Send(to, message, errorTypes);
             }
         }
     }

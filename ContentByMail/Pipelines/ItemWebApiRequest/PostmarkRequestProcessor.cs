@@ -1,4 +1,6 @@
-﻿namespace ContentByMail.Pipelines.ItemWebApiRequest
+﻿using ContentByMail.Common;
+
+namespace ContentByMail.Pipelines.ItemWebApiRequest
 {
     using global::ContentByMail.Common.Enumerations;
     using global::ContentByMail.Core.Notifications;
@@ -49,13 +51,9 @@
             catch (Exception ex)
             {
                 Log.Error("Cannot process Postmark request.", ex, this);
-
-                NotificationMessageFactory factory = new NotificationMessageFactory();
-
-                NotificationMessage message = factory.CreateMessage(NotificationMessageType.Failure);
+                
                 NotificationManager manager = new NotificationManager();
-
-                manager.Send(message);
+                manager.Send(Constants.DefaultContentModule.FallBackAddress, Constants.DefaultContentModule.DefaulMessage, NotificationMessageType.Failure);
             }
         }
     }
