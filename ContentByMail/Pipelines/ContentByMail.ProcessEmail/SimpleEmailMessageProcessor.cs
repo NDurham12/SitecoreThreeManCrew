@@ -116,7 +116,7 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
                     NotificationManager manager = new NotificationManager();
                     NotificationMessageType type = (missingFieldFlag.Count > 0) ? NotificationMessageType.InvalidField : NotificationMessageType.Success;
 
-                    manager.Send(args.Message.From, Constants.DefaultContentModule.DefaultMessage, type);
+                    manager.Send(args.Message.From, notificationMessage, type);
                 }
             }
             catch (Exception ex)
