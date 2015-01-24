@@ -1,7 +1,10 @@
-﻿namespace ContentByMail.Pipelines.ItemWebApiRequest
+﻿using ContentByMail.Common;
+using ContentByMail.Common.Enumerations;
+using ContentByMail.Core.Notifications;
+using ContentByMail.Core.RequestHistory;
+
+namespace ContentByMail.Pipelines.ItemWebApiRequest
 {
-    using global::ContentByMail.Common.Enumerations;
-    using global::ContentByMail.Core.Notifications;
     using Newtonsoft.Json;
     using PostmarkDotNet;
     using Sitecore.Diagnostics;
@@ -40,6 +43,8 @@
 
                     if (message != null)
                     {
+                        EmailRequestHistory historyItem = new EmailRequestHistory();
+                        historyItem.Add(message);
                         CorePipeline.Run("ContentByMail.ProcessEmail", new PostmarkMessageArgs(message));
                     }
                 }
