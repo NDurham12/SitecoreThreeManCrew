@@ -12,7 +12,7 @@ templatekey: Notification Message
 ----version----
 language: en
 version: 1
-revision: 322e021f-6de4-44f3-b619-1ecf793d8af4
+revision: 7645697d-531f-4762-97b2-0da14ba506db
 
 ----field----
 field: {365BF877-94F8-49AB-BD20-2C64208A5911}
@@ -23,8 +23,8 @@ content-length: 23
 noreply@ThreManCrew.net
 ----field----
 field: {B68F12EE-DAA8-48C4-8F87-3CB5BF153823}
-name: SucessBody
-key: sucessbody
+name: SuccessBody
+key: successbody
 content-length: 142
 
 <p>Congrats! We have received your email and processed your message with [subject].</p>
@@ -34,8 +34,8 @@ content-length: 142
 <p>TheThreeManCrew!</p>
 ----field----
 field: {7257D4F6-F68D-4309-A136-DD9292B350F5}
-name: SucessSubject
-key: sucesssubject
+name: SuccessSubject
+key: successsubject
 content-length: 36
 
 Email Content Imported Successfully 
@@ -95,6 +95,13 @@ content-length: 159
 <p>Thanks, </p>
 <p>The ThreeManCrew</p>
 ----field----
+field: {B5E02AD9-D56F-4C41-A065-A133DB87BDEB}
+name: __Display name
+key: __display name
+content-length: 20
+
+General Notification
+----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
 name: __Created
 key: __created
@@ -107,14 +114,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-322e021f-6de4-44f3-b619-1ecf793d8af4
+7645697d-531f-4762-97b2-0da14ba506db
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 35
 
-20150124T194646:635577256067712428Z
+20150124T225109:635577366691375054Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
