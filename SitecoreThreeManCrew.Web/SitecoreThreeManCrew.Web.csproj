@@ -20,12 +20,9 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-<<<<<<< HEAD
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <TargetFrameworkProfile />
-=======
->>>>>>> 2fb94cb1be996287e69af094e259af1e87ebea68
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -168,11 +165,9 @@
     <Content Include="App_Config\Include\ApplicationStart.config" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Content Include="..\ContentByMail\App_Config\Include\ContentByMail\ContentByMail.config">
       <Link>App_Config\Include\ContentByMail\ContentByMail.config</Link>
     </Content>
-=======
     <Content Include="App_Config\Include\zzDeveloper.config" />
     <Content Include="App_Config\Include\Sitecore.config" />
     <Content Include="Assets\reveal.js\css\reveal.scss" />
@@ -209,7 +204,6 @@
     <Content Include="Assets\reveal.js\lib\font\source-sans-pro\source-sans-pro-semibolditalic.ttf" />
     <Content Include="Assets\reveal.js\lib\font\source-sans-pro\source-sans-pro-semibolditalic.woff" />
     <None Include="Properties\PublishProfiles\LaunchSC8_MVCDebug.pubxml" />
->>>>>>> 2fb94cb1be996287e69af094e259af1e87ebea68
     <None Include="Properties\PublishProfiles\SitecoreThreeManCrew.pubxml" />
   </ItemGroup>
   <ItemGroup>
@@ -246,6 +240,13 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
