@@ -1,4 +1,7 @@
-﻿namespace ContentByMail.Pipelines
+﻿using System.Collections.Generic;
+using ContentByMail.Core.EmailProcessor;
+
+namespace ContentByMail.Pipelines
 {
     using PostmarkDotNet;
     using Sitecore.Pipelines;
@@ -16,6 +19,9 @@
         /// <param name="message">The message.</param>
         public PostmarkMessageArgs(PostmarkInboundMessage message)
         {
+            IEnumerable<EmailProcessorTemplate> emailtemplates = EmailProcessorTemplateFactory.CreateCollection();
+
+
             this.Message = message;
         }
     }

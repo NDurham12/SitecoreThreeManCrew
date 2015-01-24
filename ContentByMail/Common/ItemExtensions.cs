@@ -1,9 +1,10 @@
 ﻿namespace ContentByMail.Common
 {
+using Sitecore;
     using Sitecore.Data;
     using Sitecore.Data.Fields;
     using Sitecore.Data.Items;
-    using System;
+using Sitecore.Links;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -12,7 +13,7 @@
         private const string DerivedCacheKey = "{0},{1}";
         private static readonly Dictionary<string, bool> DerivedCache = new Dictionary<string, bool>();
 
-        #region Strings
+
 
         /// <summary>
         ///   Get a field value as string
@@ -37,9 +38,36 @@
             item[fieldId] = value;
         }
 
-        #endregion
 
-        #region Lists
+
+
+
+        /// <summary>
+        ///   Get value from a CheckboxField
+        /// </summary>
+        /// <param name="item"> </param>
+        /// <param name="fieldId"> </param>
+        /// <returns> </returns>
+        public static bool GetCheckBoxValue(this Item item, ID fieldId)
+        {
+            return (new CheckboxField(item.Fields[fieldId])).Checked;
+        }
+
+        /// <summary>
+        ///   Set value of a CheckboxField
+        /// </summary>
+        /// <param name="item"> </param>
+        /// <param name="fieldId"> </param>
+        /// <param name="value"> </param>
+        /// <returns> </returns>
+        public static void SetCheckBoxValue(this Item item, ID fieldId, bool value)
+        {
+            (new CheckboxField(item.Fields[fieldId])).Checked = value;
+        }
+
+
+
+
 
         /// <summary>
         ///   Get selected items from a MultilistField
@@ -73,14 +101,32 @@
             var ids = items.Select(i => i.ID).Select(id => id.ToString().ToUpper());
             var s = string.Join("|", ids.ToArray());
 
+<<<<<<< HEAD
             item.Editing.BeginEdit();
             item[fieldId] = s;
             item.Editing.EndEdit();
         }
+=======
+>>>>>>> 785ac4c4d65e9b3d280a93fd323fd499bf52dc18
 
-        #endregion
 
-        #region Template inheritance
+        public static Item[] GetReferrersAsItems(this Item item, bool includeStandardValues = false)
+        {
+          
+            ItemLink[] referrers = Globals.LinkDatabase.GetReferrers(item);
+            if (referrers != null)
+                return ItemExtensions.GetLinkedTargetItems((IEnumerable<ItemLink>)referrers, includeStandardValues);
+            return new Item[0];
+        }
+
+        private static Item[] GetLinkedTargetItems(IEnumerable<ItemLink> links, bool includeStandardValues)
+        {
+            IEnumerable<Item> source = Enumerable.Where<Item>(Enumerable.Select<ItemLink, Item>(links, (Func<ItemLink, Item>)(i => i.GetSourceItem())), (Func<Item, bool>)(i => i != null));
+            if (!includeStandardValues)
+                source = Enumerable.Where<Item>(source, (Func<Item, bool>)(i => !ItemExtensions.IsStandardValuesItem(i)));
+            return Enumerable.ToArray<Item>(source);
+        }
+
 
         /// <summary>
         ///   Determines whether the specified Item is derived from the specified TemplateItem.
@@ -115,7 +161,27 @@
         }
 
 
-        #endregion
+        /// <summary>
+        ///   Get selected items from a drop link
+        /// </summary>
+        /// <param name="item"> </param>
+        /// <param name="fieldId"> </param>
+        public static Item GetDropLinkSelectedItem(this Item item, ID fieldId)
+        {
+            var linkedItem = (new InternalLinkField(item.Fields[fieldId])).TargetItem;
+            return linkedItem;
+        }
+
+        /// <summary>
+        ///   Set selected item on a droplink field
+        /// </summary>
+        /// <param name="item"> </param>
+        /// <param name="fieldId"> </param>
+        /// <param name="linkedItem"> </param>
+        public static void SetDropLink(this Item item, ID fieldId, Item linkedItem)
+        {
+            (new InternalLinkField(item.Fields[fieldId])).Value = linkedItem.ID.ToString();
+        }
 
         private static bool IsDerived(ID templateId, TemplateItem template)
         {

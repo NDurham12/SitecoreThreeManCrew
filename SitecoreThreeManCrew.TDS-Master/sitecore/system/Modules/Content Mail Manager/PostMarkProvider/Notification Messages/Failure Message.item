@@ -2,7 +2,7 @@
 version: 1
 id: {A58441A6-B318-4C24-9BF7-F1AF30A9D13A}
 database: master
-path: /sitecore/system/Modules/Content Mail Manager/Notification Messages/Failure Message
+path: /sitecore/system/Modules/Content Mail Manager/PostMarkProvider/Notification Messages/Failure Message
 parent: {9C760319-EAB5-40B6-9219-C9CF69B288FA}
 name: Failure Message
 master: {00000000-0000-0000-0000-000000000000}
