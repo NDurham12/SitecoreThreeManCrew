@@ -15,7 +15,7 @@ using Sitecore.Diagnostics;
 
 namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
 {
-   
+
 
     public class SimpleEmailMessageProcessor : IEmailMessageProcessor
     {
@@ -43,85 +43,97 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
 
                 Assert.IsNotNull(emailProcessorTemplate, String.Format("{0} processorTemplate", template));
 
-            
 
-                if (emailProcessorTemplate != null)
+                if (emailProcessorTemplate == null)
+                    return;
+
+                Item parentFolder = emailProcessorTemplate.FolderTemplateToInsertCreatedItemIn;
+                TemplateID newItemTemplateId = new TemplateID(emailProcessorTemplate.ItemTemplateToCreateItemFrom.ID);
+                bool createAsuser = emailProcessorTemplate.CreateAsuser;
+                bool autoProcessFields = emailProcessorTemplate.AutoProcessFields;
+
+
+                User account = null;
+
+                List<string> missingFieldFlag = new List<string>();
+
+                if (parentFolder == null)
+                    return;
+
+
+                if (createAsuser)
                 {
+                    string username = Membership.GetUserNameByEmail(args.Message.From);
 
-                    Item parentFolder = emailProcessorTemplate.FolderTemplateToInsertCreatedItemIn;
-                    TemplateID newItemTemplateId =  new TemplateID(emailProcessorTemplate.ItemTemplateToCreateItemFrom.ID);
-                    bool createAsuser = emailProcessorTemplate.CreateAsuser;
-                    bool autoProcessFields = emailProcessorTemplate.AutoProcessFields;
-
-                
-                    User account = null;
-
-                    List<string> missingFieldFlag = new List<string>();
-                   
-                    if (parentFolder != null)
+                    if (!String.IsNullOrEmpty(username) && User.Exists(username))
                     {
-                        if (createAsuser)
-                        {
-                            string username = Membership.GetUserNameByEmail(args.Message.From);
-                            
-                            if (!String.IsNullOrEmpty(username) && User.Exists(username))
-                            {
-                                account = User.FromName(username, true);
-                            }
-                            else
-                            {
-                                account = Constants.Security.ServiceUser;
-                            }
-                        }
-
-                        using (new UserSwitcher(account))
-                        {
-                            parentFolder.Editing.BeginEdit();
-
-                            Item newItem = parentFolder.Add(ItemUtil.ProposeValidItemName(args.Message.Subject), newItemTemplateId);
-
-                            if (autoProcessFields)
-                            {
-                                foreach (var messageTokenValue in args.MessageTokenValues)
-                                {
-                                    if (newItem.Fields[messageTokenValue.Key] == null)
-                                    {
-                                        missingFieldFlag.Add(messageTokenValue.Key);
-                                    }
-
-                                    newItem[messageTokenValue.Key] = messageTokenValue.Value;
-                                }
-                            }
-                            else
-                            {
-                               
-
-                                foreach (EmailProcessorTemplateToken token in emailProcessorTemplate.EmailTokens)
-                                {
-                                    if (args.MessageTokenValues.ContainsKey(token.CustomField))
-                                    {
-                                        newItem[token.CustomField] = args.MessageTokenValues[token.SitecoreField];
-                                    }
-                                }
-                            }                        
-
-                            parentFolder.Editing.EndEdit();
-                        }                    
+                        account = User.FromName(username, true);
                     }
-
-                    NotificationMessageFactory factory = new NotificationMessageFactory();
-                    NotificationMessage notificationMessage = factory.CreateMessage(emailProcessorTemplate.NotificationTemplate.ID);
-
-                    NotificationManager manager = new NotificationManager();
-                    NotificationMessageType type = (missingFieldFlag.Count > 0) ? NotificationMessageType.InvalidField : NotificationMessageType.Success;
-
-                    manager.Send(args.Message.From, notificationMessage, type);
+                    else
+                    {
+                        account = Constants.Security.ServiceUser;
+                    }
                 }
+
+                CreateItems(args, account, parentFolder, newItemTemplateId, autoProcessFields, missingFieldFlag, emailProcessorTemplate);
+
+                SendNotificationMessage(args, emailProcessorTemplate, missingFieldFlag);
+
             }
             catch (Exception ex)
             {
                 Log.Error("Process", ex, this);
-            }                                  
+            }
+        }
+
+        private void SendNotificationMessage(PostmarkMessageArgs args, EmailProcessorTemplate emailProcessorTemplate,
+            List<string> missingFieldFlag)
+        {
+            NotificationMessageFactory factory = new NotificationMessageFactory();
+            NotificationMessage notificationMessage = factory.CreateMessage(emailProcessorTemplate.NotificationTemplate.ID);
+
+            NotificationManager manager = new NotificationManager();
+            NotificationMessageType type = (missingFieldFlag.Count > 0)
+                ? NotificationMessageType.InvalidField
+                : NotificationMessageType.Success;
+
+            manager.Send(args.Message.From, notificationMessage, type);
+        }
+
+        private void CreateItems(PostmarkMessageArgs args, User account, Item parentFolder, TemplateID newItemTemplateId,
+            bool autoProcessFields, List<string> missingFieldFlag, EmailProcessorTemplate emailProcessorTemplate)
+        {
+            using (new UserSwitcher(account))
+            {
+                parentFolder.Editing.BeginEdit();
+
+                Item newItem = parentFolder.Add(ItemUtil.ProposeValidItemName(args.Message.Subject), newItemTemplateId);
+
+                if (autoProcessFields)
+                {
+                    foreach (var messageTokenValue in args.MessageTokenValues)
+                    {
+                        if (newItem.Fields[messageTokenValue.Key] == null)
+                        {
+                            missingFieldFlag.Add(messageTokenValue.Key);
+                        }
+
+                        newItem[messageTokenValue.Key] = messageTokenValue.Value;
+                    }
+                }
+                else
+                {
+                    foreach (EmailProcessorTemplateToken token in emailProcessorTemplate.EmailTokens)
+                    {
+                        if (args.MessageTokenValues.ContainsKey(token.CustomField))
+                        {
+                            newItem[token.CustomField] = args.MessageTokenValues[token.SitecoreField];
+                        }
+                    }
+                }
+
+                parentFolder.Editing.EndEdit();
+            }
         }
     }
 }
