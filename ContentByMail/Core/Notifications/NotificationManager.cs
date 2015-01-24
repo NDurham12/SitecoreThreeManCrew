@@ -1,4 +1,4 @@
-﻿namespace ContentByMail.Core.Notification
+﻿namespace ContentByMail.Core.Notifications
 {
     using Sitecore.Configuration;
     using Sitecore.Diagnostics;

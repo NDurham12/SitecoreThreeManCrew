@@ -48,6 +48,7 @@
       <HintPath>..\Dependencies\Sitecore.Kernel.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -60,9 +61,9 @@
   <ItemGroup>
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\Enumerations.cs" />
-    <Compile Include="Core\Notification\NotificationManager.cs" />
-    <Compile Include="Core\Notification\NotificationMessage.cs" />
-    <Compile Include="Core\Notification\NotificationMessageFactory.cs" />
+    <Compile Include="Core\Notifications\NotificationManager.cs" />
+    <Compile Include="Core\Notifications\NotificationMessage.cs" />
+    <Compile Include="Core\Notifications\NotificationMessageFactory.cs" />
     <Compile Include="Pipelines\ContentByMail.ProcessEmail\SimpleEmailMessageProcessor.cs" />
     <Compile Include="Pipelines\IEmailMessageProcessor.cs" />
     <Compile Include="Pipelines\ItemWebApiRequest\PostmarkRequestProcessor.cs" />
