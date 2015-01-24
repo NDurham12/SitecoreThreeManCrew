@@ -2,9 +2,9 @@
 version: 1
 id: {C9309DF2-5B5E-4741-B903-E5837C885943}
 database: master
-path: /sitecore/templates/Modules/ContentMailManager/Notification Message/Details
+path: /sitecore/templates/Modules/ContentMailManager/Notification Message/NotificationDetails
 parent: {3C9F6979-99AD-4EF7-85C4-313BC47D116A}
-name: Details
+name: NotificationDetails
 master: {00000000-0000-0000-0000-000000000000}
 template: {E269FBB5-3750-427A-9149-7AA950B49301}
 templatekey: Template section
@@ -19,7 +19,7 @@ network/32x32/mail_information.png
 ----version----
 language: en
 version: 1
-revision: 346d5f17-877f-4b0c-876e-9f9f2891f87b
+revision: 0d891b33-1327-46fb-bcf2-abe081c1660e
 
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
@@ -41,14 +41,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-346d5f17-877f-4b0c-876e-9f9f2891f87b
+0d891b33-1327-46fb-bcf2-abe081c1660e
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 35
 
-20150124T104822:635576933020244147Z
+20150124T193650:635577250105433517Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

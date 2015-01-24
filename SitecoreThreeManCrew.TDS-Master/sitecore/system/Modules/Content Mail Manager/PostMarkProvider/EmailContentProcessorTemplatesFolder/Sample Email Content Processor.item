@@ -1,0 +1,100 @@
+----item----
+version: 1
+id: {1A81D67D-EE03-41E2-90DD-C39C531B72A1}
+database: master
+path: /sitecore/system/Modules/Content Mail Manager/PostMarkProvider/EmailContentProcessorTemplatesFolder/Sample Email Content Processor
+parent: {4A33047E-6946-46AF-869F-E10CC7487C44}
+name: Sample Email Content Processor
+master: {00000000-0000-0000-0000-000000000000}
+template: {234AD4AA-AE3A-4607-93A8-E0021E3BE107}
+templatekey: EmailContentProcessorTemplate
+
+----version----
+language: en
+version: 1
+revision: 85df8ac6-f5f4-4654-90ab-41ff0a7f9449
+
+----field----
+field: {A3C72B7E-92AB-42E7-AF75-7FE630497DA6}
+name: EmailTokenName
+key: emailtokenname
+content-length: 6
+
+Sample
+----field----
+field: {F35256FC-D021-43B7-9EA0-78C356AA0565}
+name: Folder
+key: folder
+content-length: 38
+
+{110D559F-DEA5-42EA-9C1C-8A5DF7E70EF9}
+----field----
+field: {65D4DDDE-38D1-45B3-8252-EACC56D0BF03}
+name: Template
+key: template
+content-length: 38
+
+{76036F5E-CBCE-46D1-AF0A-4143F9B557AA}
+----field----
+field: {426225D4-977C-46FC-B862-F1ADAACA8DBD}
+name: NotificationTemplate
+key: notificationtemplate
+content-length: 38
+
+{A58441A6-B318-4C24-9BF7-F1AF30A9D13A}
+----field----
+field: {BEAADB4B-4581-466C-9CE0-3B8467DBE9C9}
+name: EmailProcessorType
+key: emailprocessortype
+content-length: 93
+
+ContentByMail.Pipelines.ContentByMail.ProcessEmail.SimpleEmailMessageProcessor, ContentByMail
+----field----
+field: {1C41D4DB-63E7-456C-BEC8-256F59FF05A0}
+name: Attachments Import Folder
+key: attachments import folder
+content-length: 38
+
+{4D8A1C4D-1351-4DD1-A502-0660F01FEDC7}
+----field----
+field: {DD5CE860-0037-4DD3-8C9F-8174A1FD3054}
+name: SaveEmailsToBucket
+key: saveemailstobucket
+content-length: 1
+
+1
+----field----
+field: {DA092733-DDEE-4E57-A171-C47FB4106935}
+name: AutoProcessTokensToFields
+key: autoprocesstokenstofields
+content-length: 1
+
+1
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 16
+
+20150124T093323Z
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+85df8ac6-f5f4-4654-90ab-41ff0a7f9449
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 35
+
+20150124T194838:635577257189918975Z
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin

@@ -1,0 +1,124 @@
+----item----
+version: 1
+id: {A58441A6-B318-4C24-9BF7-F1AF30A9D13A}
+database: master
+path: /sitecore/system/Modules/Content Mail Manager/PostMarkProvider/Notification Messages/General Notification
+parent: {9C760319-EAB5-40B6-9219-C9CF69B288FA}
+name: General Notification
+master: {00000000-0000-0000-0000-000000000000}
+template: {3C9F6979-99AD-4EF7-85C4-313BC47D116A}
+templatekey: Notification Message
+
+----version----
+language: en
+version: 1
+revision: 322e021f-6de4-44f3-b619-1ecf793d8af4
+
+----field----
+field: {365BF877-94F8-49AB-BD20-2C64208A5911}
+name: Sender
+key: sender
+content-length: 23
+
+noreply@ThreManCrew.net
+----field----
+field: {B68F12EE-DAA8-48C4-8F87-3CB5BF153823}
+name: SucessBody
+key: sucessbody
+content-length: 142
+
+<p>Congrats! We have received your email and processed your message with [subject].</p>
+<p><br />
+</p>
+<p>Thanks, </p>
+<p>TheThreeManCrew!</p>
+----field----
+field: {7257D4F6-F68D-4309-A136-DD9292B350F5}
+name: SucessSubject
+key: sucesssubject
+content-length: 36
+
+Email Content Imported Successfully 
+----field----
+field: {9E103554-3DC8-495D-8E89-168B7A3DF961}
+name: InvalidTemplateSubject
+key: invalidtemplatesubject
+content-length: 29
+
+Sorry, Unable to import email
+----field----
+field: {34E10C78-13A4-4CBF-B181-FA6A74F1BF9F}
+name: InvalidTemplateBody
+key: invalidtemplatebody
+content-length: 263
+
+<p>We are sorry, your email didn't contain the correct template name. </p>
+<p>Please try again and ensure that the template name properly included in the body of the email. </p>
+<p>[Template TemplateName]</p>
+<p><br />
+</p>
+<p>Thanks, </p>
+<p>The ThreeManCrew</p>
+----field----
+field: {21B74116-4E24-4A93-8F21-C8A18C9B2FAB}
+name: InvalidFieldTokenSubject
+key: invalidfieldtokensubject
+content-length: 57
+
+Warning, There was an issue processing your email content
+----field----
+field: {84512DAF-B414-4C90-8E34-918EC2A0CD1E}
+name: InvalidFieldTokenBody
+key: invalidfieldtokenbody
+content-length: 235
+
+<p>Hello, </p>
+<p>We received your email content request, and created an item, but based on the tokens in the email, not all fields may have been updated. </p>
+<p>Please review your content. </p>
+<p>Thanks, </p>
+<p>The ThreeManCrew</p>
+----field----
+field: {198985EC-64BD-44AE-A080-15236D2C7E2D}
+name: GenericFailureNotificationSubject
+key: genericfailurenotificationsubject
+content-length: 36
+
+Generic Error Importing your content
+----field----
+field: {F6CE542B-BA9B-48B6-9C2A-F6DEB521A3AD}
+name: GenericFailureNotificationBody
+key: genericfailurenotificationbody
+content-length: 159
+
+<p>Hello, </p>
+<p>There was an unknown issue importing your content.  Please contact your local it for assistance. </p>
+<p>Thanks, </p>
+<p>The ThreeManCrew</p>
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 16
+
+20150124T105418Z
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+322e021f-6de4-44f3-b619-1ecf793d8af4
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 35
+
+20150124T194646:635577256067712428Z
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin
