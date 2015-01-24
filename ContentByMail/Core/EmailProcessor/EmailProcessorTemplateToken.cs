@@ -1,9 +1,7 @@
-﻿using ContentByMail.Common;
-using ContentByMail.Core.Notification;
-
-namespace ContentByMail.Core.EmailProcessor
+﻿namespace ContentByMail.Core.EmailProcessor
 {
 
+    using ContentByMail.Common;
     using Sitecore.Data.Items;
     using Sitecore.Diagnostics;
 
