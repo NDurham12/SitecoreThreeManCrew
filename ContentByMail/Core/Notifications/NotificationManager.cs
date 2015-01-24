@@ -1,6 +1,8 @@
 ﻿namespace ContentByMail.Core.Notifications
 {
+    using ContentByMail.Common;
     using Sitecore.Configuration;
+    using Sitecore.Data.Items;
     using Sitecore.Diagnostics;
     using System;
     using System.Collections.Generic;
@@ -25,6 +27,16 @@
 
             try
             {
+                if(String.IsNullOrEmpty(message.Recipient))
+                {
+                    Item mailmanager = Factory.GetDatabase(Constants.Databases.Web).GetItem(Constants.Items.ContentMailManager);
+
+                    if(mailmanager != null)
+                    {
+                        message.Recipient = mailmanager[Constants.Fields.MailManager.FallbackNotificationAddress];
+                    }
+                }
+
                 using (SmtpClient client = new SmtpClient(Settings.MailServer, Settings.MailServerPort))
                 {
                     client.Credentials = new NetworkCredential(Settings.MailServerUserName, Settings.MailServerPassword);
