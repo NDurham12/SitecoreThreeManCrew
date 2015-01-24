@@ -14,9 +14,15 @@ namespace ContentByMail.Pipelines
         /// Gets or sets the message.
         /// </summary>
         public new PostmarkInboundMessage Message { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the message token values.
+        /// </summary>
         public Dictionary<string, string> MessageTokenValues { get; set; }
 
+        /// <summary>
+        /// Gets or sets the notification template.
+        /// </summary>
         public NotificationMessage NotificationTemplate { get; set; }
 
         /// <summary>
@@ -26,7 +32,6 @@ namespace ContentByMail.Pipelines
         public PostmarkMessageArgs(PostmarkInboundMessage message)
         {
             IEnumerable<EmailProcessorTemplate> emailtemplates = EmailProcessorTemplateFactory.CreateCollection();
-
             MessageTokenValues = EmailParser.ParseTokens(message);
 
             if (!MessageTokenValues.ContainsKey("Template"))
