@@ -46,7 +46,7 @@
             }
             catch (Exception ex)
             {
-                Log.Error("Cannot process Postmak request.", ex, this);
+                Log.Error("Cannot process Postmark request.", ex, this);
 
                 NotificationMessage message = NotificationMessageFactory.CreateMessage(NotificationMessageType.Failure);
                 NotificationManager manager = new NotificationManager();
