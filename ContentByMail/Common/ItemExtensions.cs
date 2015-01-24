@@ -64,41 +64,9 @@ namespace ContentByMail.Common
             (new CheckboxField(item.Fields[fieldId])).Checked = value;
         }
 
-        /// <summary>
-        ///   Get selected items from a MultilistField
-        /// </summary>
-        /// <param name="item"> </param>
-        /// <param name="fieldId"> </param>
-        public static IEnumerable<Item> GetMultiListValues(this Item item, ID fieldId)
-        {
-            return (new MultilistField(item.Fields[fieldId])).GetItems() ?? Enumerable.Empty<Item>();
-        }
-
-        /// <summary>
-        ///   Get items from MultilistField, droplink, treelist
-        /// </summary>
-        /// <param name="item"> </param>
-        /// <param name="fieldId"> </param>
-        public static IEnumerable<Item> GetItemValues(this Item item, ID fieldId)
-        {
-            return (new MultilistField(item.Fields[fieldId])).GetItems() ?? Enumerable.Empty<Item>();
-        }
+        
 
 
-        /// <summary>
-        ///   Set selected items on a MultilistField field
-        /// </summary>
-        /// <param name="item"> </param>
-        /// <param name="fieldId"> </param>
-        /// <param name="items"> </param>
-        public static void SetMultiListValues(this Item item, ID fieldId, IEnumerable<Item> items)
-        {
-            var ids = items.Select(i => i.ID).Select(id => id.ToString().ToUpper());
-            var s = string.Join("|", ids.ToArray());
-            item.Editing.BeginEdit();
-            item[fieldId] = s;
-            item.Editing.EndEdit();
-        }
 
         /// <summary>
         /// Get namevaluecollection from from a NameValueList
@@ -112,24 +80,7 @@ namespace ContentByMail.Common
             return Sitecore.Web.WebUtil.ParseUrlParameters(urlParamsToParse);
         }
 
-        public static Item[] GetReferrersAsItems(this Item item, bool includeStandardValues = false)
-        {
-
-            ItemLink[] referrers = Globals.LinkDatabase.GetReferrers(item);
-            if (referrers != null)
-                return ItemExtensions.GetLinkedTargetItems((IEnumerable<ItemLink>)referrers, includeStandardValues);
-            return new Item[0];
-        }
-
-        private static Item[] GetLinkedTargetItems(IEnumerable<ItemLink> links, bool includeStandardValues)
-        {
-            IEnumerable<Item> source = Enumerable.Where<Item>(Enumerable.Select<ItemLink, Item>(links, (Func<ItemLink, Item>)(i => i.GetSourceItem())), (Func<Item, bool>)(i => i != null));
-            if (!includeStandardValues)
-                source = Enumerable.Where<Item>(source, (Func<Item, bool>)(i => !ItemExtensions.IsStandardValuesItem(i)));
-            return Enumerable.ToArray<Item>(source);
-        }
-
-
+       
         /// <summary>
         ///   Determines whether the specified Item is derived from the specified TemplateItem.
         /// </summary>
