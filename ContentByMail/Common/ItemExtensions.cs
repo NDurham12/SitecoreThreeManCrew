@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Sitecore.Data;
-using Sitecore.Data.Fields;
-using Sitecore.Data.Items;
-
-namespace ContentByMail.Common
+﻿namespace ContentByMail.Common
 {
+    using Sitecore.Data;
+    using Sitecore.Data.Fields;
+    using Sitecore.Data.Items;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     internal static class ItemExtensions
     {
         private const string DerivedCacheKey = "{0},{1}";
@@ -80,7 +80,6 @@ namespace ContentByMail.Common
 
         #endregion
 
-
         #region Template inheritance
 
         /// <summary>
@@ -118,23 +117,23 @@ namespace ContentByMail.Common
 
         #endregion
 
-
         private static bool IsDerived(ID templateId, TemplateItem template)
         {
             if (template == null)
                 return false;
+
             if (ID.IsNullOrEmpty(templateId))
                 return false;
 
             var cacheKey = string.Format(DerivedCacheKey, templateId, template.ID);
+
             lock (DerivedCache)
             {
                 if (DerivedCache.ContainsKey(cacheKey))
                     return DerivedCache[cacheKey];
             }
 
-            var derived = template.ID == templateId ||
-                          template.BaseTemplates.Any(baseTemplate => IsDerived(templateId, baseTemplate));
+            var derived = template.ID == templateId || template.BaseTemplates.Any(baseTemplate => IsDerived(templateId, baseTemplate));
 
             lock (DerivedCache)
             {

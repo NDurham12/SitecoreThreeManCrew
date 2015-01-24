@@ -1,9 +1,7 @@
-﻿using ContentByMail.Common;
-using ContentByMail.Core.Notification;
-
-namespace ContentByMail.Core.EmailProcessor
+﻿namespace ContentByMail.Core.EmailProcessor
 {
-
+    using ContentByMail.Common;
+    using ContentByMail.Core.Notifications;
     using Sitecore.Data.Items;
     using Sitecore.Diagnostics;
 
@@ -17,7 +15,6 @@ namespace ContentByMail.Core.EmailProcessor
         internal EmailProcessorTemplateToken(Item item)
         {
             Assert.ArgumentNotNull(item, "EmailProcessorTemplate item is null");
-
             Assert.IsTrue(item.IsDerived(Constants.Templates.EmailProcessorTemplateToken), "Derives from wrong template");
 
             Name = item.GetString(Constants.Fields.EmailProcessorTemplateTokens.EmailProcessorTemplateToken);
