@@ -32,8 +32,21 @@
                 internal static ID Body = new ID("{F6CE542B-BA9B-48B6-9C2A-F6DEB521A3AD}");
             }
 
-            internal static class MailManager
+             internal static class MailManager
             {
+                internal static ID FallbackNotificationAddress = new ID("{8C4D5944-8FA8-4AC8-93E5-791F2DCEC132}");
+            }
+            
+            
+            internal static class EmailProcessorTemplate
+            {
+                internal static ID Name = new ID("");
+                internal static ID EmailProcessorTemplateTokenList = new ID("");
+            }
+
+            internal static class EmailProcessorTemplateTokens
+            {
+                internal static ID EmailProcessorTemplateToken = new ID("");
                 internal static ID FallbackNotificationAddress = new ID("{8C4D5944-8FA8-4AC8-93E5-791F2DCEC132}");
             }
 
@@ -55,6 +68,15 @@
                 internal static ID AutoProcessTokensToFields = new ID("{DA092733-DDEE-4E57-A171-C47FB4106935}");
                 internal static ID TokenToFieldList = new ID("{B60B5BD5-5FDC-4497-B102-541FC9403879}");             
             }
+
+
+        }
+
+        internal static class Templates
+        {
+            internal static ID EmailProcessorTemplate = new ID("{234AD4AA-AE3A-4607-93A8-E0021E3BE107}");
+
+            internal static ID EmailProcessorTemplateToken = new ID("{234AD4AA-AE3A-4607-93A8-E0021E3BE107}");
         }
     }
 }

@@ -65,6 +65,11 @@
     <Compile Include="Core\Notifications\NotificationManager.cs" />
     <Compile Include="Core\Notifications\NotificationMessage.cs" />
     <Compile Include="Core\Notifications\NotificationMessageFactory.cs" />
+    <Compile Include="Common\ItemExtensions.cs" />
+    <Compile Include="Core\EmailProcessor\EmailProcessorTemplate.cs" />
+    <Compile Include="Core\EmailProcessor\EmailProcessorTemplateToken.cs" />
+    <Compile Include="Core\EmailProcessor\EmailProcessorTemplateFactory.cs" />
+    <Compile Include="Core\EmailProcessor\EmailProcessorTemplateTokenFactory.cs" />
     <Compile Include="Pipelines\ContentByMail.ProcessEmail\SimpleEmailMessageProcessor.cs" />
     <Compile Include="Pipelines\IEmailMessageProcessor.cs" />
     <Compile Include="Pipelines\ItemWebApiRequest\PostmarkRequestProcessor.cs" />
