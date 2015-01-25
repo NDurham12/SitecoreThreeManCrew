@@ -19,7 +19,7 @@ namespace ThreeManCrew.ContentByMail.Pipelines
 
             if (!MessageTokenValues.ContainsKey("Template"))
             {
-                NotificationManager.Send(ContentEmailManagerTemplate.FallBackAddress, ContentEmailManagerTemplate.DefaultMessage, NotificationMessageType.InvalidTemplate);
+                NotificationManager.Send(ContentEmailManagerTemplate.FallBackAddress, ContentEmailManagerTemplate.DefaultMessageTemplate, NotificationMessageType.InvalidTemplate);
                 AbortPipeline();
             }
 

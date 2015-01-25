@@ -19,11 +19,11 @@ namespace ThreeManCrew.ContentByMail.Core.Managers
         ///     Sends the specified message.
         /// </summary>
         /// <param name="to"></param>
-        /// <param name="message">The message.</param>
+        /// <param name="messageTemplate">The message.</param>
         /// <param name="notificationMessageType"></param>
-        internal static void Send(string to, NotificationMessage message, NotificationMessageType notificationMessageType)
+        internal static void Send(string to, NotificationMessageTemplate messageTemplate, NotificationMessageType notificationMessageType)
         {
-            Assert.ArgumentNotNull(message, "message");
+            Assert.ArgumentNotNull(messageTemplate, "message");
 
             try
             {
@@ -34,27 +34,27 @@ namespace ThreeManCrew.ContentByMail.Core.Managers
                 switch (notificationMessageType)
                 {
                     case NotificationMessageType.Success:
-                        subject = message.SuccessSubject;
-                        body = message.SuccessBody;
+                        subject = messageTemplate.SuccessSubject;
+                        body = messageTemplate.SuccessBody;
                         break;
                     case NotificationMessageType.InvalidTemplate:
-                        subject = message.InvalidTemplateSubject;
-                        body = message.InvalidTemplateBody;
+                        subject = messageTemplate.InvalidTemplateSubject;
+                        body = messageTemplate.InvalidTemplateBody;
                         break;
                     case NotificationMessageType.InvalidField:
-                        subject = message.InvalidFieldSubject;
-                        body = message.InvalidFieldBody;
+                        subject = messageTemplate.InvalidFieldSubject;
+                        body = messageTemplate.InvalidFieldBody;
                         break;
                     default:
-                        subject = message.GenericFailureSubject;
-                        body = message.GenericFailureBody;
+                        subject = messageTemplate.GenericFailureSubject;
+                        body = messageTemplate.GenericFailureBody;
                         break;
                 }
 
-                if (message.SendUsingPostMark.HasValue)
-                    SendUsingPostMark(message.Sender, to, subject, body, message.SendUsingPostMark.ServerApi);
+                if (messageTemplate.SendUsingPostMark.HasValue)
+                    SendUsingPostMark(messageTemplate.Sender, to, subject, body, messageTemplate.SendUsingPostMark.ServerApi);
                 else
-                    SendUsingSmtp(message.Sender, to, subject, body);
+                    SendUsingSmtp(messageTemplate.Sender, to, subject, body);
             }
             catch (Exception ex)
             {
@@ -67,16 +67,16 @@ namespace ThreeManCrew.ContentByMail.Core.Managers
         /// </summary>
         /// <param name="messages">The messages.</param>
         /// <param name="to"></param>
-        /// <param name="message"></param>
+        /// <param name="messageTemplate"></param>
         /// <param name="notificationMessageTypes"></param>
-        internal static void Send(string to, NotificationMessage message,
+        internal static void Send(string to, NotificationMessageTemplate messageTemplate,
             IEnumerable<NotificationMessageType> notificationMessageTypes)
         {
             Assert.ArgumentNotNull(notificationMessageTypes, "Notification Types");
 
             foreach (var errorTypes in notificationMessageTypes)
             {
-                Send(to, message, errorTypes);
+                Send(to, messageTemplate, errorTypes);
             }
         }
 

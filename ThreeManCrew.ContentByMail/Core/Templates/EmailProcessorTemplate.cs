@@ -24,7 +24,7 @@ namespace ThreeManCrew.ContentByMail.Core.Templates
                 item.GetDropLinkSelectedItem(Constants.Fields.EmailProcessorTemplate.Folder);
             AutoProcessFields = item.GetCheckBoxValue(Constants.Fields.EmailProcessorTemplate.AutoProcessTokensToFields);
             CreateAsuser = item.GetCheckBoxValue(Constants.Fields.EmailProcessorTemplate.AssociateSenderToUserProfile);
-            NotificationTemplate =  new NotificationMessage(item.GetDropLinkSelectedItem(Constants.Fields.EmailProcessorTemplate.NotificationTemplate));
+            NotificationTemplate =  new NotificationMessageTemplate(item.GetDropLinkSelectedItem(Constants.Fields.EmailProcessorTemplate.NotificationTemplate));
             EmailTokens = CreateCollection(item);
         }
 
@@ -57,7 +57,7 @@ namespace ThreeManCrew.ContentByMail.Core.Templates
         /// <summary>
         ///     Gets or sets the folder template to insert created item in.
         /// </summary>
-        internal NotificationMessage NotificationTemplate { get; set; }
+        internal NotificationMessageTemplate NotificationTemplate { get; set; }
 
         /// <summary>
         ///     Gets or sets the AutoProcessFields.

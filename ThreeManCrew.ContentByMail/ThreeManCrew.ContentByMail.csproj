@@ -81,7 +81,7 @@
     <Compile Include="Core\Templates\ContentEmailManagerTemplate.cs" />
     <Compile Include="Core\Templates\EmailProcessorTemplate.cs" />
     <Compile Include="Core\Templates\EmailProcessorTemplateToken.cs" />
-    <Compile Include="Core\Templates\NotificationMessage.cs" />
+    <Compile Include="Core\Templates\NotificationMessageTemplate.cs" />
     <Compile Include="Core\Templates\PostMarkProviderTemplate.cs" />
     <Compile Include="Pipelines\ContentByMail.ProcessEmail\SimpleEmailMessageProcessor.cs" />
     <Compile Include="Pipelines\IEmailMessageProcessor.cs" />

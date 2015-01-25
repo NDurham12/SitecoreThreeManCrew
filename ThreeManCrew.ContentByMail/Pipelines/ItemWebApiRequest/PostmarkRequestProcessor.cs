@@ -49,7 +49,7 @@ namespace ThreeManCrew.ContentByMail.Pipelines.ItemWebApiRequest
             catch (Exception ex)
             {
                 Log.Error("Cannot process Postmark request.", ex, this);
-                NotificationManager.Send(ContentEmailManagerTemplate.FallBackAddress, ContentEmailManagerTemplate.DefaultMessage, NotificationMessageType.Failure);
+                NotificationManager.Send(ContentEmailManagerTemplate.FallBackAddress, ContentEmailManagerTemplate.DefaultMessageTemplate, NotificationMessageType.Failure);
             }
         }
     }

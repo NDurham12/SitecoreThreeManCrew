@@ -13,7 +13,7 @@ namespace ThreeManCrew.ContentByMail.Core.Templates
         private static readonly Item item;
 
         public static string FallBackAddress { get; set; }
-        public static NotificationMessage DefaultMessage { get; set; }
+        public static NotificationMessageTemplate DefaultMessageTemplate { get; set; }
         public static IEnumerable<Item> EmailTemplates { get; set; }      
 
         static ContentEmailManagerTemplate()
@@ -26,7 +26,7 @@ namespace ThreeManCrew.ContentByMail.Core.Templates
 
                 var defaultNotificationTemplateId = new ID(item[Constants.Fields.MailManager.DefaultNotificationTemplate]);
 
-                DefaultMessage = new NotificationMessage(Sitecore.Context.Database.GetItem(defaultNotificationTemplateId));
+                DefaultMessageTemplate = new NotificationMessageTemplate(Sitecore.Context.Database.GetItem(defaultNotificationTemplateId));
 
                 EmailTemplates = item.Children.Where(i => ItemExtensions.IsDerived(i, Constants.Templates.EmailProcessorTemplate));
             }

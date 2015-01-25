@@ -4,13 +4,13 @@ using ThreeManCrew.ContentByMail.Common;
 
 namespace ThreeManCrew.ContentByMail.Core.Templates
 {
-    public class NotificationMessage
+    public class NotificationMessageTemplate
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="NotificationMessage" /> class.
+        ///     Initializes a new instance of the <see cref="NotificationMessageTemplate" /> class.
         /// </summary>
         /// <param name="template">The template.</param>
-        internal NotificationMessage(Item template)
+        internal NotificationMessageTemplate(Item template)
         {
             Assert.ArgumentNotNull(template, "NotificationMessageTemplate");
 
