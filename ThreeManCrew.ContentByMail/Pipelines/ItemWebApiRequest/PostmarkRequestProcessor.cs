@@ -8,7 +8,6 @@ using Sitecore.ItemWebApi.Pipelines.Request;
 using Sitecore.Pipelines;
 using ThreeManCrew.ContentByMail.Common;
 using ThreeManCrew.ContentByMail.Core.Managers;
-using ThreeManCrew.ContentByMail.Core.RequestHistory;
 using ThreeManCrew.ContentByMail.Core.Templates;
 
 namespace ThreeManCrew.ContentByMail.Pipelines.ItemWebApiRequest

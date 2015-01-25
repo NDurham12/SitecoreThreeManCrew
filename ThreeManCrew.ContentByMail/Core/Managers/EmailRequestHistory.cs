@@ -6,7 +6,7 @@ using Sitecore.Diagnostics;
 using Sitecore.Security.Accounts;
 using ThreeManCrew.ContentByMail.Common;
 
-namespace ThreeManCrew.ContentByMail.Core.RequestHistory
+namespace ThreeManCrew.ContentByMail.Core.Managers
 {
     public class EmailRequestHistory
     {
