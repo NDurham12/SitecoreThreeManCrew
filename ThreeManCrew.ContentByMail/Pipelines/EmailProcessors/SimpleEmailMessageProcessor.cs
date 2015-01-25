@@ -10,7 +10,7 @@ using ThreeManCrew.ContentByMail.Common;
 using ThreeManCrew.ContentByMail.Core.Managers;
 using ThreeManCrew.ContentByMail.Core.Templates;
 
-namespace ThreeManCrew.ContentByMail.Pipelines.ContentByMail.ProcessEmail
+namespace ThreeManCrew.ContentByMail.Pipelines.EmailProcessors
 {
     public class SimpleEmailMessageProcessor : IEmailMessageProcessor
     {
