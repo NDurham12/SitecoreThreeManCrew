@@ -30,6 +30,7 @@ namespace ThreeManCrew.ContentByMail.Core.Templates
             EmailTokens = EmailProcessorTemplateTokenFactory.CreateCollection(item);
         }
 
+
         /// <summary>
         ///     Gets or sets the Id.
         /// </summary>
@@ -69,5 +70,15 @@ namespace ThreeManCrew.ContentByMail.Core.Templates
         ///     Gets or sets the CreateAsuser.
         /// </summary>
         internal bool CreateAsuser { get; set; }
+
+        internal static IEnumerable<EmailProcessorTemplateToken> CreateCollection(Item item)
+        {
+            var nameValueCollection = item.GetNameValueList(Constants.Fields.EmailProcessorTemplate.TokenToFieldList);
+
+            foreach (var key in nameValueCollection.AllKeys)
+            {
+                yield return new EmailProcessorTemplateToken(key, nameValueCollection[key]);
+            }
+        }
     }
 }
