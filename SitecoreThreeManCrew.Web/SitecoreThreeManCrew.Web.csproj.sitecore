@@ -1,0 +1,3 @@
+﻿<Project>
+  <Site Server="launchSC8_MVC" UserName="sitecore\admin" IsRemoteSitecore="False" />
+</Project>

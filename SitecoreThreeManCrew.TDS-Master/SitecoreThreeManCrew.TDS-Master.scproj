@@ -6,9 +6,12 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>da1d31f1-1bef-4368-8a19-a084dca5f0e8</ProjectGuid>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <SourceWebPhysicalPath>..\SitecoreThreeManCrew.Web</SourceWebPhysicalPath>
-    <SourceWebProject>{3efede1c-d7a7-4db2-8b0d-831e2ce48b9b}|SitecoreThreeManCrew.Web\SitecoreThreeManCrew.Web.csproj</SourceWebProject>
-    <SourceWebVirtualPath>/SitecoreThreeManCrew.Web.csproj</SourceWebVirtualPath>
+    <SourceWebPhysicalPath>
+    </SourceWebPhysicalPath>
+    <SourceWebProject>
+    </SourceWebProject>
+    <SourceWebVirtualPath>
+    </SourceWebVirtualPath>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <EnableUpdateable>true</EnableUpdateable>
     <UseMerge>true</UseMerge>
@@ -41,12 +44,6 @@
     <AssemblyAttributes Include="AssemblyVersion">
       <Value>$(AssemblyVersion)</Value>
     </AssemblyAttributes>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SitecoreThreeManCrew.Web\SitecoreThreeManCrew.Web.csproj">
-      <Project>{3efede1c-d7a7-4db2-8b0d-831e2ce48b9b}</Project>
-      <Name>SitecoreThreeManCrew.Web</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <SitecoreItem Include="sitecore\media library.item">
