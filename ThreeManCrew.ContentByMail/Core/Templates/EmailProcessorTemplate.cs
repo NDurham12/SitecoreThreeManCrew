@@ -2,7 +2,6 @@
 using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
 using ThreeManCrew.ContentByMail.Common;
-using ThreeManCrew.ContentByMail.Core.EmailProcessor;
 
 namespace ThreeManCrew.ContentByMail.Core.Templates
 {

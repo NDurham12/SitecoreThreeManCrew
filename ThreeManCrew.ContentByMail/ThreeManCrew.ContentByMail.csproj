@@ -75,7 +75,7 @@
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\Enumerations.cs" />
     <Compile Include="Common\ItemExtensions.cs" />
-    <Compile Include="Core\EmailProcessor\EmailParser.cs" />
+    <Compile Include="Core\Managers\EmailParser.cs" />
     <Compile Include="Core\Managers\NotificationManager.cs" />
     <Compile Include="Core\RequestHistory\EmailRequestHistory.cs" />
     <Compile Include="Core\Templates\ContentEmailManagerTemplate.cs" />
@@ -98,9 +98,7 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\Publish.pubxml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Notifications\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -7,7 +7,6 @@ using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
 using Sitecore.Security.Accounts;
 using ThreeManCrew.ContentByMail.Common;
-using ThreeManCrew.ContentByMail.Core.EmailProcessor;
 using ThreeManCrew.ContentByMail.Core.Managers;
 using ThreeManCrew.ContentByMail.Core.Templates;
 

@@ -6,7 +6,7 @@ using Sitecore.Diagnostics;
 using Sitecore.Extensions.StringExtensions;
 using ThreeManCrew.ContentByMail.Common;
 
-namespace ThreeManCrew.ContentByMail.Core.EmailProcessor
+namespace ThreeManCrew.ContentByMail.Core.Managers
 {
     internal class EmailParser
     {
