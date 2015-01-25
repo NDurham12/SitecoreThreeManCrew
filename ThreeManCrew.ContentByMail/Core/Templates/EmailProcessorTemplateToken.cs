@@ -1,4 +1,4 @@
-﻿namespace ThreeManCrew.ContentByMail.Core.EmailProcessor
+﻿namespace ThreeManCrew.ContentByMail.Core.Templates
 {
     internal class EmailProcessorTemplateToken
     {

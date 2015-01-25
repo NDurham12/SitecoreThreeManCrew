@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Sitecore.Data.Items;
 using ThreeManCrew.ContentByMail.Common;
+using ThreeManCrew.ContentByMail.Core.Templates;
 
 namespace ThreeManCrew.ContentByMail.Core.EmailProcessor
 {
