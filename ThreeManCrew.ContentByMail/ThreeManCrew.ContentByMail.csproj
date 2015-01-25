@@ -76,13 +76,13 @@
     <Compile Include="Common\Enumerations.cs" />
     <Compile Include="Common\ItemExtensions.cs" />
     <Compile Include="Core\EmailProcessor\EmailParser.cs" />
-    <Compile Include="Core\EmailProcessor\EmailProcessorTemplate.cs" />
     <Compile Include="Core\EmailProcessor\EmailProcessorTemplateToken.cs" />
     <Compile Include="Core\EmailProcessor\EmailProcessorTemplateTokenFactory.cs" />
     <Compile Include="Core\Notifications\NotificationManager.cs" />
     <Compile Include="Core\Notifications\NotificationMessage.cs" />
     <Compile Include="Core\RequestHistory\EmailRequestHistory.cs" />
     <Compile Include="Core\Templates\ContentEmailManagerTemplate.cs" />
+    <Compile Include="Core\Templates\EmailProcessorTemplate.cs" />
     <Compile Include="Core\Templates\PostMarkProviderTemplate.cs" />
     <Compile Include="Pipelines\ContentByMail.ProcessEmail\SimpleEmailMessageProcessor.cs" />
     <Compile Include="Pipelines\IEmailMessageProcessor.cs" />

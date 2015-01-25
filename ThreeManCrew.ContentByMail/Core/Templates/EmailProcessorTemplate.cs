@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Sitecore.Data.Items;
-using Sitecore.Data.Managers;
 using Sitecore.Diagnostics;
 using ThreeManCrew.ContentByMail.Common;
+using ThreeManCrew.ContentByMail.Core.EmailProcessor;
 using ThreeManCrew.ContentByMail.Core.Notifications;
 
-namespace ThreeManCrew.ContentByMail.Core.EmailProcessor
+namespace ThreeManCrew.ContentByMail.Core.Templates
 {
     public class EmailProcessorTemplate
     {
