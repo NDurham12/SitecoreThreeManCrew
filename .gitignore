@@ -154,3 +154,7 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+Libs
+packages
+SitecoreThreeManCrew.Web/Properties/PublishProfiles/SitecoreThreeManCrew.pubxml
+TdsGlobal.config
