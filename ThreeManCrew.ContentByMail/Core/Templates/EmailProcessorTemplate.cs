@@ -26,7 +26,7 @@ namespace ThreeManCrew.ContentByMail.Core.Templates
             AutoProcessFields = item.GetCheckBoxValue(Constants.Fields.EmailProcessorTemplate.AutoProcessTokensToFields);
             CreateAsuser = item.GetCheckBoxValue(Constants.Fields.EmailProcessorTemplate.AssociateSenderToUserProfile);
             NotificationTemplate =  new NotificationMessage(item.GetDropLinkSelectedItem(Constants.Fields.EmailProcessorTemplate.NotificationTemplate));
-            EmailTokens = EmailProcessorTemplateTokenFactory.CreateCollection(item);
+            EmailTokens = CreateCollection(item);
         }
 
 
