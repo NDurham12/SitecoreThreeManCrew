@@ -8,7 +8,7 @@ using ThreeManCrew.ContentByMail.Common;
 
 namespace ThreeManCrew.ContentByMail.Core.Managers
 {
-    internal class EmailParser
+    internal class EmailParserManager
     {
         internal static Dictionary<string, string> ParseTokens(PostmarkInboundMessage inboundMessage)
         {
@@ -56,13 +56,13 @@ namespace ThreeManCrew.ContentByMail.Core.Managers
                     }
                     catch (Exception ex)
                     {
-                        Log.Error("ParseTokens - Token Loop", ex, typeof (EmailParser));
+                        Log.Error("ParseTokens - Token Loop", ex, typeof (EmailParserManager));
                     }
                 }
             }
             catch (Exception ex)
             {
-                Log.Error("ParseTokens", ex, typeof (EmailParser));
+                Log.Error("ParseTokens", ex, typeof (EmailParserManager));
             }
 
             return listOfTokens;

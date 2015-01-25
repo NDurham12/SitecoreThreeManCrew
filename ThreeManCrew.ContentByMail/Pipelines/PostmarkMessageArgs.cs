@@ -15,7 +15,7 @@ namespace ThreeManCrew.ContentByMail.Pipelines
         /// <param name="message">The message.</param>
         public PostmarkMessageArgs(PostmarkInboundMessage message)
         {
-            MessageTokenValues = EmailParser.ParseTokens(message);
+            MessageTokenValues = EmailParserManager.ParseTokens(message);
 
             if (!MessageTokenValues.ContainsKey("Template"))
             {
