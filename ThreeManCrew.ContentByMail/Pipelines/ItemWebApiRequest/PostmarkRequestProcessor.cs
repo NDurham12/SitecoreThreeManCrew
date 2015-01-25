@@ -12,17 +12,15 @@ using ThreeManCrew.ContentByMail.Core.RequestHistory;
 
 namespace ThreeManCrew.ContentByMail.Pipelines.ItemWebApiRequest
 {
-
-
     public class PostmarkRequestProcessor : RequestProcessor
     {
         /// <summary>
-        /// Processes the specified arguments.
+        ///     Processes the specified arguments.
         /// </summary>
         /// <param name="arguments">The arguments.</param>
         public override void Process(RequestArgs arguments)
         {
-            HttpContext context = HttpContext.Current;
+            var context = HttpContext.Current;
 
             if (context == null || context.Request == null || context.Request.InputStream == null)
                 return;
@@ -32,18 +30,18 @@ namespace ThreeManCrew.ContentByMail.Pipelines.ItemWebApiRequest
 
             try
             {
-                using (StreamReader inputStream = new StreamReader(context.Request.InputStream))
+                using (var inputStream = new StreamReader(context.Request.InputStream))
                 {
                     json = inputStream.ReadToEnd();
                 }
 
                 if (!String.IsNullOrEmpty(json))
                 {
-                    PostmarkInboundMessage message = JsonConvert.DeserializeObject<PostmarkInboundMessage>(json);
+                    var message = JsonConvert.DeserializeObject<PostmarkInboundMessage>(json);
 
                     if (message != null)
                     {
-                        CorePipeline.Run("ContentByMail.ProcessEmail", new PostmarkMessageArgs(message));                       
+                        CorePipeline.Run("ContentByMail.ProcessEmail", new PostmarkMessageArgs(message));
                         EmailRequestHistory.Add(message);
                     }
                 }
@@ -51,9 +49,10 @@ namespace ThreeManCrew.ContentByMail.Pipelines.ItemWebApiRequest
             catch (Exception ex)
             {
                 Log.Error("Cannot process Postmark request.", ex, this);
-                
-                NotificationManager manager = new NotificationManager();
-                manager.Send(Constants.DefaultContentModule.FallBackAddress, Constants.DefaultContentModule.DefaultMessage, NotificationMessageType.Failure);
+
+                var manager = new NotificationManager();
+                manager.Send(Constants.DefaultContentModule.FallBackAddress,
+                    Constants.DefaultContentModule.DefaultMessage, NotificationMessageType.Failure);
             }
         }
     }

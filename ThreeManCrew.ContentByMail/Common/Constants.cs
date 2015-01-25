@@ -1,6 +1,5 @@
 ﻿using Sitecore.Configuration;
 using Sitecore.Data;
-using Sitecore.Data.Items;
 using Sitecore.Security.Accounts;
 using ThreeManCrew.ContentByMail.Core.Notifications;
 
@@ -20,20 +19,39 @@ namespace ThreeManCrew.ContentByMail.Common
 
             public static User ServiceUser
             {
-                get { return _serviceaccount ?? (_serviceaccount = User.Exists(Settings.Account) ? User.FromName(Settings.Account, true) : null); }
+                get
+                {
+                    return _serviceaccount ??
+                           (_serviceaccount =
+                               User.Exists(Settings.Account) ? User.FromName(Settings.Account, true) : null);
+                }
             }
         }
 
         internal static class Settings
         {
-            internal static ID EmailContentProcessorTemplatesFolder = new ID(Sitecore.Configuration.Settings.GetSetting("ContentByEmail.EmailContentProcessorTemplatesFolder"));
-            internal static ID ContentByEmailModuleItem = new ID(Sitecore.Configuration.Settings.GetSetting("ContentByEmail.ModuleItem"));
-            internal static ID EmailRequestHistoryItemId = new ID(Sitecore.Configuration.Settings.GetSetting("ContentByEmail.EmailRequestHistory"));
+            internal static ID EmailContentProcessorTemplatesFolder =
+                new ID(Sitecore.Configuration.Settings.GetSetting("ContentByEmail.EmailContentProcessorTemplatesFolder"));
+
+            internal static ID ContentByEmailModuleItem =
+                new ID(Sitecore.Configuration.Settings.GetSetting("ContentByEmail.ModuleItem"));
+
+            internal static ID EmailRequestHistoryItemId =
+                new ID(Sitecore.Configuration.Settings.GetSetting("ContentByEmail.EmailRequestHistory"));
+
             internal static string Account = Sitecore.Configuration.Settings.GetSetting("ContentByEmail.ServiceAccount");
-            internal static string TokenStartEndMultilineRegex = Sitecore.Configuration.Settings.GetSetting("ContentByEmail.TokenStartEndMultilineRegex");
-            internal static string TokenTextInside = Sitecore.Configuration.Settings.GetSetting("ContentByEmail.TokenTextInside");
-            internal static string TokenMissingEnding = Sitecore.Configuration.Settings.GetSetting("ContentByEmail.TokenMissingEnding");
-            internal static bool ContentByEmailEmailEnableSsl = Sitecore.Configuration.Settings.GetBoolSetting("ContentByEmail.EmailEnableSsl", false);
+
+            internal static string TokenStartEndMultilineRegex =
+                Sitecore.Configuration.Settings.GetSetting("ContentByEmail.TokenStartEndMultilineRegex");
+
+            internal static string TokenTextInside =
+                Sitecore.Configuration.Settings.GetSetting("ContentByEmail.TokenTextInside");
+
+            internal static string TokenMissingEnding =
+                Sitecore.Configuration.Settings.GetSetting("ContentByEmail.TokenMissingEnding");
+
+            internal static bool ContentByEmailEmailEnableSsl =
+                Sitecore.Configuration.Settings.GetBoolSetting("ContentByEmail.EmailEnableSsl", false);
         }
 
         internal static class Fields
@@ -41,16 +59,12 @@ namespace ThreeManCrew.ContentByMail.Common
             internal static class Notification
             {
                 internal static ID Sender = new ID("{365BF877-94F8-49AB-BD20-2C64208A5911}");
-
                 internal static ID SuccessBody = new ID("{B68F12EE-DAA8-48C4-8F87-3CB5BF153823}");
                 internal static ID SucessSubject = new ID("{7257D4F6-F68D-4309-A136-DD9292B350F5}");
-
                 internal static ID InvalidTemplateSubject = new ID("{9E103554-3DC8-495D-8E89-168B7A3DF961}");
                 internal static ID InvalidTemplateBody = new ID("{34E10C78-13A4-4CBF-B181-FA6A74F1BF9F}");
-
                 internal static ID InvalidFieldTokenSubject = new ID("{21B74116-4E24-4A93-8F21-C8A18C9B2FAB}");
                 internal static ID InvalidFieldTokenBody = new ID("{84512DAF-B414-4C90-8E34-918EC2A0CD1E}");
-
                 internal static ID GenericFailureNotificationSubject = new ID("{198985EC-64BD-44AE-A080-15236D2C7E2D}");
                 internal static ID GenericFailureNotificationBody = new ID("{F6CE542B-BA9B-48B6-9C2A-F6DEB521A3AD}");
             }
@@ -91,14 +105,15 @@ namespace ThreeManCrew.ContentByMail.Common
 
             static DefaultContentModule()
             {
-                Item mainContentModule = Factory.GetDatabase(Constants.Databases.Web).GetItem(Constants.Settings.ContentByEmailModuleItem);
+                var mainContentModule = Factory.GetDatabase(Databases.Web).GetItem(Settings.ContentByEmailModuleItem);
 
                 if (mainContentModule != null)
                 {
-                    FallBackAddress = mainContentModule[Constants.Fields.MailManager.FallbackNotificationAddress];
+                    FallBackAddress = mainContentModule[Fields.MailManager.FallbackNotificationAddress];
 
-                    ID defaultNotificationTemplateId = new ID(mainContentModule[Constants.Fields.MailManager.DefaultNotificationTemplate]);           
-                    NotificationMessageFactory factory = new NotificationMessageFactory();
+                    var defaultNotificationTemplateId =
+                        new ID(mainContentModule[Fields.MailManager.DefaultNotificationTemplate]);
+                    var factory = new NotificationMessageFactory();
 
                     DefaultMessage = factory.CreateMessage(defaultNotificationTemplateId);
                 }

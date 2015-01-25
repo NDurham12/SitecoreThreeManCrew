@@ -9,19 +9,13 @@ using Sitecore.Security.Accounts;
 using ThreeManCrew.ContentByMail.Common;
 using ThreeManCrew.ContentByMail.Core.EmailProcessor;
 using ThreeManCrew.ContentByMail.Core.Notifications;
-using Constants = ThreeManCrew.ContentByMail.Common.Constants;
 
 namespace ThreeManCrew.ContentByMail.Pipelines.ContentByMail.ProcessEmail
-{    
+{
     public class SimpleEmailMessageProcessor : IEmailMessageProcessor
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SimpleEmailMessageProcessor"/> class.
-        /// </summary>
-        public SimpleEmailMessageProcessor() { }
-
-        /// <summary>
-        /// Processes the specified message.
+        ///     Processes the specified message.
         /// </summary>
         /// <param name="args">The args.</param>
         public void Process(PostmarkMessageArgs args)
@@ -31,11 +25,13 @@ namespace ThreeManCrew.ContentByMail.Pipelines.ContentByMail.ProcessEmail
                 Assert.ArgumentNotNull(args, "args");
                 Assert.IsNotNull(args.Message, "args.Message");
 
-                string template = args.MessageTokenValues["Template"];
+                var template = args.MessageTokenValues["Template"];
 
-                IEnumerable<EmailProcessorTemplate> emailProcessorTemplates = EmailProcessorTemplateFactory.CreateCollection();
+                var emailProcessorTemplates = EmailProcessorTemplateFactory.CreateCollection();
 
-                EmailProcessorTemplate emailProcessorTemplate = emailProcessorTemplates.FirstOrDefault(emailProcessor => emailProcessor.EmailTemplateName == template);
+                var emailProcessorTemplate =
+                    emailProcessorTemplates.FirstOrDefault(
+                        emailProcessor => emailProcessor.EmailTemplateName == template);
 
                 Assert.IsNotNull(emailProcessorTemplate, String.Format("{0} processorTemplate", template));
 
@@ -43,15 +39,15 @@ namespace ThreeManCrew.ContentByMail.Pipelines.ContentByMail.ProcessEmail
                 if (emailProcessorTemplate == null)
                     return;
 
-                Item parentFolder = emailProcessorTemplate.FolderTemplateToInsertCreatedItemIn;
-                TemplateID newItemTemplateId = new TemplateID(emailProcessorTemplate.ItemTemplateToCreateItemFrom.ID);
-                bool createAsuser = emailProcessorTemplate.CreateAsuser;
-                bool autoProcessFields = emailProcessorTemplate.AutoProcessFields;
+                var parentFolder = emailProcessorTemplate.FolderTemplateToInsertCreatedItemIn;
+                var newItemTemplateId = new TemplateID(emailProcessorTemplate.ItemTemplateToCreateItemFrom.ID);
+                var createAsuser = emailProcessorTemplate.CreateAsuser;
+                var autoProcessFields = emailProcessorTemplate.AutoProcessFields;
 
 
                 User account = null;
 
-                List<string> missingFieldFlag = new List<string>();
+                var missingFieldFlag = new List<string>();
 
                 if (parentFolder == null)
                     return;
@@ -59,7 +55,7 @@ namespace ThreeManCrew.ContentByMail.Pipelines.ContentByMail.ProcessEmail
 
                 if (createAsuser)
                 {
-                    string username = Membership.GetUserNameByEmail(args.Message.From);
+                    var username = Membership.GetUserNameByEmail(args.Message.From);
 
                     if (!String.IsNullOrEmpty(username) && User.Exists(username))
                     {
@@ -71,10 +67,10 @@ namespace ThreeManCrew.ContentByMail.Pipelines.ContentByMail.ProcessEmail
                     }
                 }
 
-                CreateItems(args, account, parentFolder, newItemTemplateId, autoProcessFields, missingFieldFlag, emailProcessorTemplate);
+                CreateItems(args, account, parentFolder, newItemTemplateId, autoProcessFields, missingFieldFlag,
+                    emailProcessorTemplate);
 
                 SendNotificationMessage(args, emailProcessorTemplate, missingFieldFlag);
-
             }
             catch (Exception ex)
             {
@@ -85,11 +81,11 @@ namespace ThreeManCrew.ContentByMail.Pipelines.ContentByMail.ProcessEmail
         private void SendNotificationMessage(PostmarkMessageArgs args, EmailProcessorTemplate emailProcessorTemplate,
             List<string> missingFieldFlag)
         {
-            NotificationMessageFactory factory = new NotificationMessageFactory();
-            NotificationMessage notificationMessage = factory.CreateMessage(emailProcessorTemplate.NotificationTemplate.ID);
+            var factory = new NotificationMessageFactory();
+            var notificationMessage = factory.CreateMessage(emailProcessorTemplate.NotificationTemplate.ID);
 
-            NotificationManager manager = new NotificationManager();
-            NotificationMessageType type = (missingFieldFlag.Count > 0)
+            var manager = new NotificationManager();
+            var type = (missingFieldFlag.Count > 0)
                 ? NotificationMessageType.InvalidField
                 : NotificationMessageType.Success;
 
@@ -103,7 +99,7 @@ namespace ThreeManCrew.ContentByMail.Pipelines.ContentByMail.ProcessEmail
             {
                 parentFolder.Editing.BeginEdit();
 
-                Item newItem = parentFolder.Add(ItemUtil.ProposeValidItemName(args.Message.Subject), newItemTemplateId);
+                var newItem = parentFolder.Add(ItemUtil.ProposeValidItemName(args.Message.Subject), newItemTemplateId);
 
                 if (autoProcessFields)
                 {
@@ -119,7 +115,7 @@ namespace ThreeManCrew.ContentByMail.Pipelines.ContentByMail.ProcessEmail
                 }
                 else
                 {
-                    foreach (EmailProcessorTemplateToken token in emailProcessorTemplate.EmailTokens)
+                    foreach (var token in emailProcessorTemplate.EmailTokens)
                     {
                         if (args.MessageTokenValues.ContainsKey(token.CustomField))
                         {
