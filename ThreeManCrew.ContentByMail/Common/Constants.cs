@@ -33,7 +33,7 @@ namespace ThreeManCrew.ContentByMail.Common
                 new ID(Sitecore.Configuration.Settings.GetSetting("ContentByEmail.ModuleItem"));
 
             internal static ID EmailRequestHistoryItemId =
-                new ID(Sitecore.Configuration.Settings.GetSetting("ContentByEmail.EmailRequestHistory"));
+                new ID(Sitecore.Configuration.Settings.GetSetting("ContentByEmail.EmailRequestManager"));
 
             internal static string Account = Sitecore.Configuration.Settings.GetSetting("ContentByEmail.ServiceAccount");
 

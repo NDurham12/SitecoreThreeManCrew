@@ -8,7 +8,7 @@ using ThreeManCrew.ContentByMail.Common;
 
 namespace ThreeManCrew.ContentByMail.Core.Managers
 {
-    public class EmailRequestHistory
+    public class EmailRequestManager
     {
         /// <summary>
         ///     Adds a new message to the Email Request history item bucket
@@ -43,7 +43,7 @@ namespace ThreeManCrew.ContentByMail.Core.Managers
             }
             catch (Exception ex)
             {
-                Log.Error("Add", ex, typeof (EmailRequestHistory));
+                Log.Error("Add", ex, typeof (EmailRequestManager));
             }
         }
     }

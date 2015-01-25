@@ -76,7 +76,7 @@
     <Compile Include="Common\Enumerations.cs" />
     <Compile Include="Common\ItemExtensions.cs" />
     <Compile Include="Core\Managers\EmailParserManager.cs" />
-    <Compile Include="Core\Managers\EmailRequestHistory.cs" />
+    <Compile Include="Core\Managers\EmailRequestManager.cs" />
     <Compile Include="Core\Managers\NotificationManager.cs" />
     <Compile Include="Core\Templates\ContentEmailManagerTemplate.cs" />
     <Compile Include="Core\Templates\EmailProcessorTemplate.cs" />

@@ -42,7 +42,7 @@ namespace ThreeManCrew.ContentByMail.Pipelines.ItemWebApiRequest
                     if (message != null)
                     {
                         CorePipeline.Run("ContentByMail.ProcessEmail", new PostmarkMessageArgs(message));
-                        EmailRequestHistory.Add(message);
+                        EmailRequestManager.Add(message);
                     }
                 }
             }
