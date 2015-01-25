@@ -7,6 +7,7 @@ using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
 using Sitecore.Security.Accounts;
 using ThreeManCrew.ContentByMail.Common;
+using ThreeManCrew.ContentByMail.Core.ContentEmailManager;
 using ThreeManCrew.ContentByMail.Core.EmailProcessor;
 using ThreeManCrew.ContentByMail.Core.Notifications;
 
@@ -27,48 +28,36 @@ namespace ThreeManCrew.ContentByMail.Pipelines.ContentByMail.ProcessEmail
 
                 var template = args.MessageTokenValues["Template"];
 
-                var emailProcessorTemplates = EmailProcessorTemplateFactory.CreateCollection();
+                var emailItem = ContentEmailManagerTemplate.EmailTemplates.FirstOrDefault(t => t[Constants.Fields.EmailProcessorTemplate.EmailTokenName] == template);
+                
+                if (emailItem == null) return;
 
-                var emailProcessorTemplate =
-                    emailProcessorTemplates.FirstOrDefault(
-                        emailProcessor => emailProcessor.EmailTemplateName == template);
+                var emailProcessorTemplate = new EmailProcessorTemplate(emailItem);
 
                 Assert.IsNotNull(emailProcessorTemplate, String.Format("{0} processorTemplate", template));
-
-
-                if (emailProcessorTemplate == null)
-                    return;
-
+                
                 var parentFolder = emailProcessorTemplate.FolderTemplateToInsertCreatedItemIn;
                 var newItemTemplateId = new TemplateID(emailProcessorTemplate.ItemTemplateToCreateItemFrom.ID);
                 var createAsuser = emailProcessorTemplate.CreateAsuser;
                 var autoProcessFields = emailProcessorTemplate.AutoProcessFields;
 
-
                 User account = null;
 
                 var missingFieldFlag = new List<string>();
 
-                if (parentFolder == null)
-                    return;
-
+                if (parentFolder == null) return;
 
                 if (createAsuser)
                 {
                     var username = Membership.GetUserNameByEmail(args.Message.From);
 
-                    if (!String.IsNullOrEmpty(username) && User.Exists(username))
-                    {
-                        account = User.FromName(username, true);
-                    }
-                    else
-                    {
-                        account = Constants.Security.ServiceUser;
-                    }
+                    if (!String.IsNullOrEmpty(username) && User.Exists(username))                    
+                        account = User.FromName(username, true);                    
+                    else                    
+                        account = Constants.Security.ServiceUser;                    
                 }
 
-                CreateItems(args, account, parentFolder, newItemTemplateId, autoProcessFields, missingFieldFlag,
-                    emailProcessorTemplate);
+                SetFieldValues(args, account, parentFolder, newItemTemplateId, autoProcessFields, missingFieldFlag, emailProcessorTemplate);
 
                 SendNotificationMessage(args, emailProcessorTemplate, missingFieldFlag);
             }
@@ -78,21 +67,14 @@ namespace ThreeManCrew.ContentByMail.Pipelines.ContentByMail.ProcessEmail
             }
         }
 
-        private void SendNotificationMessage(PostmarkMessageArgs args, EmailProcessorTemplate emailProcessorTemplate,
-            List<string> missingFieldFlag)
+        private void SendNotificationMessage(PostmarkMessageArgs args, EmailProcessorTemplate emailProcessorTemplate, IEnumerable<string> missingFieldFlag)
         {
-            var factory = new NotificationMessageFactory();
-            var notificationMessage = factory.CreateMessage(emailProcessorTemplate.NotificationTemplate.ID);
-
-            var manager = new NotificationManager();
-            var type = (missingFieldFlag.Count > 0)
-                ? NotificationMessageType.InvalidField
-                : NotificationMessageType.Success;
-
-            manager.Send(args.Message.From, notificationMessage, type);
+            var type = (missingFieldFlag.Any()) ? NotificationMessageType.InvalidField : NotificationMessageType.Success;
+            
+            NotificationManager.Send(args.Message.From, emailProcessorTemplate.NotificationTemplate, type);
         }
 
-        private void CreateItems(PostmarkMessageArgs args, User account, Item parentFolder, TemplateID newItemTemplateId,
+        private void SetFieldValues(PostmarkMessageArgs args, User account, Item parentFolder, TemplateID newItemTemplateId,
             bool autoProcessFields, List<string> missingFieldFlag, EmailProcessorTemplate emailProcessorTemplate)
         {
             using (new UserSwitcher(account))
@@ -105,10 +87,7 @@ namespace ThreeManCrew.ContentByMail.Pipelines.ContentByMail.ProcessEmail
                 {
                     foreach (var messageTokenValue in args.MessageTokenValues)
                     {
-                        if (newItem.Fields[messageTokenValue.Key] == null)
-                        {
-                            missingFieldFlag.Add(messageTokenValue.Key);
-                        }
+                        if (newItem.Fields[messageTokenValue.Key] == null) missingFieldFlag.Add(messageTokenValue.Key);                        
 
                         newItem[messageTokenValue.Key] = messageTokenValue.Value;
                     }

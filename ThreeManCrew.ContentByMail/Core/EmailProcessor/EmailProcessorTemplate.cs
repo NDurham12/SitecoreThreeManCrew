@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using Sitecore.Data.Items;
+using Sitecore.Data.Managers;
 using Sitecore.Diagnostics;
 using ThreeManCrew.ContentByMail.Common;
+using ThreeManCrew.ContentByMail.Core.Notifications;
 
 namespace ThreeManCrew.ContentByMail.Core.EmailProcessor
 {
@@ -24,8 +26,7 @@ namespace ThreeManCrew.ContentByMail.Core.EmailProcessor
                 item.GetDropLinkSelectedItem(Constants.Fields.EmailProcessorTemplate.Folder);
             AutoProcessFields = item.GetCheckBoxValue(Constants.Fields.EmailProcessorTemplate.AutoProcessTokensToFields);
             CreateAsuser = item.GetCheckBoxValue(Constants.Fields.EmailProcessorTemplate.AssociateSenderToUserProfile);
-            NotificationTemplate =
-                item.GetDropLinkSelectedItem(Constants.Fields.EmailProcessorTemplate.NotificationTemplate);
+            NotificationTemplate =  new NotificationMessage(item.GetDropLinkSelectedItem(Constants.Fields.EmailProcessorTemplate.NotificationTemplate));
             EmailTokens = EmailProcessorTemplateTokenFactory.CreateCollection(item);
         }
 
@@ -57,7 +58,7 @@ namespace ThreeManCrew.ContentByMail.Core.EmailProcessor
         /// <summary>
         ///     Gets or sets the folder template to insert created item in.
         /// </summary>
-        internal Item NotificationTemplate { get; set; }
+        internal NotificationMessage NotificationTemplate { get; set; }
 
         /// <summary>
         ///     Gets or sets the AutoProcessFields.

@@ -7,6 +7,7 @@ using Sitecore.Diagnostics;
 using Sitecore.ItemWebApi.Pipelines.Request;
 using Sitecore.Pipelines;
 using ThreeManCrew.ContentByMail.Common;
+using ThreeManCrew.ContentByMail.Core.ContentEmailManager;
 using ThreeManCrew.ContentByMail.Core.Notifications;
 using ThreeManCrew.ContentByMail.Core.RequestHistory;
 
@@ -35,7 +36,7 @@ namespace ThreeManCrew.ContentByMail.Pipelines.ItemWebApiRequest
                     json = inputStream.ReadToEnd();
                 }
 
-                if (!String.IsNullOrEmpty(json))
+                if (!string.IsNullOrEmpty(json))
                 {
                     var message = JsonConvert.DeserializeObject<PostmarkInboundMessage>(json);
 
@@ -49,10 +50,7 @@ namespace ThreeManCrew.ContentByMail.Pipelines.ItemWebApiRequest
             catch (Exception ex)
             {
                 Log.Error("Cannot process Postmark request.", ex, this);
-
-                var manager = new NotificationManager();
-                manager.Send(Constants.DefaultContentModule.FallBackAddress,
-                    Constants.DefaultContentModule.DefaultMessage, NotificationMessageType.Failure);
+                NotificationManager.Send(ContentEmailManagerTemplate.FallBackAddress, ContentEmailManagerTemplate.DefaultMessage, NotificationMessageType.Failure);
             }
         }
     }

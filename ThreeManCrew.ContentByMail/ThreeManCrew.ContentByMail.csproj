@@ -48,9 +48,11 @@
     </Reference>
     <Reference Include="Sitecore.ItemWebApi">
       <HintPath>..\Dependencies\Sitecore.ItemWebApi.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Sitecore.Kernel">
       <HintPath>..\Dependencies\Sitecore.Kernel.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -73,15 +75,15 @@
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\Enumerations.cs" />
     <Compile Include="Common\ItemExtensions.cs" />
+    <Compile Include="Core\ContentEmailManager\ContentEmailManagerTemplate.cs" />
     <Compile Include="Core\EmailProcessor\EmailParser.cs" />
     <Compile Include="Core\EmailProcessor\EmailProcessorTemplate.cs" />
-    <Compile Include="Core\EmailProcessor\EmailProcessorTemplateFactory.cs" />
     <Compile Include="Core\EmailProcessor\EmailProcessorTemplateToken.cs" />
     <Compile Include="Core\EmailProcessor\EmailProcessorTemplateTokenFactory.cs" />
     <Compile Include="Core\Notifications\NotificationManager.cs" />
     <Compile Include="Core\Notifications\NotificationMessage.cs" />
-    <Compile Include="Core\Notifications\NotificationMessageFactory.cs" />
     <Compile Include="Core\RequestHistory\EmailRequestHistory.cs" />
+    <Compile Include="Core\Templates\PostMarkProviderTemplate.cs" />
     <Compile Include="Pipelines\ContentByMail.ProcessEmail\SimpleEmailMessageProcessor.cs" />
     <Compile Include="Pipelines\IEmailMessageProcessor.cs" />
     <Compile Include="Pipelines\ItemWebApiRequest\PostmarkRequestProcessor.cs" />
@@ -89,8 +91,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Config\Include\ContentByMail\ContentByMail.config" />
+    <Content Include="App_Config\Include\ContentByMail\ContentByMail.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\Publish.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

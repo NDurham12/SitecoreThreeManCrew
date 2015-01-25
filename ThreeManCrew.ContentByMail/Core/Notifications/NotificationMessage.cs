@@ -1,6 +1,8 @@
-﻿using Sitecore.Data.Items;
+﻿using System.Data;
+using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
 using ThreeManCrew.ContentByMail.Common;
+using ThreeManCrew.ContentByMail.Core.Templates;
 
 namespace ThreeManCrew.ContentByMail.Core.Notifications
 {
@@ -12,10 +14,10 @@ namespace ThreeManCrew.ContentByMail.Core.Notifications
         /// <param name="template">The template.</param>
         internal NotificationMessage(Item template)
         {
-            Assert.ArgumentNotNull(template, "template");
+            Assert.ArgumentNotNull(template, "NotificationMessageTemplate");
 
             Sender = template[Constants.Fields.Notification.Sender];
-            // this.SendUsingPostMark = template[Constants.Fields.Notification.SendUsingPostMark];
+            SendUsingPostMark = new PostMarkProviderTemplate(template[Constants.Fields.Notification.SendUsingPostMark]);
 
             SuccessSubject = template[Constants.Fields.Notification.SucessSubject];
             SuccessBody = template[Constants.Fields.Notification.SuccessBody];
@@ -78,7 +80,7 @@ namespace ThreeManCrew.ContentByMail.Core.Notifications
         /// </summary>
         internal string GenericFailureSubject { get; set; }
 
-        internal bool SendUsingPostMark { get; set; }
+        internal PostMarkProviderTemplate SendUsingPostMark { get; set; }
 
         /// <summary>
         ///     Gets or sets the body.

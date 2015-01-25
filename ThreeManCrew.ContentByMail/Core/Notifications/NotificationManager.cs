@@ -9,10 +9,11 @@ using PostmarkDotNet.Model;
 using Sitecore.Configuration;
 using Sitecore.Diagnostics;
 using ThreeManCrew.ContentByMail.Common;
+using ThreeManCrew.ContentByMail.Core.ContentEmailManager;
 
 namespace ThreeManCrew.ContentByMail.Core.Notifications
 {
-    internal class NotificationManager
+    internal static class NotificationManager
     {
         /// <summary>
         ///     Sends the specified message.
@@ -20,19 +21,16 @@ namespace ThreeManCrew.ContentByMail.Core.Notifications
         /// <param name="to"></param>
         /// <param name="message">The message.</param>
         /// <param name="notificationMessageType"></param>
-        internal void Send(string to, NotificationMessage message, NotificationMessageType notificationMessageType)
+        internal static void Send(string to, NotificationMessage message, NotificationMessageType notificationMessageType)
         {
             Assert.ArgumentNotNull(message, "message");
 
             try
             {
-                if (String.IsNullOrEmpty(to))
-                {
-                    to = Constants.DefaultContentModule.FallBackAddress;
-                }
+                if (String.IsNullOrEmpty(to)) to = ContentEmailManagerTemplate.FallBackAddress;
 
-                string subject, body;
-
+                string subject;
+                string body;
                 switch (notificationMessageType)
                 {
                     case NotificationMessageType.Success:
@@ -53,14 +51,14 @@ namespace ThreeManCrew.ContentByMail.Core.Notifications
                         break;
                 }
 
-                if (message.SendUsingPostMark)
-                    SendUsingPostMark(message.Sender, to, subject, body);
+                if (message.SendUsingPostMark.HasValue)
+                    SendUsingPostMark(message.Sender, to, subject, body, message.SendUsingPostMark.ServerApi);
                 else
-                    SendUsingSMTP(message.Sender, to, subject, body);
+                    SendUsingSmtp(message.Sender, to, subject, body);
             }
             catch (Exception ex)
             {
-                Log.Error("Cannot send notification.", ex, this);
+                Log.Error("Cannot send notification.", ex, typeof(NotificationManager));
             }
         }
 
@@ -71,7 +69,7 @@ namespace ThreeManCrew.ContentByMail.Core.Notifications
         /// <param name="to"></param>
         /// <param name="message"></param>
         /// <param name="notificationMessageTypes"></param>
-        internal void Send(string to, NotificationMessage message,
+        internal static void Send(string to, NotificationMessage message,
             IEnumerable<NotificationMessageType> notificationMessageTypes)
         {
             Assert.ArgumentNotNull(notificationMessageTypes, "Notification Types");
@@ -82,7 +80,7 @@ namespace ThreeManCrew.ContentByMail.Core.Notifications
             }
         }
 
-        internal void SendUsingPostMark(string sender, string to, string subject, string body)
+        internal static void SendUsingPostMark(string sender, string to, string subject, string body, string serverApi)
         {
             var pmMessage = new PostmarkMessage
             {
@@ -94,7 +92,7 @@ namespace ThreeManCrew.ContentByMail.Core.Notifications
                 Headers = new HeaderCollection()
             };
 
-            var pmClient = new PostmarkClient("d7a81168-a3e5-43bc-bbba-14e9da6869bd");
+            var pmClient = new PostmarkClient(serverApi);
             var response = pmClient.SendMessage(pmMessage);
 
             if (response.Status != PostmarkStatus.Success)
@@ -103,13 +101,12 @@ namespace ThreeManCrew.ContentByMail.Core.Notifications
             }
         }
 
-        internal void SendUsingSMTP(string sender, string to, string subject, string body)
+        internal static void SendUsingSmtp(string sender, string to, string subject, string body)
         {
             using (var client = new SmtpClient(Settings.MailServer, Settings.MailServerPort))
             {
                 client.Credentials = new NetworkCredential(Settings.MailServerUserName, Settings.MailServerPassword);
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                // client.EnableSsl = Constants.Settings.ContentByEmailEmailEnableSsl;                
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;                
 
                 var mail = new MailMessage(sender, to, subject, body)
                 {

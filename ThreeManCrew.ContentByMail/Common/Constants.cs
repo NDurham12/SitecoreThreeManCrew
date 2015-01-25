@@ -29,10 +29,7 @@ namespace ThreeManCrew.ContentByMail.Common
         }
 
         internal static class Settings
-        {
-            internal static ID EmailContentProcessorTemplatesFolder =
-                new ID(Sitecore.Configuration.Settings.GetSetting("ContentByEmail.EmailContentProcessorTemplatesFolder"));
-
+        {           
             internal static ID ContentByEmailModuleItem =
                 new ID(Sitecore.Configuration.Settings.GetSetting("ContentByEmail.ModuleItem"));
 
@@ -49,9 +46,6 @@ namespace ThreeManCrew.ContentByMail.Common
 
             internal static string TokenMissingEnding =
                 Sitecore.Configuration.Settings.GetSetting("ContentByEmail.TokenMissingEnding");
-
-            internal static bool ContentByEmailEmailEnableSsl =
-                Sitecore.Configuration.Settings.GetBoolSetting("ContentByEmail.EmailEnableSsl", false);
         }
 
         internal static class Fields
@@ -59,6 +53,8 @@ namespace ThreeManCrew.ContentByMail.Common
             internal static class Notification
             {
                 internal static ID Sender = new ID("{365BF877-94F8-49AB-BD20-2C64208A5911}");
+                internal static ID SendUsingPostMark = new ID("{1FDF4713-8557-4A38-A9A7-36FCD4CD69B7}");
+                
                 internal static ID SuccessBody = new ID("{B68F12EE-DAA8-48C4-8F87-3CB5BF153823}");
                 internal static ID SucessSubject = new ID("{7257D4F6-F68D-4309-A136-DD9292B350F5}");
                 internal static ID InvalidTemplateSubject = new ID("{9E103554-3DC8-495D-8E89-168B7A3DF961}");
@@ -90,6 +86,12 @@ namespace ThreeManCrew.ContentByMail.Common
                 internal static ID AutoProcessTokensToFields = new ID("{DA092733-DDEE-4E57-A171-C47FB4106935}");
                 internal static ID TokenToFieldList = new ID("{B60B5BD5-5FDC-4497-B102-541FC9403879}");
             }
+            internal static class EmailProvider
+            {
+                internal static ID ServerName = new ID("{B41BA6E6-4929-4995-9029-3268EDFA6D05}");
+                internal static ID ServerApi = new ID("{BDF29968-8F7E-48C1-9E80-E8DF3E6C9571}");
+                internal static ID EMailAddress = new ID("{3CA01A36-9440-4E99-B9BA-82FB5F422C75}");
+            }                        
         }
 
         internal static class Templates
@@ -98,26 +100,6 @@ namespace ThreeManCrew.ContentByMail.Common
             internal static ID EmailContentRequestHistory = new ID("{F2FB43E3-2B51-40B8-BE64-1EF3CB2EEA0D}");
         }
 
-        public static class DefaultContentModule
-        {
-            public static string FallBackAddress;
-            public static NotificationMessage DefaultMessage;
-
-            static DefaultContentModule()
-            {
-                var mainContentModule = Factory.GetDatabase(Databases.Web).GetItem(Settings.ContentByEmailModuleItem);
-
-                if (mainContentModule != null)
-                {
-                    FallBackAddress = mainContentModule[Fields.MailManager.FallbackNotificationAddress];
-
-                    var defaultNotificationTemplateId =
-                        new ID(mainContentModule[Fields.MailManager.DefaultNotificationTemplate]);
-                    var factory = new NotificationMessageFactory();
-
-                    DefaultMessage = factory.CreateMessage(defaultNotificationTemplateId);
-                }
-            }
-        }
+        
     }
 }

@@ -2,6 +2,7 @@
 using PostmarkDotNet;
 using Sitecore.Pipelines;
 using ThreeManCrew.ContentByMail.Common;
+using ThreeManCrew.ContentByMail.Core.ContentEmailManager;
 using ThreeManCrew.ContentByMail.Core.EmailProcessor;
 using ThreeManCrew.ContentByMail.Core.Notifications;
 
@@ -19,10 +20,7 @@ namespace ThreeManCrew.ContentByMail.Pipelines
 
             if (!MessageTokenValues.ContainsKey("Template"))
             {
-                var manager = new NotificationManager();
-                manager.Send(Constants.DefaultContentModule.FallBackAddress,
-                    Constants.DefaultContentModule.DefaultMessage, NotificationMessageType.InvalidTemplate);
-
+                NotificationManager.Send(ContentEmailManagerTemplate.FallBackAddress, ContentEmailManagerTemplate.DefaultMessage, NotificationMessageType.InvalidTemplate);
                 AbortPipeline();
             }
 
