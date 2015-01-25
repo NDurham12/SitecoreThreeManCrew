@@ -1,20 +1,21 @@
-﻿using ContentByMail.Common;
-using Sitecore.Configuration;
-using Sitecore.Data;
-
-namespace ContentByMail.Core.Notifications
+﻿namespace ContentByMail.Core.Notifications
 {
+    using ContentByMail.Common;
+    using Sitecore.Configuration;
+    using Sitecore.Data;
+    using Sitecore.Data.Items;
+
     internal class NotificationMessageFactory
     {
         /// <summary>
-        ///     Creates the message.
+        /// Creates the message.
         /// </summary>
         /// <param name="itemId">The item identifier.</param>
         /// <returns>The message object.</returns>
         internal NotificationMessage CreateMessage(ID itemId)
         {
             NotificationMessage message = null;
-            var item = Factory.GetDatabase(Constants.Databases.Web).GetItem(itemId);
+            Item item = Factory.GetDatabase(Constants.Databases.Web).GetItem(itemId);
 
             if (item != null)
             {

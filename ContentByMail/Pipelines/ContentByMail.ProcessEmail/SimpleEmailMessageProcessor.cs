@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Security;
-using ContentByMail.Common;
+﻿using ContentByMail.Common;
 using ContentByMail.Common.Enumerations;
 using ContentByMail.Core.EmailProcessor;
 using ContentByMail.Core.Notifications;
+using Sitecore;
 using Sitecore.Data;
 using Sitecore.Data.Items;
-using Sitecore.Diagnostics;
 using Sitecore.Security.Accounts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Security;
+using Constants = ContentByMail.Common.Constants;
+using Sitecore.Diagnostics;
 
 namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
 {
@@ -17,8 +19,12 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
 
     public class SimpleEmailMessageProcessor : IEmailMessageProcessor
     {
- 
-          <summary>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SimpleEmailMessageProcessor"/> class.
+        /// </summary>
+        public SimpleEmailMessageProcessor() { }
+
+        /// <summary>
         /// Processes the specified message.
         /// </summary>
         /// <param name="args">The args.</param>
@@ -29,11 +35,11 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
                 Assert.ArgumentNotNull(args, "args");
                 Assert.IsNotNull(args.Message, "args.Message");
 
-                strvarmplate = args.MessageTokenValues["Template"];
+                string template = args.MessageTokenValues["Template"];
 
-                IEnvarailProcessorTemplates = EmailProcessorTemplateFactory.CreateCollection();
+                IEnumerable<EmailProcessorTemplate> emailProcessorTemplates = EmailProcessorTemplateFactory.CreateCollection();
 
-                EmavarailProcessorTemplate = emailProcessorTemplates.FirstOrDefault(emailProcessor => emailProcessor.EmailTemplateName == template);
+                EmailProcessorTemplate emailProcessorTemplate = emailProcessorTemplates.FirstOrDefault(emailProcessor => emailProcessor.EmailTemplateName == template);
 
                 Assert.IsNotNull(emailProcessorTemplate, String.Format("{0} processorTemplate", template));
 
@@ -41,21 +47,26 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
                 if (emailProcessorTemplate == null)
                     return;
 
-                Item parentvarer = emailProcessorTemplate.FolderTemplateToInsertCreatedItemIn;
-                TemplateID newIvareId = new TemplateID(emailProcessorTemplate.ItemTemplateToCreateItemFrom.ID);
-                bool createAsuser = varlProcessorTemplate.CreateAsuser;
-                bool autoProcessFields =varilProcessorTemplate.AutoProcessFields;
+                Item parentFolder = emailProcessorTemplate.FolderTemplateToInsertCreatedItemIn;
+                TemplateID newItemTemplateId = new TemplateID(emailProcessorTemplate.ItemTemplateToCreateItemFrom.ID);
+                bool createAsuser = emailProcessorTemplate.CreateAsuser;
+                bool autoProcessFields = emailProcessorTemplate.AutoProcessFields;
 
 
                 User account = null;
 
-                List<string> missingFieldFlag = new List<string>var           if (parentFolder == null)
-                    retvarif (createAsuser)
+                List<string> missingFieldFlag = new List<string>();
+
+                if (parentFolder == null)
+                    return;
+
+
+                if (createAsuser)
                 {
                     string username = Membership.GetUserNameByEmail(args.Message.From);
 
                     if (!String.IsNullOrEmpty(username) && User.Exists(username))
-           var   {
+                    {
                         account = User.FromName(username, true);
                     }
                     else
@@ -66,7 +77,7 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
 
                 CreateItems(args, account, parentFolder, newItemTemplateId, autoProcessFields, missingFieldFlag, emailProcessorTemplate);
 
-                SendNotificatioConstants.SecurityilProcessorTemplate, missingFieldFlag);
+                SendNotificationMessage(args, emailProcessorTemplate, missingFieldFlag);
 
             }
             catch (Exception ex)
@@ -75,7 +86,7 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
             }
         }
 
-        private void SendNotificationMessage(PostmarkMessageArgs args,varilProcessorTemplate emailProcessorTemplate,
+        private void SendNotificationMessage(PostmarkMessageArgs args, EmailProcessorTemplate emailProcessorTemplate,
             List<string> missingFieldFlag)
         {
             NotificationMessageFactory factory = new NotificationMessageFactory();
@@ -90,7 +101,8 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
         }
 
         private void CreateItems(PostmarkMessageArgs args, User account, Item parentFolder, TemplateID newItemTemplateId,
-            bool autoProcessFields, List<string> missingFieldFlag, EmailProcessorTemplate emailPvar{
+            bool autoProcessFields, List<string> missingFieldFlag, EmailProcessorTemplate emailProcessorTemplate)
+        {
             using (new UserSwitcher(account))
             {
                 parentFolder.Editing.BeginEdit();
@@ -106,13 +118,14 @@ namespace ContentByMail.Pipelines.ContentByMail.ProcessEmail
                             missingFieldFlag.Add(messageTokenValue.Key);
                         }
 
-        varssageTokenValue.Key] = messageTokenValue.Value;
-                 var   }
+                        newItem[messageTokenValue.Key] = messageTokenValue.Value;
+                    }
+                }
                 else
                 {
-                    foreach (EmailProcessorTemplateToken token in emaivarEmailTokens)
+                    foreach (EmailProcessorTemplateToken token in emailProcessorTemplate.EmailTokens)
                     {
-                      varValues.ContainsKey(token.CustomField))
+                        if (args.MessageTokenValues.ContainsKey(token.CustomField))
                         {
                             newItem[token.CustomField] = args.MessageTokenValues[token.SitecoreField];
                         }

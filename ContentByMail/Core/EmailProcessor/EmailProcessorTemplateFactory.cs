@@ -1,26 +1,26 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using ContentByMail.Common;
-using Sitecore.Configuration;
-using Sitecore.Data;
-using Sitecore.Data.Items;
-using Sitecore.Diagnostics;
-
-namespace ContentByMail.Core.EmailProcessor
+﻿namespace ContentByMail.Core.EmailProcessor
 {
+    using ContentByMail.Common;
+    using Sitecore.Configuration;
+    using Sitecore.Data;
+    using Sitecore.Data.Items;
+    using Sitecore.Diagnostics;
+    using System.Collections.Generic;
+    using System.Linq;
+
     internal class EmailProcessorTemplateFactory
     {
         /// <summary>
-        ///     Creates the EmailProcessorTemplate
+        /// Creates the EmailProcessorTemplate
         /// </summary>
         internal static EmailProcessorTemplate Create(ID itemId)
         {
-            var item = Factory.GetDatabase(Constants.Databases.Web).GetItem(itemId);
+            Item item = Factory.GetDatabase(Constants.Databases.Web).GetItem(itemId);
             return Create(item);
         }
 
         /// <summary>
-        ///     Creates the EmailProcessorTemplate
+        /// Creates the EmailProcessorTemplate
         /// </summary>
         internal static EmailProcessorTemplate Create(Item item)
         {
@@ -28,7 +28,7 @@ namespace ContentByMail.Core.EmailProcessor
         }
 
         /// <summary>
-        ///     Creates a collection of EmailProcessorTemplates.
+        /// Creates a collection of EmailProcessorTemplates.
         /// </summary>
         internal static IEnumerable<EmailProcessorTemplate> CreateCollection(IEnumerable<Item> items)
         {
@@ -36,13 +36,11 @@ namespace ContentByMail.Core.EmailProcessor
         }
 
         /// <summary>
-        ///     Creates a collection of EmailProcessorTemplates.
+        /// Creates a collection of EmailProcessorTemplates.
         /// </summary>
         internal static IEnumerable<EmailProcessorTemplate> CreateCollection()
         {
-            var emailProcessorTemplatesFolderItem =
-                Factory.GetDatabase(Constants.Databases.Web)
-                    .GetItem(Constants.Settings.EmailContentProcessorTemplatesFolder);
+            Item emailProcessorTemplatesFolderItem = Factory.GetDatabase(Constants.Databases.Web).GetItem(Constants.Settings.EmailContentProcessorTemplatesFolder);
 
             Assert.IsNotNull(emailProcessorTemplatesFolderItem, "EmailProcessorTemplatesFolder is missing");
 

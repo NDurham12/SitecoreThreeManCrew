@@ -1,22 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Mail;
-using System.Text;
-using ContentByMail.Common;
-using ContentByMail.Common.Enumerations;
-using PostmarkDotNet;
+﻿using PostmarkDotNet;
 using PostmarkDotNet.Legacy;
-using PostmarkDotNet.Model;
-using Sitecore.Configuration;
-using Sitecore.Diagnostics;
 
 namespace ContentByMail.Core.Notifications
 {
+    using ContentByMail.Common;
+    using ContentByMail.Common.Enumerations;
+    using Sitecore.Configuration;
+    using Sitecore.Diagnostics;
+    using System;
+    using System.Collections.Generic;
+    using System.Net;
+    using System.Net.Mail;
+    using System.Text;
+
     internal class NotificationManager
     {
         /// <summary>
-        ///     Sends the specified message.
+        /// Initializes a new instance of the <see cref="NotificationManager"/> class.
+        /// </summary>
+        internal NotificationManager() { }
+
+        /// <summary>
+        /// Sends the specified message.
         /// </summary>
         /// <param name="to"></param>
         /// <param name="message">The message.</param>
@@ -54,10 +59,11 @@ namespace ContentByMail.Core.Notifications
                         break;
                 }
 
-                if (message.SendUsingPostMark)
+                if (message.SendUsingPostMark) 
                     SendUsingPostMark(message.Sender, to, subject, body);
-                else
-                    SendUsingSMTP(message.Sender, to, subject, body);
+                else                
+                    SendUsingSMTP(message.Sender, to, subject, body);                
+                    
             }
             catch (Exception ex)
             {
@@ -66,60 +72,59 @@ namespace ContentByMail.Core.Notifications
         }
 
         /// <summary>
-        ///     Sends the specified messages.
+        /// Sends the specified messages.
         /// </summary>
         /// <param name="messages">The messages.</param>
         /// <param name="to"></param>
         /// <param name="message"></param>
         /// <param name="notificationMessageTypes"></param>
-        internal void Send(string to, NotificationMessage message,
-            IEnumerable<NotificationMessageType> notificationMessageTypes)
+        internal void Send(string to, NotificationMessage message, IEnumerable<NotificationMessageType> notificationMessageTypes)
         {
             Assert.ArgumentNotNull(notificationMessageTypes, "Notification Types");
 
-            foreach (var errorTypes in notificationMessageTypes)
+            foreach (NotificationMessageType errorTypes in notificationMessageTypes)
             {
-                Send(to, message, errorTypes);
+                this.Send(to, message, errorTypes);
             }
         }
 
         internal void SendUsingPostMark(string sender, string to, string subject, string body)
         {
-            var pmMessage = new PostmarkMessage
+            PostmarkMessage pmMessage = new PostmarkMessage
             {
                 From = sender,
                 To = to,
                 Subject = subject,
                 HtmlBody = body,
                 TrackOpens = true,
-                Headers = new HeaderCollection()
+                Headers = new PostmarkDotNet.Model.HeaderCollection()
             };
 
-            var pmClient = new PostmarkClient("d7a81168-a3e5-43bc-bbba-14e9da6869bd");
-            var response = pmClient.SendMessage(pmMessage);
+            PostmarkClient pmClient = new PostmarkClient("d7a81168-a3e5-43bc-bbba-14e9da6869bd");
+            PostmarkResponse response = pmClient.SendMessage(pmMessage);
 
             if (response.Status != PostmarkStatus.Success)
             {
                 Log.Error("Response was: " + response.Message, response);
-            }
+            }       
         }
 
         internal void SendUsingSMTP(string sender, string to, string subject, string body)
         {
-            using (var client = new SmtpClient(Settings.MailServer, Settings.MailServerPort))
+            using (SmtpClient client = new SmtpClient(Settings.MailServer, Settings.MailServerPort))
             {
                 client.Credentials = new NetworkCredential(Settings.MailServerUserName, Settings.MailServerPassword);
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                // client.EnableSsl = Constants.Settings.ContentByEmailEmailEnableSsl;                
+               // client.EnableSsl = Constants.Settings.ContentByEmailEmailEnableSsl;                
 
-                var mail = new MailMessage(sender, to, subject, body)
+                MailMessage mail = new MailMessage(sender, to, subject, body)
                 {
                     BodyEncoding = Encoding.UTF8,
                     SubjectEncoding = Encoding.UTF8,
                     IsBodyHtml = true
                 };
 
-                client.SendAsync(mail, null);
+                client.SendAsync(mail, userToken: null);
             }
         }
     }

@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
-using ContentByMail.Common;
-using Sitecore.Data.Items;
-
-namespace ContentByMail.Core.EmailProcessor
+﻿namespace ContentByMail.Core.EmailProcessor
 {
+    using ContentByMail.Common;
+    using Sitecore.Data.Items;
+    using System.Collections.Generic;
+    using System.Collections.Specialized;
+
     internal class EmailProcessorTemplateTokenFactory
     {
         /// <summary>
-        ///     Creates a EmailProcessorTemplateToken.
+        /// Creates a EmailProcessorTemplateToken.
         /// </summary>
         internal static EmailProcessorTemplateToken Create(string key, string value)
         {
@@ -15,13 +16,13 @@ namespace ContentByMail.Core.EmailProcessor
         }
 
         /// <summary>
-        ///     Creates a collection of EmailProcessorTemplateTokens.
+        /// Creates a collection of EmailProcessorTemplateTokens.
         /// </summary>
         internal static IEnumerable<EmailProcessorTemplateToken> CreateCollection(Item item)
         {
-            var nameValueCollection = item.GetNameValueList(Constants.Fields.EmailProcessorTemplate.TokenToFieldList);
+            NameValueCollection nameValueCollection = item.GetNameValueList(Constants.Fields.EmailProcessorTemplate.TokenToFieldList);
 
-            foreach (var key in nameValueCollection.AllKeys)
+            foreach (string key in nameValueCollection.AllKeys)
             {
                 yield return Create(key, nameValueCollection[key]);
             }
