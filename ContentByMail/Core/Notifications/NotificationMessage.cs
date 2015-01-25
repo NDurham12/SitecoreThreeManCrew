@@ -54,6 +54,8 @@
         /// </summary>
         internal string GenericFailureSubject { get; set; }
 
+        internal bool SendUsingPostMark { get; set; }
+
         /// <summary>
         /// Gets or sets the body.
         /// </summary>
@@ -68,6 +70,8 @@
             Assert.ArgumentNotNull(template, "template");
 
             this.Sender = template[Constants.Fields.Notification.Sender];
+           // this.SendUsingPostMark = template[Constants.Fields.Notification.SendUsingPostMark];
+
             this.SuccessSubject = template[Constants.Fields.Notification.SucessSubject];
             this.SuccessBody = template[Constants.Fields.Notification.SucessBody];
 
