@@ -1,5 +1,6 @@
 ﻿using ContentByMail.Common;
 using ContentByMail.Common.Enumerations;
+using ContentByMail.Core.EmailProcessor;
 using ContentByMail.Core.Notifications;
 using PostmarkDotNet;
 using Sitecore.Pipelines;

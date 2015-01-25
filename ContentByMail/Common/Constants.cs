@@ -1,7 +1,6 @@
-﻿using ContentByMail.Core.Notifications;
-
-namespace ContentByMail.Common
+﻿namespace ContentByMail.Common
 {
+    using ContentByMail.Core.Notifications;
     using Sitecore.Configuration;
     using Sitecore.Data;
     using Sitecore.Data.Items;
@@ -11,7 +10,6 @@ namespace ContentByMail.Common
     {
         internal static class Databases
         {
-            internal const string Core = "core";
             internal const string Master = "master";
             internal const string Web = "web";
         }
@@ -44,7 +42,7 @@ namespace ContentByMail.Common
             {
                 internal static ID Sender = new ID("{365BF877-94F8-49AB-BD20-2C64208A5911}");
 
-                internal static ID SucessBody = new ID("{B68F12EE-DAA8-48C4-8F87-3CB5BF153823}");
+                internal static ID SuccessBody = new ID("{B68F12EE-DAA8-48C4-8F87-3CB5BF153823}");
                 internal static ID SucessSubject = new ID("{7257D4F6-F68D-4309-A136-DD9292B350F5}");
 
                 internal static ID InvalidTemplateSubject = new ID("{9E103554-3DC8-495D-8E89-168B7A3DF961}");
@@ -63,16 +61,9 @@ namespace ContentByMail.Common
                 internal static ID DefaultNotificationTemplate = new ID("{37B94B83-2AB0-45E1-A99E-B83128A2EB76}");
             }
 
-            internal static class EmailProcessorTemplateTokens
-            {
-                internal static ID EmailProcessorTemplateTokenKeyName = new ID("{89CDD4DB-4D99-4A6A-B765-57EC351E025E}");
-                internal static ID EmailProcessorTemplateTokenTokenKeyField = new ID("{18B17F8A-9424-495D-B0B8-536C300F42EC}");
-            }
-
             internal static class EmailRequestHistory
             {
                 internal static ID Message = new ID("{59D5E2AA-1A81-4890-82E4-C0AB0097E896}");
-                internal static ID Notes = new ID("{98F3999C-877E-409B-9FF7-925C0DA783C9}");
             }
 
             internal static class EmailProcessorTemplate
@@ -81,22 +72,16 @@ namespace ContentByMail.Common
                 internal static ID Template = new ID("{65D4DDDE-38D1-45B3-8252-EACC56D0BF03}");
                 internal static ID Folder = new ID("{F35256FC-D021-43B7-9EA0-78C356AA0565}");
                 internal static ID NotificationTemplate = new ID("{426225D4-977C-46FC-B862-F1ADAACA8DBD}");
-                internal static ID EmailProcessorType = new ID("{BEAADB4B-4581-466C-9CE0-3B8467DBE9C9}");
                 internal static ID AssociateSenderToUserProfile = new ID("{0E8465B1-9ED7-4E63-A67D-6468BA530021}");
-                internal static ID AttachmentsImportFolder = new ID("{1C41D4DB-63E7-456C-BEC8-256F59FF05A0}");
-                internal static ID SaveEmailsToBucket = new ID("{DD5CE860-0037-4DD3-8C9F-8174A1FD3054}");
                 internal static ID AutoProcessTokensToFields = new ID("{DA092733-DDEE-4E57-A171-C47FB4106935}");
                 internal static ID TokenToFieldList = new ID("{B60B5BD5-5FDC-4497-B102-541FC9403879}");
-                internal static ID EmailProcessorTemplateTokenList = new ID("{139D1B4E-2EDE-4556-83EF-3F74CBB19B4C}");
             }
         }
 
         internal static class Templates
         {
-            internal static ID EmailProcessorTemplatesFolder = new ID("{CE289592-0197-4D93-A222-B3F7CDD50879}");
             internal static ID EmailProcessorTemplate = new ID("{234AD4AA-AE3A-4607-93A8-E0021E3BE107}");
             internal static ID EmailContentRequestHistory = new ID("{F2FB43E3-2B51-40B8-BE64-1EF3CB2EEA0D}");
-            internal static ID ContentMailManager = new ID("{1DF26677-47FF-483E-B225-0A9D8BBB5112}");
         }
 
         public static class DefaultContentModule
