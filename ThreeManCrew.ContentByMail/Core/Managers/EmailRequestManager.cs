@@ -23,7 +23,7 @@ namespace ThreeManCrew.ContentByMail.Core.Managers
 
                 if (masterDb != null)
                 {
-                    var historyBucket = masterDb.GetItem(Constants.Settings.EmailRequestHistoryItemId);
+                    var historyBucket = masterDb.GetItem(Constants.Settings.EmailRequestHistoryBucketId);
                     TemplateItem emailHistoryTemplate = masterDb.GetItem(Constants.Templates.EmailContentRequestHistory);
 
                     if (historyBucket != null && emailHistoryTemplate != null)
