@@ -4,7 +4,6 @@ using Sitecore.Configuration;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using ThreeManCrew.ContentByMail.Common;
-using ThreeManCrew.ContentByMail.Core.Notifications;
 
 namespace ThreeManCrew.ContentByMail.Core.Templates
 {

@@ -8,7 +8,7 @@ using Sitecore.Diagnostics;
 using Sitecore.Security.Accounts;
 using ThreeManCrew.ContentByMail.Common;
 using ThreeManCrew.ContentByMail.Core.EmailProcessor;
-using ThreeManCrew.ContentByMail.Core.Notifications;
+using ThreeManCrew.ContentByMail.Core.Managers;
 using ThreeManCrew.ContentByMail.Core.Templates;
 
 namespace ThreeManCrew.ContentByMail.Pipelines.ContentByMail.ProcessEmail

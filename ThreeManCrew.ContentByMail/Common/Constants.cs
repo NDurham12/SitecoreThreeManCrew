@@ -1,7 +1,6 @@
 ﻿using Sitecore.Configuration;
 using Sitecore.Data;
 using Sitecore.Security.Accounts;
-using ThreeManCrew.ContentByMail.Core.Notifications;
 
 namespace ThreeManCrew.ContentByMail.Common
 {

@@ -11,7 +11,7 @@ using Sitecore.Diagnostics;
 using ThreeManCrew.ContentByMail.Common;
 using ThreeManCrew.ContentByMail.Core.Templates;
 
-namespace ThreeManCrew.ContentByMail.Core.Notifications
+namespace ThreeManCrew.ContentByMail.Core.Managers
 {
     internal static class NotificationManager
     {
