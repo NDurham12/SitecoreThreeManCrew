@@ -1,42 +1,43 @@
-﻿using ContentByMail.Common;
+﻿using System.Collections.Generic;
+using ContentByMail.Common;
 using ContentByMail.Common.Enumerations;
 using ContentByMail.Core.EmailProcessor;
 using ContentByMail.Core.Notifications;
 using PostmarkDotNet;
 using Sitecore.Pipelines;
-using System.Collections.Generic;
 
 namespace ContentByMail.Pipelines
 {
     public class PostmarkMessageArgs : PipelineArgs
     {
         /// <summary>
-        /// Gets or sets the message.
-        /// </summary>
-        public new PostmarkInboundMessage Message { get; set; }
-
-        /// <summary>
-        /// Gets or sets the message token values.
-        /// </summary>
-        public Dictionary<string, string> MessageTokenValues { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PostmarkMessageArgs"/> class.
+        ///     Initializes a new instance of the <see cref="PostmarkMessageArgs" /> class.
         /// </summary>
         /// <param name="message">The message.</param>
         public PostmarkMessageArgs(PostmarkInboundMessage message)
         {
-            this.MessageTokenValues = EmailParser.ParseTokens(message);
+            MessageTokenValues = EmailParser.ParseTokens(message);
 
-            if (!this.MessageTokenValues.ContainsKey("Template"))
+            if (!MessageTokenValues.ContainsKey("Template"))
             {
-                NotificationManager manager = new NotificationManager();
-                manager.Send(Constants.DefaultContentModule.FallBackAddress, Constants.DefaultContentModule.DefaultMessage, NotificationMessageType.InvalidTemplate);
+                var manager = new NotificationManager();
+                manager.Send(Constants.DefaultContentModule.FallBackAddress,
+                    Constants.DefaultContentModule.DefaultMessage, NotificationMessageType.InvalidTemplate);
 
-                this.AbortPipeline();
+                AbortPipeline();
             }
 
-            this.Message = message;
+            Message = message;
         }
+
+        /// <summary>
+        ///     Gets or sets the message.
+        /// </summary>
+        public new PostmarkInboundMessage Message { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the message token values.
+        /// </summary>
+        public Dictionary<string, string> MessageTokenValues { get; set; }
     }
 }
