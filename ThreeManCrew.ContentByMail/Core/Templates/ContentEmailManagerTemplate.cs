@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Sitecore.Configuration;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using ThreeManCrew.ContentByMail.Common;
-using ThreeManCrew.ContentByMail.Core.EmailProcessor;
 using ThreeManCrew.ContentByMail.Core.Notifications;
 
-namespace ThreeManCrew.ContentByMail.Core.ContentEmailManager
+namespace ThreeManCrew.ContentByMail.Core.Templates
 {
     public static class ContentEmailManagerTemplate
     {
@@ -33,7 +29,7 @@ namespace ThreeManCrew.ContentByMail.Core.ContentEmailManager
 
                 DefaultMessage = new NotificationMessage(Sitecore.Context.Database.GetItem(defaultNotificationTemplateId));
 
-                EmailTemplates = item.Children.Where(i => i.IsDerived(Constants.Templates.EmailProcessorTemplate));
+                EmailTemplates = item.Children.Where(i => ItemExtensions.IsDerived(i, Constants.Templates.EmailProcessorTemplate));
             }
         }
     }

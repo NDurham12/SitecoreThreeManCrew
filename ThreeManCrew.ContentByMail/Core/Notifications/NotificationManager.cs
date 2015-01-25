@@ -9,7 +9,7 @@ using PostmarkDotNet.Model;
 using Sitecore.Configuration;
 using Sitecore.Diagnostics;
 using ThreeManCrew.ContentByMail.Common;
-using ThreeManCrew.ContentByMail.Core.ContentEmailManager;
+using ThreeManCrew.ContentByMail.Core.Templates;
 
 namespace ThreeManCrew.ContentByMail.Core.Notifications
 {
